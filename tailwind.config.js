@@ -11,6 +11,7 @@ export default {
       },
       dropShadow: {
         'custom': '0 0 5px rgb(210, 210, 210)',
+        'custom-login': '0 0 5px rgb(152,152,152)',
       }
     },
   },

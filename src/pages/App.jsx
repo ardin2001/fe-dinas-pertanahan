@@ -14,8 +14,8 @@ function App() {
   },[])
 
   return (    
-    <div className='grid h-screen bg-gray-300'>
-      <div className='grid grid-flow-col grid-cols-2 m-12'>
+    <div className='grid h-screen bg-gray-200'>
+      <div className='grid grid-flow-col grid-cols-2 m-12 drop-shadow-custom-login'>
         <div className='grid justify-items-center items-center bg-green-500 border-y-2 border-white border-l-2'>
           <div className='grid justify-items-center w-10/12 gap-5'>
             <img src={logo} alt="" className='pr-12' />
