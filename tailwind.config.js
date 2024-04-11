@@ -12,6 +12,13 @@ export default {
       dropShadow: {
         'custom': '0 0 5px rgb(210, 210, 210)',
         'custom-login': '0 0 5px rgb(152,152,152)',
+      },
+      colors:{
+        'primary':'#1F4162',
+        'secondary':'#3B6F9E',
+        'tertiary':'#F4BE42',
+        'quaternary':'#D8D8D8',
+        'quinary':'#DEDEDE',
       }
     },
   },

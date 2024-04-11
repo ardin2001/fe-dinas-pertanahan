@@ -14,14 +14,19 @@ function App() {
   }, []);
 
   return (
-    <div className="grid h-screen bg-gray-200">
+    <div className="grid h-screen bg-quaternary">
       <div className="grid grid-flow-col grid-cols-2 m-12 drop-shadow-custom-login">
-        <div className="grid justify-items-center items-center bg-slate-500 border-y-2 border-white border-l-2 ">
+        <div className="grid justify-items-center items-center bg-secondary border-y-2 border-white border-l-2 ">
           <div className="grid justify-items-center w-10/12 gap-5">
-            <img src={logo} alt="" className="pr-12" />
+            <div className="grid justify-items-center w-11/12 gap-5">
+              <img src={logo} alt="" className="pr-8" />
+              <p className="text-center font-medium">
+                Selamat Datang Admin, Silahkan Login Terlebih Dahulu untuk melanjutkan Ke Halaman Admin
+              </p>
+            </div>
           </div>
         </div>
-        <div className="grid bg-white items-center justify-items-center border-y-2 border-slate-500 border-r-2">
+        <div className="grid bg-white items-center justify-items-center border-y-2 border-secondary border-r-2">
           <form
             onSubmit={handlerLogin}
             className="w-7/12 grid gap-4 px-10 py-3 rounded-md"
@@ -31,16 +36,16 @@ function App() {
               ref={usernameRef}
               type="text"
               placeholder="username"
-              className="h-8 py-2 outline-none border-slate-500 border-b-2"
+              className="h-8 py-2 outline-none border-secondary border-b-2"
             />
             <input
               type="password"
               placeholder="password"
-              className="h-8 py-2 outline-none border-slate-500 border-b-2"
+              className="h-8 py-2 outline-none border-secondary border-b-2"
             />
             <button
               type="submit"
-              className="bg-slate-500 w-1/2 justify-self-center h-7 font-semibold"
+              className="bg-secondary w-5/12 justify-self-center h-8 rounded-sm font- text-white"
             >
               Login
             </button>
