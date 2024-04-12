@@ -24,7 +24,7 @@ const DashboardPage = () => {
           <CardDashboard/>
           <CardDashboard/>
         </div>
-        <div className="rekap mt-8 bg-secondary h-3/5 rounded-lg drop-shadow-custom"></div>
+        <div className="rekap mt-8 bg-secondary h-3/5 rounded-xl drop-shadow-custom"></div>
       </div>
     </main>
   );

@@ -30,10 +30,10 @@ const RekapSuratPage = () => {
                   onChange={Handlerkategori}
                   className="font-semibold outline-none rounded-md w-full outline-2 py-2 outline-secondary text-secondary outline-offset-0 text-sm p-1"
                 >
-                  <option value="Kategori Surat">Kategori Surat</option>
-                  <option value="penting">Penting</option>
-                  <option value="biasa">Biasa</option>
-                  <option value="tidak penting">Tidak Penting</option>
+                  <option className="font-semibold" value="Kategori Surat">Kategori Surat</option>
+                  <option className="font-semibold" value="penting">Penting</option>
+                  <option className="font-semibold" value="biasa">Biasa</option>
+                  <option className="font-semibold" value="tidak penting">Tidak Penting</option>
                 </select>
               </div>
               <div className="tanggal">

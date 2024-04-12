@@ -48,7 +48,15 @@ const Sidebar = () => {
               className="py-3 flex gap-3 items-center font-medium text-base px-3"
             >
               <GoHome size="1.5rem" />
-              <p>Beranda</p>
+              <p
+                className={`${
+                  location.pathname == "/dashboard"
+                    ? "text-white"
+                    : "text-custom"
+                } font-bold`}
+              >
+                Beranda
+              </p>
             </Link>
           </li>
           <li
@@ -60,8 +68,8 @@ const Sidebar = () => {
             } hover:cursor-pointer py-3 grid grid-cols-4 gap-3 items-center font-medium text-base px-3 justify-between`}
           >
             <div className="left flex gap-3 col-start-1 col-end-4 justify-self-start">
-              <SlEnvolopeLetter size="1.2rem" />
-              <p>Persuratan</p>
+              <SlEnvolopeLetter size="1.4rem" />
+              <p className="text-custom font-bold">Persuratan</p>
             </div>
             <div className="right justify-self-end col-col-start-4 col-end-5">
               {togle ? (
@@ -81,7 +89,7 @@ const Sidebar = () => {
                     className={`${
                       location.pathname == "/surat-masuk"
                         ? "bg-secondary text-white text-base"
-                        : null
+                        : "text-custom font-bold"
                     } py-2 px-5 rounded-md`}
                   >
                     Surat Masuk
@@ -92,7 +100,7 @@ const Sidebar = () => {
                     className={`${
                       location.pathname == "/balasan-surat"
                         ? "bg-secondary text-white text-base"
-                        : null
+                        : "text-custom font-bold"
                     } py-2 px-5 rounded-md`}
                   >
                     Balasan Surat
@@ -113,7 +121,15 @@ const Sidebar = () => {
               className="py-3 flex gap-3 items-center font-medium text-base px-3"
             >
               <CiViewList size="1.5rem" />
-              <p>Rekap Surat</p>
+              <p
+                className={`${
+                  location.pathname == "/rekap-surat"
+                    ? "text-white"
+                    : "text-custom"
+                } font-bold`}
+              >
+                Rekap Surat
+              </p>
             </Link>
           </li>
           <li
@@ -128,20 +144,36 @@ const Sidebar = () => {
               className="hover:cursor-pointer py-3 flex gap-3 items-center font-medium text-base px-3"
             >
               <CiUser size="1.5rem" />
-              <p>Manajemen User</p>
+              <p
+                className={`${
+                  location.pathname == "/manajemen-user"
+                    ? "text-white"
+                    : "text-custom"
+                } font-bold`}
+              >
+                Manajemen User
+              </p>
             </Link>
           </li>
         </ul>
       </div>
-      <div className="account row-span-8 flex justify-between items-center mx-8">
-        <Link to={"/profile"}>
-          <div className="status">
-            <h4 className="font-bold text-base">ADMIN ATR/BPN</h4>
-            <p className="text-sm">admin123@gmail.com</p>
+      <div className="account row-span-8 grid">
+        <div className="grid items-center">
+          <div
+            className={` ${
+              location.pathname == "/profile" ? "bg-secondary text-white" : null
+            } flex justify-between items-center mx-8 py-2 px-6 rounded-lg`}
+          >
+            <Link to={"/profile"}>
+              <div className="status">
+                <h4 className="font-bold text-sm">ADMIN ATR/BPN</h4>
+                <p className="text-xs">admin123@gmail.com</p>
+              </div>
+            </Link>
+            <div className="logout">
+              <HiOutlineLogout size="1.5rem" />
+            </div>
           </div>
-        </Link>
-        <div className="logout">
-          <HiOutlineLogout size="1.5rem" />
         </div>
       </div>
     </div>

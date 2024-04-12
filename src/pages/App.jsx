@@ -1,4 +1,3 @@
-import logo from "../assets/logo.png";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +18,7 @@ function App() {
         <div className="grid justify-items-center items-center bg-secondary border-y-2 border-white border-l-2 ">
           <div className="grid justify-items-center w-10/12 gap-5">
             <div className="grid justify-items-center w-11/12 gap-5">
-              <img src={logo} alt="" className="pr-8" />
+              <img src='logo.png' alt="" className="pr-8" />
               <p className="text-center font-medium">
                 Selamat Datang Admin, Silahkan Login Terlebih Dahulu untuk melanjutkan Ke Halaman Admin
               </p>

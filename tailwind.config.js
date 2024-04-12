@@ -26,6 +26,7 @@ export default {
         'tertiary':'#F4BE42',
         'quaternary':'#D8D8D8',
         'quinary':'#DEDEDE',
+        'custom' :'#1E3554'
       },
       backgroundColor :{
         'primary':'#1F4162',

@@ -1,7 +1,7 @@
 export const data = [
   {
     no: 1,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -9,7 +9,7 @@ export const data = [
   },
   {
     no: 2,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -17,7 +17,7 @@ export const data = [
   },
   {
     no: 3,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -25,7 +25,7 @@ export const data = [
   },
   {
     no: 4,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -33,7 +33,7 @@ export const data = [
   },
   {
     no: 5,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -41,7 +41,7 @@ export const data = [
   },
   {
     no: 6,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -49,7 +49,7 @@ export const data = [
   },
   {
     no: 7,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -57,7 +57,7 @@ export const data = [
   },
   {
     no: 8,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -65,7 +65,7 @@ export const data = [
   },
   {
     no: 9,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
@@ -73,7 +73,7 @@ export const data = [
   },
   {
     no: 10,
-    pengirim: "Ardin Nugraha",
+    pengirim: "John Doe",
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
