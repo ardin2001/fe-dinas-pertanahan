@@ -1,17 +1,27 @@
 import logo from "./../assets/logo.png";
 import { useState } from "react";
-import { Home, Logout, Message, Paper, User, CloseSquare } from "react-iconly";
-const Sidebar = () => {
-    const [current, setCurrent] = useState(null);
-  const [open, setOpen] = useState("masuk");
-  const [togle, setTogle] = useState(false);
-  const handlerCurrent = (menu) => {
-    setCurrent(menu);
-  };
+import { GoHome } from "react-icons/go";
+import { SlEnvolopeLetter } from "react-icons/sl";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { CiViewList } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
+import { HiOutlineLogout } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
-  const handlerPersuratan = (menu) => {
-    setOpen(menu);
-  };
+const Sidebar = () => {
+  const location = useLocation();
+  const [togle, setTogle] = useState(false);
+
+  useEffect(() => {
+    if (
+      location.pathname == "/surat-masuk" ||
+      location.pathname == "/balasan-surat"
+    ) {
+      setTogle((prev) => !prev);
+    }
+  }, []);
 
   const handlerTogglePersuratan = () => {
     setTogle((prev) => !prev);
@@ -27,83 +37,111 @@ const Sidebar = () => {
       <div className="menu row-start-3 row-end-8 mx-6">
         <ul>
           <li
-            onClick={() => handlerCurrent("beranda")}
             className={`${
-              current == "beranda" ? "bg-slate-500 rounded-lg text-white" : null
-            } hover:cursor-pointer py-3 flex gap-3 items-center font-medium text-base px-3`}
+              location.pathname == "/dashboard"
+                ? "bg-secondary rounded-lg text-white"
+                : null
+            } hover:cursor-pointer`}
           >
-            <Home />
-            <p>Beranda</p>
+            <Link
+              to={"/dashboard"}
+              className="py-3 flex gap-3 items-center font-medium text-base px-3"
+            >
+              <GoHome size="1.5rem" />
+              <p>Beranda</p>
+            </Link>
           </li>
           <li
+            onClick={handlerTogglePersuratan}
             className={`${
-              current == "persuratan"
-                ? "bg-slate-500 rounded-lg text-white"
+              location.pathname == "/persuratan"
+                ? "bg-secondary rounded-lg text-white"
                 : null
-            } hover:cursor-pointer py-3 gap-3 items-center font-medium text-base px-3 grid grid-flow-row grid-cols-4`}
+            } hover:cursor-pointer py-3 grid grid-cols-4 gap-3 items-center font-medium text-base px-3 justify-between`}
           >
-            <div
-              className="left flex gap-3 col-start-1 col-end-4 justify-self-start"
-              onClick={() => handlerCurrent("persuratan")}
-            >
-              <Message />
+            <div className="left flex gap-3 col-start-1 col-end-4 justify-self-start">
+              <SlEnvolopeLetter size="1.2rem" />
               <p>Persuratan</p>
             </div>
-            <div className="righ justify-self-end col-col-start-4 col-end-5">
-              <CloseSquare onClick={() => handlerTogglePersuratan()} />
+            <div className="right justify-self-end col-col-start-4 col-end-5">
+              {togle ? (
+                <FaChevronUp size="1rem" />
+              ) : (
+                <FaChevronDown size="1rem" />
+              )}
             </div>
             <div
               className={`sub-menu col-start-1 col-end-5 ${
-                togle && current == "persuratan" ? "block" : "hidden"
+                togle ? "block" : "hidden"
               }`}
             >
               <ol className="list-disc list-inside">
-                <li
-                  className={`${
-                    open == "masuk" ? "bg-white text-slate-950" : ""
-                  } py-1 px-5 rounded-md`}
-                  onClick={() => handlerPersuratan("masuk")}
-                >
-                  Surat Masuk
-                </li>
-                <li
-                  className={`${
-                    open == "balasan" ? "bg-white text-slate-950" : ""
-                  } py-1 px-5 rounded-md`}
-                  onClick={() => handlerPersuratan("balasan")}
-                >
-                  Balasan Surat
-                </li>
+                <Link to={"/surat-masuk"}>
+                  <li
+                    className={`${
+                      location.pathname == "/surat-masuk"
+                        ? "bg-secondary text-white text-base"
+                        : null
+                    } py-2 px-5 rounded-md`}
+                  >
+                    Surat Masuk
+                  </li>
+                </Link>
+                <Link to={"/balasan-surat"}>
+                  <li
+                    className={`${
+                      location.pathname == "/balasan-surat"
+                        ? "bg-secondary text-white text-base"
+                        : null
+                    } py-2 px-5 rounded-md`}
+                  >
+                    Balasan Surat
+                  </li>
+                </Link>
               </ol>
             </div>
           </li>
           <li
-            onClick={() => handlerCurrent("rekap")}
             className={`${
-              current == "rekap" ? "bg-slate-500 rounded-lg text-white" : null
-            } hover:cursor-pointer py-3 flex gap-3 items-center font-medium text-base px-3`}
+              location.pathname == "/rekap-surat"
+                ? "bg-secondary rounded-lg text-white"
+                : null
+            } hover:cursor-pointer`}
           >
-            <Paper />
-            <p>Rekap Surat</p>
+            <Link
+              to={"/rekap-surat"}
+              className="py-3 flex gap-3 items-center font-medium text-base px-3"
+            >
+              <CiViewList size="1.5rem" />
+              <p>Rekap Surat</p>
+            </Link>
           </li>
           <li
-            onClick={() => handlerCurrent("user")}
             className={`${
-              current == "user" ? "bg-slate-500 rounded-lg text-white" : null
-            } hover:cursor-pointer py-3 flex gap-3 items-center font-medium text-base px-3`}
+              location.pathname == "/manajemen-user"
+                ? "bg-secondary rounded-lg text-white"
+                : null
+            } hover:cursor-pointer`}
           >
-            <User />
-            <p>Manajemen User</p>
+            <Link
+              to={"/manajemen-user"}
+              className="hover:cursor-pointer py-3 flex gap-3 items-center font-medium text-base px-3"
+            >
+              <CiUser size="1.5rem" />
+              <p>Manajemen User</p>
+            </Link>
           </li>
         </ul>
       </div>
       <div className="account row-span-8 flex justify-between items-center mx-8">
-        <div className="status">
-          <h4 className="font-bold text-base">ADMIN ATR/BPN</h4>
-          <p className="text-sm">admin123@gmail.com</p>
-        </div>
+        <Link to={"/profile"}>
+          <div className="status">
+            <h4 className="font-bold text-base">ADMIN ATR/BPN</h4>
+            <p className="text-sm">admin123@gmail.com</p>
+          </div>
+        </Link>
         <div className="logout">
-          <Logout size="1.5em" />
+          <HiOutlineLogout size="1.5rem" />
         </div>
       </div>
     </div>

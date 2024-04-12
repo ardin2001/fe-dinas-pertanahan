@@ -19,6 +19,20 @@ export default {
         'tertiary':'#F4BE42',
         'quaternary':'#D8D8D8',
         'quinary':'#DEDEDE',
+      },
+      textColor :{
+        'primary':'#1F4162',
+        'secondary':'#3B6F9E',
+        'tertiary':'#F4BE42',
+        'quaternary':'#D8D8D8',
+        'quinary':'#DEDEDE',
+      },
+      backgroundColor :{
+        'primary':'#1F4162',
+        'secondary':'#3B6F9E',
+        'tertiary':'#F4BE42',
+        'quaternary':'#D8D8D8',
+        'quinary':'#DEDEDE',
       }
     },
   },

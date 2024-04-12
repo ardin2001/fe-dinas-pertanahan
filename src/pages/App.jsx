@@ -31,7 +31,7 @@ function App() {
             onSubmit={handlerLogin}
             className="w-7/12 grid gap-4 px-10 py-3 rounded-md"
           >
-            <h2 className="text-3xl font-semibold text-center">Login Admin</h2>
+            <h2 className="text-3xl font-bold text-center text-primary">Login Admin</h2>
             <input
               ref={usernameRef}
               type="text"
