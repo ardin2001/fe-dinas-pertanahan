@@ -33,7 +33,14 @@ export default {
         'tertiary':'#F4BE42',
         'quaternary':'#D8D8D8',
         'quinary':'#DEDEDE',
-      }
+      },
+      outlineColor:{
+        'primary':'#1F4162',
+        'secondary':'#3B6F9E',
+        'tertiary':'#F4BE42',
+        'quaternary':'#D8D8D8',
+        'quinary':'#DEDEDE',
+      },
     },
   },
   plugins: [],
