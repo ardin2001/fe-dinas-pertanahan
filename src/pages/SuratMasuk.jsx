@@ -7,7 +7,7 @@ const SuratMasukPage = () => {
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Surat Masuk</h2>
         </div>
-        <div className="rekap mt-8 bg-secondary h-4/5 rounded-lg drop-shadow-custom"></div>
+        <div className="rekap mt-8 bg-white h-4/5 rounded-lg drop-shadow-custom"></div>
       </div>
     </main>
   );

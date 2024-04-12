@@ -5,7 +5,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 2,
@@ -13,7 +12,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 3,
@@ -21,7 +19,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 4,
@@ -29,7 +26,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 5,
@@ -37,7 +33,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 6,
@@ -45,7 +40,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 7,
@@ -53,7 +47,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 8,
@@ -61,7 +54,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 9,
@@ -69,7 +61,6 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
   {
     no: 10,
@@ -77,6 +68,5 @@ export const data = [
     keterangan: "Surat Masuk",
     tanggal: "10-10-2022",
     status: "Belum Dibaca",
-    draft: "-",
   },
 ];
