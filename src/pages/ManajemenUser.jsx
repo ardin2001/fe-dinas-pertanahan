@@ -12,23 +12,23 @@ const ManajemenUserPage = () => {
     setSearch(e.target.value);
   };
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200 font-sans">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
         <div className="navbar pt-6">
-          <h2 className="font-bold text-xl">Rekap Surat</h2>
+          <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
         <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-between">
             <div className="left w-1/3 flex relative">
               <input
                 type="text"
-                className="outline-none rounded-lg w-full outline-2 outline-gray-400 text-secondary outline-offset-0 text-base py-1 px-2 italic"
+                className="outline-none rounded-lg w-full outline-2 outline-quaternary text-quaternary outline-offset-0 text-base py-1 px-2 italic"
                 onChange={HandlerSearch}
                 value={search}
                 placeholder="Cari user..."
               />
-              <FaSearch className="absolute right-2 top-3 text-gray-400" />
+              <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
             <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5">
               <div className="grid grid-flow-col gap-2 items-center py-2">
@@ -53,9 +53,7 @@ const ManajemenUserPage = () => {
                 {data.map((item, index) => (
                   <tr
                     key={index}
-                    className={`${
-                      (index + 1) % 2 == 0 ? "bg-gray-200" : null
-                    } `}
+                    className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
                     <td className="py-2.5 text-sm">{item.no}</td>
                     <td className="py-2.5 text-sm">{item.nama}</td>

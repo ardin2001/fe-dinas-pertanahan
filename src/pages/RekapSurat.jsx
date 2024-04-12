@@ -1,10 +1,8 @@
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import FormatDate from "../utils/Date";
-import { FaFile, FaFolder, FaSearch } from "react-icons/fa";
+import { FaFile, FaSearch } from "react-icons/fa";
 import { data } from "../utils/DataRekapSurat";
-import { CiFolderOff } from "react-icons/ci";
-import { HiFolder } from "react-icons/hi";
 
 const RekapSuratPage = () => {
   const [kategori, setKategori] = useState("Kategori Surat");
@@ -16,7 +14,7 @@ const RekapSuratPage = () => {
     setTanggal(e.target.value);
   };
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary">
       {console.log("tanggal :", tanggal)}
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
@@ -30,7 +28,7 @@ const RekapSuratPage = () => {
                 <select
                   id="month"
                   onChange={Handlerkategori}
-                  className="font-semibold outline-none rounded-lg w-full outline-2 py-2 pl-2 outline-gray-500 text-gray-500 outline-offset-0 text-sm p-1"
+                  className="font-semibold outline-none rounded-lg w-full outline-2 py-2 pl-2 outline-quaternary text-quaternary outline-offset-0 text-sm p-1"
                 >
                   <option className="font-semibold" value="Kategori Surat">
                     Kategori Surat
@@ -52,7 +50,7 @@ const RekapSuratPage = () => {
                   id="date"
                   name="date"
                   value={tanggal}
-                  className="font-semibold outline-none rounded-md w-full outline-2 py-2 outline-gray-500 text-gray-500 outline-offset-0 text-sm p-1"
+                  className="font-semibold outline-none rounded-md w-full outline-2 py-2 outline-quaternary text-quaternary outline-offset-0 text-sm p-1"
                   onChange={HandlerTanggal}
                 />
               </div>
@@ -81,7 +79,7 @@ const RekapSuratPage = () => {
                   <tr
                     key={index}
                     className={`${
-                      (index + 1) % 2 == 0 ? "bg-gray-200" : null
+                      (index + 1) % 2 == 0 ? "bg-quinary" : null
                     } `}
                   >
                     <td className="py-3 text-sm">{index + 1}</td>
@@ -90,7 +88,7 @@ const RekapSuratPage = () => {
                     <td className="py-3 text-sm">{item.tanggal}</td>
                     <td className="py-3 text-sm">{item.status}</td>
                     <td className="py-3 text-sm grid justify-items-center">
-                      <FaFile className="text-gray-500"/>
+                      <FaFile className="text-primary" />
                     </td>
                   </tr>
                 ))}
