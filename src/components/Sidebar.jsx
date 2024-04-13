@@ -17,7 +17,7 @@ const Sidebar = () => {
   useEffect(() => {
     if (
       location.pathname == "/surat-masuk" ||
-      location.pathname == "/balasan-surat"
+      location.pathname == "/balasan-surat" || location.pathname == "/surat-masuk/disposisi-surat"
     ) {
       setTogle((prev) => !prev);
     }

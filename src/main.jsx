@@ -8,6 +8,7 @@ import ManajemenUserPage from './pages/ManajemenUser';
 import SuratMasukPage from './pages/SuratMasuk';
 import BalasanSuratPage from './pages/BalasanSurat';
 import ProfilePage from './pages/Profile';
+import DisposisiSuratPage from './pages/DisposisiSurat';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfilePage/>,
+  },
+  {
+    path: "/surat-masuk/disposisi-surat",
+    element: <DisposisiSuratPage/>,
   },
 ]);
 

@@ -63,7 +63,7 @@ const RekapSuratPage = () => {
             </div>
           </div>
           <div className="tabel mt-7">
-            <table className="table-fixed w-full text-center">
+            <table className="table-auto w-full text-center">
               <thead className="text-white font-semibold bg-secondary">
                 <tr>
                   <th className="py-2 text-sm">No</th>

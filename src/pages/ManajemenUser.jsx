@@ -15,7 +15,7 @@ const ManajemenUserPage = () => {
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
-        <div className="navbar pt-6">
+        <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
         <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
@@ -38,7 +38,7 @@ const ManajemenUserPage = () => {
             </div>
           </div>
           <div className="tabel mt-7">
-            <table className="table-fixed w-full text-center text-sm font-normal font-sans">
+            <table className="table-auto w-full text-center text-sm font-normal font-sans">
               <thead className="text-white font-medium bg-secondary ">
                 <tr>
                   <th className="py-2">No</th>
