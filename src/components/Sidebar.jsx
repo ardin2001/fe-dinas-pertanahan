@@ -83,7 +83,7 @@ const Sidebar = () => {
                 togle ? "block" : "hidden"
               }`}
             >
-              <ol className="list-disc list-inside">
+              <ol className="list-disc list-inside ">
                 <Link to={"/surat-masuk"}>
                   <li
                     className={`${

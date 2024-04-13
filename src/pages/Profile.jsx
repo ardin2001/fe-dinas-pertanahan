@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import { MdModeEdit } from "react-icons/md";
+
 const ProfilePage = () => {
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200">
@@ -34,7 +35,7 @@ const ProfilePage = () => {
             <div className="col-start-2 col-end-3 self-end justify-self-end">
               <div className="grid grid-flow-col gap-2 items-center py-2 bg-secondary rounded-lg text-white justify-center content-center p-6">
                 <MdModeEdit size="1.1rem" />
-                <p>Edit</p>
+                <button>Edit</button>
               </div>
             </div>
           </div>

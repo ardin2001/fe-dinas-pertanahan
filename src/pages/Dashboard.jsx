@@ -1,6 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import CardDashboard from "../components/CardDashboard";
 
+
 const DashboardPage = () => {
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200">
@@ -24,7 +25,7 @@ const DashboardPage = () => {
           <CardDashboard/>
           <CardDashboard/>
         </div>
-        <div className="rekap mt-8 bg-secondary h-3/5 rounded-xl drop-shadow-custom"></div>
+        <div className="rekap mt-8 bg-white h-3/5 rounded-xl drop-shadow-custom"></div>
       </div>
     </main>
   );
