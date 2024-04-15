@@ -1,11 +1,18 @@
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { MdModeEdit } from "react-icons/md";
+import ModalProfile from "../components/ModalProfile";
 
 const ProfilePage = () => {
+  const [modal, setModal] = useState(false);
+  const HandlerEditProfile = () => {
+    setModal((prev) => !prev);
+  };
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200">
-      <Sidebar />
-      <div className="content col-start-2 col-end-6 w-97/100">
+      <ModalProfile modal={modal} HandlerEditProfile={HandlerEditProfile} />
+      <Sidebar modal={modal} />
+      <div className={`content col-start-2 col-end-6 w-97/100 ${modal ? "blur-sm" : null}`}>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Profile</h2>
         </div>
@@ -32,7 +39,10 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="right grid grid-flow-col grid-cols-2">
-            <div className="col-start-2 col-end-3 self-end justify-self-end">
+            <div
+              className="col-start-2 col-end-3 self-end justify-self-end"
+              onClick={HandlerEditProfile}
+            >
               <div className="grid grid-flow-col gap-2 items-center py-2 bg-secondary rounded-lg text-white justify-center content-center p-6">
                 <MdModeEdit size="1.1rem" />
                 <button>Edit</button>
