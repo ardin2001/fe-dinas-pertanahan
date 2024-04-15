@@ -38,6 +38,7 @@ export default {
         tertiary: "#F4BE42",
         quaternary: "#9CA3AF",
         quinary: "#DEDEDE",
+        custom: "#1E3554",
       },
       inset: {
         "1/10": "10%",
@@ -64,6 +65,14 @@ export default {
       translate:{
         "1.5full" : "150%",
         "2full" : "200%"
+      },
+      borderColor:{
+        primary: "#1F4162",
+        secondary: "#3B6F9E",
+        tertiary: "#F4BE42",
+        quaternary: "#DEDEDE",
+        quinary: "#E5E7EB",
+        custom: "#1E3554",
       }
     },
   },
