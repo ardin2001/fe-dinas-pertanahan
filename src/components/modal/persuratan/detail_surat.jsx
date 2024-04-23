@@ -2,7 +2,7 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { IoMdEye } from "react-icons/io";
-const ModalDetilSurat = (props) => {
+const ModalDetailSurat = (props) => {
   const { modal, HandlerDetailSurat } = props;
   const [date, setDate] = useState(FormatDate());
   if (!modal) {
@@ -61,4 +61,4 @@ const ModalDetilSurat = (props) => {
   );
 };
 
-export default ModalDetilSurat;
+export default ModalDetailSurat;

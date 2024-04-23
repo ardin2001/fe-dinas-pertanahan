@@ -9,7 +9,7 @@ import { data } from "../../utils/DataSuratMasuk";
 import { Link } from "react-router-dom";
 import ModalTambahSurat from "../../components/modal/persuratan/tambah_surat";
 import ModalEditSurat from "../../components/modal/persuratan/edit_surat";
-import ModalDetilSurat from "../../components/modal/persuratan/detail_surat";
+import ModalDetailSurat from "../../components/modal/persuratan/detail_surat";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
@@ -33,7 +33,7 @@ const SuratMasukPage = () => {
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
       <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} />
       <ModalEditSurat modal={modal2} HandlerEditSurat={HandlerEditSurat} />
-      <ModalDetilSurat modal={modal3} HandlerDetailSurat={HandlerDetailSurat} />
+      <ModalDetailSurat modal={modal3} HandlerDetailSurat={HandlerDetailSurat} />
       <Sidebar modal={modal} modal2={modal2} modal3={modal3} />
       <div className={`content col-start-2 col-end-6 w-97/100 ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
         <div className="navbar pt-5">
