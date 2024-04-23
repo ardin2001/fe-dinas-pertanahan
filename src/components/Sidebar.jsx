@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
-const Sidebar = ({modal}) => {
+const Sidebar = ({modal,modal2,modal3}) => {
   const location = useLocation();
   const [togle, setTogle] = useState(false);
 
@@ -27,7 +27,7 @@ const Sidebar = ({modal}) => {
     setTogle((prev) => !prev);
   };
   return (
-    <div className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-sans ${modal ? "blur-sm" : null}`}>
+    <div className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-sans ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
       <div className="title row-span-1 grid grid-cols-8 items-center mx-6">
         <img src={logo} alt="" className=" col-span-2" />
         <h3 className="col-start-3 col-end-9 font-bold text-base justify-self-center tracking-wide">

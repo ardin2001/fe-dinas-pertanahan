@@ -62,18 +62,22 @@ export default {
         "85/100": "85%",
         "95/100": "95%",
       },
-      translate:{
-        "1.5full" : "150%",
-        "2full" : "200%"
+      translate: {
+        "1.5full": "150%",
+        "2full": "200%",
       },
-      borderColor:{
+      borderColor: {
         primary: "#1F4162",
         secondary: "#3B6F9E",
         tertiary: "#F4BE42",
         quaternary: "#DEDEDE",
         quinary: "#E5E7EB",
         custom: "#1E3554",
-      }
+      },
+      borderWidth: {
+        1: "1px",
+        1.5: "1.5px",
+      },
     },
   },
   plugins: [],

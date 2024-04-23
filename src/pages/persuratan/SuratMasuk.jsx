@@ -9,11 +9,13 @@ import { data } from "../../utils/DataSuratMasuk";
 import { Link } from "react-router-dom";
 import ModalTambahSurat from "../../components/modal/persuratan/tambah_surat";
 import ModalEditSurat from "../../components/modal/persuratan/edit_surat";
+import ModalDetilSurat from "../../components/modal/persuratan/detail_surat";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -23,13 +25,17 @@ const SuratMasukPage = () => {
   const HandlerEditSurat = () => {
     setModal2((prev) => !prev);
   };
+  const HandlerDetailSurat = () => {
+    setModal3((prev) => !prev);
+  };
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
       <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} />
       <ModalEditSurat modal={modal2} HandlerEditSurat={HandlerEditSurat} />
-      <Sidebar modal={modal} />
-      <div className={`content col-start-2 col-end-6 w-97/100 ${modal ? "blur-sm" : null}`}>
+      <ModalDetilSurat modal={modal3} HandlerDetailSurat={HandlerDetailSurat} />
+      <Sidebar modal={modal} modal2={modal2} modal3={modal3} />
+      <div className={`content col-start-2 col-end-6 w-97/100 ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Surat Masuk</h2>
         </div>
@@ -77,7 +83,7 @@ const SuratMasukPage = () => {
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit className="text-secondary" onClick={HandlerEditSurat} />
-                        <IoMdEye className="text-yellow-300" />
+                        <IoMdEye className="text-yellow-300" onClick={HandlerDetailSurat} />
                         <MdDeleteOutline className="text-red-500" />
                       </div>
                     </td>
