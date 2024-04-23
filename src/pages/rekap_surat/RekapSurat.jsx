@@ -1,8 +1,8 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import { useState } from "react";
-import FormatDate from "../utils/Date";
+import FormatDate from "../../utils/Date";
 import { FaFile, FaSearch } from "react-icons/fa";
-import { data } from "../utils/DataRekapSurat";
+import { data } from "../../utils/DataRekapSurat";
 
 const RekapSuratPage = () => {
   const [kategori, setKategori] = useState("Kategori Surat");
@@ -15,7 +15,6 @@ const RekapSuratPage = () => {
   };
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary">
-      {console.log("tanggal :", tanggal)}
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
         <div className="navbar pt-5">

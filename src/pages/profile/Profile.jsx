@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import { MdModeEdit } from "react-icons/md";
-import ModalProfile from "../components/ModalProfile";
+import ModalProfile from "../../components/modal/ModalProfile";
 
 const ProfilePage = () => {
   const [modal, setModal] = useState(false);

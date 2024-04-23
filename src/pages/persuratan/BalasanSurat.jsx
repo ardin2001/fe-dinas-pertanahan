@@ -1,13 +1,13 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { data } from "../utils/DataSuratMasuk";
+import { data } from "../../utils/DataBalasanSurat";
 import { Link } from "react-router-dom";
-const SuratMasukpage = () => {
+const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
@@ -17,7 +17,7 @@ const SuratMasukpage = () => {
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
         <div className="navbar pt-5">
-          <h2 className="font-bold text-2xl">Surat Masuk</h2>
+          <h2 className="font-bold text-2xl">Balasan Surat</h2>
         </div>
         <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-between">
@@ -44,8 +44,9 @@ const SuratMasukpage = () => {
                 <tr>
                   <th className="py-2">No</th>
                   <th className="py-2">Pengirim</th>
-                  <th className="py-2">Jenis Surat</th>
+                  <th className="py-2">Keterangan</th>
                   <th className="py-2">Tanggal</th>
+                  <th className="py-2">Status</th>
                   <th className="py-2">Aksi</th>
                   <th></th>
                 </tr>
@@ -58,8 +59,19 @@ const SuratMasukpage = () => {
                   >
                     <td className="py-2.5 text-sm">{item.no}</td>
                     <td className="py-2.5 text-sm">{item.pengirim}</td>
-                    <td className="py-2.5 text-sm">{item.jenis_surat}</td>
+                    <td className="py-2.5 text-sm">{item.keterangan.substring(0, 35)}{item.keterangan.length > 35 ? '.....' : ''}</td>
                     <td className="py-2.5 text-sm">{item.tanggal}</td>
+                    <td className={`grid justify-items-center py-2.5 text-sm`}>
+                    <p
+                        className={`${
+                          item.status
+                            ? "bg-green-200 text-green-500"
+                            : "bg-red-300 text-red-600"
+                        } px-4 rounded-lg text-xs py-1`}
+                      >
+                        {item.status ? "Diterima" : "Ditolak"}
+                      </p>
+                    </td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit className="text-secondary" />
@@ -71,7 +83,7 @@ const SuratMasukpage = () => {
                       <Link to={'/surat-masuk/disposisi-surat'}>
                         <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
                           <div className="grid grid-flow-col gap-1 items-center py-1">
-                            <p className="font-medium">Disposisi Surat</p>
+                            <p className="font-medium">Tambah Balasan</p>
                           </div>
                         </div>
                       </Link>
@@ -87,4 +99,4 @@ const SuratMasukpage = () => {
   );
 };
 
-export default SuratMasukpage;
+export default BalasanSuratPage;

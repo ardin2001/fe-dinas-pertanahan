@@ -1,27 +1,24 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
-import { MdDeleteOutline } from "react-icons/md";
-import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { data } from "../utils/DataSuratMasuk";
+import ModalDisposisi from "../../components/modal/ModalDisposisi";
 const DisposisiSuratPage = () => {
-  const [search, setSearch] = useState();
-  const HandlerSearch = (e) => {
-    setSearch(e.target.value);
+  const [modal, setModal] = useState(false);
+  const HandlerEditDisposisi = () => {
+    setModal((prev) => !prev);
   };
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
-      <Sidebar />
-      <div className="content col-start-2 col-end-6 w-97/100">
+      <ModalDisposisi modal={modal} HandlerEditDisposisi={HandlerEditDisposisi} />
+      <Sidebar modal={modal} />
+      <div className={`content col-start-2 col-end-6 w-97/100 ${modal ? "blur-sm" : null}`}>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Disposisi Surat</h2>
         </div>
         <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-end">
             <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5">
-              <div className="grid grid-flow-col gap-2 items-center py-2">
+              <div className="grid grid-flow-col gap-2 items-center py-2 cursor-pointer" onClick={HandlerEditDisposisi}>
                 <GoPlus size="1rem" />
                 <p>Tambah Disposisi</p>
               </div>

@@ -7,7 +7,7 @@ import { CiCamera } from "react-icons/ci";
 import { CiLock } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { useState } from "react";
-const ModalBox = (props) => {
+const ModalProfile = (props) => {
   const [password, setPassword] = useState(false);
   const [repassword, setRepassword] = useState(false);
   const { modal, HandlerEditProfile } = props;
@@ -121,4 +121,4 @@ const ModalBox = (props) => {
   );
 };
 
-export default ModalBox;
+export default ModalProfile;
