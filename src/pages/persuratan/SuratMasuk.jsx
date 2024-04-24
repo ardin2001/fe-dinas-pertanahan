@@ -33,9 +33,16 @@ const SuratMasukPage = () => {
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
       <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} />
       <ModalEditSurat modal={modal2} HandlerEditSurat={HandlerEditSurat} />
-      <ModalDetailSurat modal={modal3} HandlerDetailSurat={HandlerDetailSurat} />
+      <ModalDetailSurat
+        modal={modal3}
+        HandlerDetailSurat={HandlerDetailSurat}
+      />
       <Sidebar modal={modal} modal2={modal2} modal3={modal3} />
-      <div className={`content col-start-2 col-end-6 w-97/100 ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
+      <div
+        className={`content col-start-2 col-end-6 w-97/100 ${
+          modal || modal2 || modal3 ? "blur-sm" : null
+        }`}
+      >
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Surat Masuk</h2>
         </div>
@@ -51,10 +58,13 @@ const SuratMasukPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer" onClick={HandlerTambahSurat}>
+            <div
+              className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
+              onClick={HandlerTambahSurat}
+            >
               <div className="grid grid-flow-col gap-2 items-center py-2">
                 <GoPlus size="1rem" />
-                <p>Tambah Surat</p>
+                <button>Tambah Surat</button>
               </div>
             </div>
           </div>
@@ -82,13 +92,24 @@ const SuratMasukPage = () => {
                     <td className="py-2.5 text-sm">{item.tanggal}</td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit className="text-secondary" onClick={HandlerEditSurat} />
-                        <IoMdEye className="text-yellow-300" onClick={HandlerDetailSurat} />
-                        <MdDeleteOutline className="text-red-500" />
+                        <MdModeEdit
+                          className="text-secondary"
+                          type="button"
+                          onClick={HandlerEditSurat}
+                        />
+                        <IoMdEye
+                          className="text-yellow-300"
+                          type="button"
+                          onClick={HandlerDetailSurat}
+                        />
+                        <MdDeleteOutline
+                          className="text-red-500"
+                          type="button"
+                        />
                       </div>
                     </td>
                     <td>
-                      <Link to={'/surat-masuk/disposisi-surat'}>
+                      <Link to={"/surat-masuk/disposisi-surat"}>
                         <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
                           <div className="grid grid-flow-col gap-1 items-center py-1">
                             <p className="font-medium">Disposisi Surat</p>

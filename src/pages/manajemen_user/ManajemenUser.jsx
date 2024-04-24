@@ -6,6 +6,7 @@ import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
+
 const ManajemenUserPage = () => {
   const [search, setSearch] = useState();
   const HandlerSearch = (e) => {
@@ -44,7 +45,7 @@ const ManajemenUserPage = () => {
                   <th className="py-2">No</th>
                   <th className="py-2">Nama</th>
                   <th className="py-2">Email</th>
-                  <th className="py-2">Nomor Telepon</th>
+                  <th className="py-2">Role</th>
                   <th className="py-2">Status</th>
                   <th className="py-2">Aksi</th>
                 </tr>
@@ -58,7 +59,7 @@ const ManajemenUserPage = () => {
                     <td className="py-2.5 text-sm">{item.no}</td>
                     <td className="py-2.5 text-sm">{item.nama}</td>
                     <td className="py-2.5 text-sm">{item.email}</td>
-                    <td className="py-2.5 text-sm">{item.notelp}</td>
+                    <td className="py-2.5 text-sm">{item.role}</td>
                     <td className="py-2.5 text-sm grid justify-items-center">
                       <p
                         className={`${
