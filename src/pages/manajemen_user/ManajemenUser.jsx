@@ -1,12 +1,24 @@
 import Sidebar from "../../components/Sidebar";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { data } from "../../utils/DataManagemenUser";
 import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
+import { GetData } from "../../utils/FetchmanagemenUser";
+
 const ManajemenUserPage = () => {
+  const [users, setUsers] = useState([]);
+  useEffect(()=>{
+    (async()=>{
+      const {status,data} = await GetData();
+      console.log(data)
+      if(status){
+        setUsers(data)
+      }
+    })()
+  },[])
   const [search, setSearch] = useState();
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
@@ -44,25 +56,23 @@ const ManajemenUserPage = () => {
                   <th className="py-2">No</th>
                   <th className="py-2">Nama</th>
                   <th className="py-2">Email</th>
-                  <th className="py-2">Nomor Telepon</th>
                   <th className="py-2">Status</th>
                   <th className="py-2">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
+                {users.map((item, index) => (
                   <tr
                     key={index}
                     className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
-                    <td className="py-2.5 text-sm">{item.no}</td>
-                    <td className="py-2.5 text-sm">{item.nama}</td>
+                    <td className="py-2.5 text-sm">{item.id}</td>
+                    <td className="py-2.5 text-sm">{item.name}</td>
                     <td className="py-2.5 text-sm">{item.email}</td>
-                    <td className="py-2.5 text-sm">{item.notelp}</td>
                     <td className="py-2.5 text-sm grid justify-items-center">
                       <p
                         className={`${
-                          item.status
+                          item.email_verified_at
                             ? "bg-green-200 text-green-500"
                             : "bg-red-300 text-red-600"
                         } w-1/2 rounded-lg text-xs py-1`}
