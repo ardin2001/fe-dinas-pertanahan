@@ -26,7 +26,7 @@ const ModalEditSurat = (props) => {
           <input
             type="text"
             className="outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-            placeholder="Nomor surat..."
+            placeholder="Masukkan Nomor Surat"
             id="nomor"
             name="nomor"
           />
@@ -68,7 +68,7 @@ const ModalEditSurat = (props) => {
           <input
             type="text"
             className="outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-            placeholder="Perihal surat..."
+            placeholder="Masukkan Perihal Surat"
             id="nomor"
             name="nomor"
           />
@@ -80,7 +80,7 @@ const ModalEditSurat = (props) => {
           <input
             type="text"
             className="outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-            placeholder="Nama pengirim..."
+            placeholder="Masukkan Nama Pengirim"
             id="nomor"
             name="nomor"
           />
@@ -95,16 +95,16 @@ const ModalEditSurat = (props) => {
             name="disposisi"
           >
             <option className="font-normal" value="">
-              Pilih Jenis Surat
+              Jenis Surat
             </option>
             <option className="font-normal" value="penting">
-              Penting
+              Surat 1
             </option>
             <option className="font-normal" value="biasa">
-              Biasa
+              Surat 2
             </option>
             <option className="font-normal" value="tidak penting">
-              Tidak Penting
+              Surat 3
             </option>
           </select>
         </div>
@@ -117,7 +117,7 @@ const ModalEditSurat = (props) => {
           </label>
           <div className="custom-input grid grid-flow-col outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg justify-between">
             <p>Pilih File</p>
-            <FaFile />
+            <FaFile className="mt-1" />
           </div>
           <input
             type="file"

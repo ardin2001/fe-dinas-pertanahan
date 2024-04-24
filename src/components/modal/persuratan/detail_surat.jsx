@@ -21,7 +21,7 @@ const ModalDetailSurat = (props) => {
       <div className="input grid gap-y-3 mt-4">
         <div className="name">
           <p className="text-custom font-normal">Nama Pengirim</p>
-          <h3 className="text-2xl font-bold text-custom">Kepala Sekolah</h3>
+          <h3 className="text-2xl font-bold text-custom">Kepala Kantor Pertanahan Malang</h3>
         </div>
         <div className="tanggal">
           <p className="text-custom font-normal">Tanggal Surat</p>

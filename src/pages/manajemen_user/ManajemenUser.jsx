@@ -7,7 +7,6 @@ import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 import { GetData } from "../../utils/FetchmanagemenUser";
-
 const ManajemenUserPage = () => {
   const [users, setUsers] = useState([]);
   useEffect(()=>{
