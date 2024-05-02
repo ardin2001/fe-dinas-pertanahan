@@ -38,9 +38,6 @@ const BalasanSuratPage = () => {
     setSearch(e.target.value);
   };
 
-  if (!loading) {
-    return null;
-  }
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
       <ModalTambahBalasan
@@ -97,53 +94,55 @@ const BalasanSuratPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {surat.letter.map((item, index) => (
-                  <tr
-                    key={index}
-                    className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
-                  >
-                    <td className="py-2.5 text-sm">{item.id}</td>
-                    <td className="py-2.5 text-sm">{item.from}</td>
-                    <td className="py-2.5 text-sm">
-                      {item.description.substring(0, 35)}
-                      {item.description.length > 35 ? "....." : ""}
-                    </td>
-                    <td className="py-2.5 text-sm">{item.updated_at}</td>
-                    <td className={`grid justify-items-center py-2.5 text-sm`}>
-                      <p
-                        className={`${
-                          item.status != "Pending"
-                            ? "bg-green-200 text-green-500"
-                            : "bg-red-300 text-red-600"
-                        } px-4 rounded-lg text-xs py-1`}
-                      >
-                        {item.status != "Pending" ? "Diterima" : "Pending"}
-                      </p>
-                    </td>
-                    <td className="py-2">
-                      <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit
-                          className="text-secondary"
-                          onClick={HandlerEditBalasan}
-                        />
-                        <IoMdEye
-                          className="text-yellow-300"
-                          onClick={HandlerDetailBalasan}
-                        />
-                        <MdDeleteOutline className="text-red-500" />
-                      </div>
-                    </td>
-                    <td>
-                      <Link to={"/surat-masuk/disposisi-surat"}>
-                        <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
-                          <div className="grid grid-flow-col gap-1 items-center py-1">
-                            <p className="font-medium">Tambah Balasan</p>
-                          </div>
+                {!loading ? null :(
+                  surat.letter.map((item, index) => (
+                    <tr
+                      key={index}
+                      className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
+                    >
+                      <td className="py-2.5 text-sm">{item.id}</td>
+                      <td className="py-2.5 text-sm">{item.from}</td>
+                      <td className="py-2.5 text-sm">
+                        {item.description.substring(0, 35)}
+                        {item.description.length > 35 ? "....." : ""}
+                      </td>
+                      <td className="py-2.5 text-sm">{item.updated_at}</td>
+                      <td className={`grid justify-items-center py-2.5 text-sm`}>
+                        <p
+                          className={`${
+                            item.status != "Pending"
+                              ? "bg-green-200 text-green-500"
+                              : "bg-red-300 text-red-600"
+                          } px-4 rounded-lg text-xs py-1`}
+                        >
+                          {item.status != "Pending" ? "Diterima" : "Pending"}
+                        </p>
+                      </td>
+                      <td className="py-2">
+                        <div className="aksi flex justify-center gap-2">
+                          <MdModeEdit
+                            className="text-secondary"
+                            onClick={HandlerEditBalasan}
+                          />
+                          <IoMdEye
+                            className="text-yellow-300"
+                            onClick={HandlerDetailBalasan}
+                          />
+                          <MdDeleteOutline className="text-red-500" />
                         </div>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td>
+                        <Link to={"/surat-masuk/disposisi-surat"}>
+                          <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
+                            <div className="grid grid-flow-col gap-1 items-center py-1">
+                              <p className="font-medium">Tambah Balasan</p>
+                            </div>
+                          </div>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
