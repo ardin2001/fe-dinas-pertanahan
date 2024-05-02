@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .form {
+        display: grid;
+        width: 33%;
+        margin: auto;
+        padding: 10px;
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="form" id="form">
+      <h1>Form POST API</h1>
+      <label for="">Letter Type</label>
+      <input type="text" placeholder="Letter Type..." id="letterType" />
+      <label for="">Letter Date</label>
+      <input type="date" placeholder="Letter Date..." id="letterDate" />
+      <label for="">From</label>
+      <input type="text" placeholder="From..." id="from" />
+      <label for="">User id</label>
+      <input type="text" placeholder="User id..." id="userId" />
+      <label for="">File</label>
+      <input type="file" placeholder="Masukkan file" id="file" />
+      <button type="submit">Submit</button>
+    </form>
+    <div id="pdf"></div>
+    <script>
+      document
+        .getElementById("form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const data = {
+            letters_type: event.target.letterType.value,
+            letter_date: event.target.letterDate.value,
+            from: event.target.from.value,
+            userId: event.target.userId.value,
+            file: event.target.file.files[0],
+          };
+          const formData = new FormData();
+          formData.append("letters_type", data.letters_type);
+          formData.append("letter_date", data.letter_date);
+          formData.append("file", data.file);
+          console.log('formData : ', formData);
+          console.log('data : ', data);
+          const response = await fetch(
+            "https://monitoringpersuratan-production.up.railway.app/api/addletters",
+            {
+              method: "POST",
+              headers: {
+                "Authorization": "Bearer 23|b5hLWjNWQx0kof0dXv1Lufws39gQQaUX9hsCPJAJd5c0606f",
+              },
+              body: formData,
+            }
+          );
+          console.log(response);
+          const json = await response.json();
+          console.log(json);
+        });
+    </script>
+  </body>
+</html>

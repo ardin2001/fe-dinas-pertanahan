@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import ModalTambahSurat from "../../components/modal/persuratan/tambah_surat";
 import ModalEditSurat from "../../components/modal/persuratan/edit_surat";
 import ModalDetailSurat from "../../components/modal/persuratan/detail_surat";
-import { GetSuratMasuk } from "../../utils/FetchSuratMasuk";
+import { GetSuratMasuk,DeleteSuratMasuk } from "../../utils/FetchSuratMasuk";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
@@ -28,6 +28,13 @@ const SuratMasukPage = () => {
       setLoading(true);
     });
   }, []);
+  const HandlerDeleteSurat = (id) => {
+    DeleteSuratMasuk(id).then((res) => {
+      GetSuratMasuk().then((res) => {
+        setSurat(res.data);
+      });
+    })
+  }
   const HandlerTambahSurat = () => {
     setModal((prev) => !prev);
   };
@@ -101,7 +108,6 @@ const SuratMasukPage = () => {
                       <td className="py-2.5 text-sm">{item.letters_type}</td>
                       <td className="py-2.5 text-sm">{item.updated_at}</td>
                       <td className="py-2">
-                        {console.log(surat.file[index])}
                         <div className="aksi flex justify-center gap-2">
                           <MdModeEdit
                             className="text-secondary"
@@ -116,6 +122,7 @@ const SuratMasukPage = () => {
                           <MdDeleteOutline
                             className="text-red-500"
                             type="button"
+                            onClick={()=>HandlerDeleteSurat(item.id)}
                           />
                         </div>
                       </td>

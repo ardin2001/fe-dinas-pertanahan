@@ -1,17 +1,17 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
-const ModalTambah = (props) => {
-  const { modal, HandlerTambah } = props;
+const ModalEdit = (props) => {
+  const { modal, HandlerEdit } = props;
   if (!modal) {
     return null;
   }
   return (
     <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
       <div className="header flex justify-between py-4 w-10/12 m-auto items-center">
-        <h3 className="font-semibold text-2xl text-custom">Tambah User</h3>
+        <h3 className="font-semibold text-2xl text-custom">Edit User</h3>
         <AiOutlineCloseSquare
           size={"1.5rem"}
           className="text-custom"
-          onClick={HandlerTambah}
+          onClick={HandlerEdit}
         />
       </div>
       <div className="input w-10/12 m-auto grid gap-3">
@@ -58,4 +58,4 @@ const ModalTambah = (props) => {
   );
 };
 
-export default ModalTambah;
+export default ModalEdit;

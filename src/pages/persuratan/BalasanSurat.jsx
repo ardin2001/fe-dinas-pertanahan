@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import ModalEditBalasan from "../../components/modal/persuratan/edit_balasan";
 import ModalDetailBalasan from "../../components/modal/persuratan/detail-balasan";
-import { GetBalasanSurat } from "../../utils/FetchBalasanSurat";
+import { GetBalasanSurat,DeleteBalasanSurat } from "../../utils/FetchBalasanSurat";
 const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
@@ -25,6 +25,13 @@ const BalasanSuratPage = () => {
       setLoading(true);
     });
   }, []);
+  const HandlerDeleteBalasan = (id) => {
+    DeleteBalasanSurat(id).then((res) => {
+      setSurat(prev => {{
+        return prev.filter(item => item.id !== id)
+      }})
+    })
+  }
   const HandlerTambahBalasan = () => {
     setTambah((prev) => !prev);
   };
@@ -95,7 +102,7 @@ const BalasanSuratPage = () => {
               </thead>
               <tbody>
                 {!loading ? null :(
-                  surat.letter.map((item, index) => (
+                  surat.map((item, index) => (
                     <tr
                       key={index}
                       className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
@@ -103,8 +110,8 @@ const BalasanSuratPage = () => {
                       <td className="py-2.5 text-sm">{item.id}</td>
                       <td className="py-2.5 text-sm">{item.from}</td>
                       <td className="py-2.5 text-sm">
-                        {item.description.substring(0, 35)}
-                        {item.description.length > 35 ? "....." : ""}
+                        {item.note.substring(0, 35)}
+                        {item.note.length > 35 ? "....." : ""}
                       </td>
                       <td className="py-2.5 text-sm">{item.updated_at}</td>
                       <td className={`grid justify-items-center py-2.5 text-sm`}>
@@ -128,7 +135,7 @@ const BalasanSuratPage = () => {
                             className="text-yellow-300"
                             onClick={HandlerDetailBalasan}
                           />
-                          <MdDeleteOutline className="text-red-500" />
+                          <MdDeleteOutline className="text-red-500" onClick={()=>HandlerDeleteBalasan(item.id)} />
                         </div>
                       </td>
                       <td>

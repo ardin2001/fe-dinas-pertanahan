@@ -7,9 +7,11 @@ import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 import { GetmanagemenUser } from "../../utils/FetchmanagemenUser";
+import ModalEdit from "../../components/modal/manajemen_user/Edit";
 const ManajemenUserPage = () => {
   const [users, setUsers] = useState([]);
   const [tambah,setTambah] = useState(false)
+  const [edit,setEdit] = useState(false)
   useEffect(()=>{
     (async()=>{
       const {status,data} = await GetmanagemenUser();
@@ -26,11 +28,15 @@ const ManajemenUserPage = () => {
   const HandlerTambah = ()=>{
     setTambah(prev => !prev)
   }
+  const HandlerEdit = ()=>{
+    setEdit(prev => !prev)
+  }
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
-      <Sidebar modal={tambah} />
+      <Sidebar modal={tambah} modal2={edit} />
       <ModalTambah modal={tambah} HandlerTambah={HandlerTambah} />
-      <div className={`${tambah ? "blur-sm" : null} content col-start-2 col-end-6 w-97/100`}>
+      <ModalEdit modal={edit} HandlerEdit={HandlerEdit} />
+      <div className={`${tambah || edit ? "blur-sm" : null} content col-start-2 col-end-6 w-97/100`}>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
@@ -88,7 +94,7 @@ const ManajemenUserPage = () => {
                     </td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit className="text-secondary" />
+                        <MdModeEdit className="text-secondary" onClick={HandlerEdit} />
                         <IoMdEye className="text-yellow-300" />
                         <MdDeleteOutline className="text-red-500" />
                       </div>
