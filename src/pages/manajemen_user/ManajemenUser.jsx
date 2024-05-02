@@ -1,5 +1,5 @@
 import Sidebar from "../../components/Sidebar";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import ModalTambah from "../../components/modal/manajemen_user/tambah";
 import { MdModeEdit } from "react-icons/md";
@@ -13,12 +13,11 @@ const ManajemenUserPage = () => {
   useEffect(()=>{
     (async()=>{
       const {status,data} = await GetmanagemenUser();
-      console.log(data)
       if(status){
         setUsers(data)
       }
-    })()
-  },[])
+    })();
+  }, []);
   const [search, setSearch] = useState();
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
@@ -61,6 +60,7 @@ const ManajemenUserPage = () => {
                   <th className="py-2">No</th>
                   <th className="py-2">Nama</th>
                   <th className="py-2">Email</th>
+                  <th className="py-2">Role</th>
                   <th className="py-2">Status</th>
                   <th className="py-2">Aksi</th>
                 </tr>
@@ -74,6 +74,7 @@ const ManajemenUserPage = () => {
                     <td className="py-2.5 text-sm">{item.id}</td>
                     <td className="py-2.5 text-sm">{item.name}</td>
                     <td className="py-2.5 text-sm">{item.email}</td>
+                    <td className="py-2.5 text-sm">{item.type}</td>
                     <td className="py-2.5 text-sm grid justify-items-center">
                       <p
                         className={`${
