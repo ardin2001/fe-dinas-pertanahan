@@ -1,5 +1,5 @@
 import Sidebar from "../../components/Sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
@@ -10,11 +10,21 @@ import { Link } from "react-router-dom";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import ModalEditBalasan from "../../components/modal/persuratan/edit_balasan";
 import ModalDetailBalasan from "../../components/modal/persuratan/detail-balasan";
+import { GetBalasanSurat } from "../../utils/FetchBalasanSurat";
 const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
+  const [loading, setLoading] = useState(false);
+  const [surat, setSurat] = useState([]);
   const [tambah, setTambah] = useState(false);
   const [edit, setEdit] = useState(false);
   const [detail, setDetail] = useState(false);
+
+  useEffect(() => {
+    GetBalasanSurat().then((res) => {
+      setSurat(res.data);
+      setLoading(true);
+    });
+  }, []);
   const HandlerTambahBalasan = () => {
     setTambah((prev) => !prev);
   };
@@ -27,13 +37,27 @@ const BalasanSuratPage = () => {
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
+
+  if (!loading) {
+    return null;
+  }
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
-      <ModalTambahBalasan modal={tambah} HandlerTambahBalasan={HandlerTambahBalasan} />
+      <ModalTambahBalasan
+        modal={tambah}
+        HandlerTambahBalasan={HandlerTambahBalasan}
+      />
       <ModalEditBalasan modal={edit} HandlerEditBalasan={HandlerEditBalasan} />
-      <ModalDetailBalasan modal={detail} HandlerDetailBalasan={HandlerDetailBalasan} />
+      <ModalDetailBalasan
+        modal={detail}
+        HandlerDetailBalasan={HandlerDetailBalasan}
+      />
       <Sidebar modal={tambah} modal2={edit} />
-      <div className={`content col-start-2 col-end-6 w-97/100 ${tambah || edit || detail ? "blur-sm" : null}`}>
+      <div
+        className={`content col-start-2 col-end-6 w-97/100 ${
+          tambah || edit || detail ? "blur-sm" : null
+        }`}
+      >
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Balasan Surat</h2>
         </div>
@@ -49,7 +73,10 @@ const BalasanSuratPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer" onClick={HandlerTambahBalasan}>
+            <div
+              className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
+              onClick={HandlerTambahBalasan}
+            >
               <div className="grid grid-flow-col gap-2 items-center py-2">
                 <GoPlus size="1rem" />
                 <p>Tambah Surat</p>
@@ -70,35 +97,44 @@ const BalasanSuratPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
+                {surat.letter.map((item, index) => (
                   <tr
                     key={index}
                     className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
-                    <td className="py-2.5 text-sm">{item.no}</td>
-                    <td className="py-2.5 text-sm">{item.pengirim}</td>
-                    <td className="py-2.5 text-sm">{item.keterangan.substring(0, 35)}{item.keterangan.length > 35 ? '.....' : ''}</td>
-                    <td className="py-2.5 text-sm">{item.tanggal}</td>
+                    <td className="py-2.5 text-sm">{item.id}</td>
+                    <td className="py-2.5 text-sm">{item.from}</td>
+                    <td className="py-2.5 text-sm">
+                      {item.description.substring(0, 35)}
+                      {item.description.length > 35 ? "....." : ""}
+                    </td>
+                    <td className="py-2.5 text-sm">{item.updated_at}</td>
                     <td className={`grid justify-items-center py-2.5 text-sm`}>
-                    <p
+                      <p
                         className={`${
-                          item.status
+                          item.status != "Pending"
                             ? "bg-green-200 text-green-500"
                             : "bg-red-300 text-red-600"
                         } px-4 rounded-lg text-xs py-1`}
                       >
-                        {item.status ? "Diterima" : "Ditolak"}
+                        {item.status != "Pending" ? "Diterima" : "Pending"}
                       </p>
                     </td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit className="text-secondary" onClick={HandlerEditBalasan} />
-                        <IoMdEye className="text-yellow-300" onClick={HandlerDetailBalasan} />
+                        <MdModeEdit
+                          className="text-secondary"
+                          onClick={HandlerEditBalasan}
+                        />
+                        <IoMdEye
+                          className="text-yellow-300"
+                          onClick={HandlerDetailBalasan}
+                        />
                         <MdDeleteOutline className="text-red-500" />
                       </div>
                     </td>
                     <td>
-                      <Link to={'/surat-masuk/disposisi-surat'}>
+                      <Link to={"/surat-masuk/disposisi-surat"}>
                         <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
                           <div className="grid grid-flow-col gap-1 items-center py-1">
                             <p className="font-medium">Tambah Balasan</p>

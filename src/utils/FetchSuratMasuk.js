@@ -1,6 +1,6 @@
 const url = 'https://monitoringpersuratan-production.up.railway.app/api'
-const GetmanagemenUser = async() => {
-    const response = await fetch(url+'/users',{
+const GetSuratMasuk = async() => {
+    const response = await fetch(url+'/showletters',{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -11,4 +11,4 @@ const GetmanagemenUser = async() => {
     return json
 }
 
-export {GetmanagemenUser}
+export {GetSuratMasuk}

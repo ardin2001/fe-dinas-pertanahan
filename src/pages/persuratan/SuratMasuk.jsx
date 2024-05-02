@@ -1,5 +1,5 @@
 import Sidebar from "../../components/Sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
@@ -10,15 +10,24 @@ import { Link } from "react-router-dom";
 import ModalTambahSurat from "../../components/modal/persuratan/tambah_surat";
 import ModalEditSurat from "../../components/modal/persuratan/edit_surat";
 import ModalDetailSurat from "../../components/modal/persuratan/detail_surat";
+import { GetSuratMasuk } from "../../utils/FetchSuratMasuk";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
+  const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
+  const [surat, setSurat] = useState([]);
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
+  useEffect(() => {
+    GetSuratMasuk().then((res) => {
+      setSurat(res.data);
+      setLoading(true);
+    });
+  }, []);
   const HandlerTambahSurat = () => {
     setModal((prev) => !prev);
   };
@@ -28,6 +37,10 @@ const SuratMasukPage = () => {
   const HandlerDetailSurat = () => {
     setModal3((prev) => !prev);
   };
+
+  if (!loading) {
+    return null;
+  }
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
@@ -81,16 +94,17 @@ const SuratMasukPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
+                {surat.letter.map((item, index) => (
                   <tr
                     key={index}
                     className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
-                    <td className="py-2.5 text-sm">{item.no}</td>
-                    <td className="py-2.5 text-sm">{item.pengirim}</td>
-                    <td className="py-2.5 text-sm">{item.jenis_surat}</td>
-                    <td className="py-2.5 text-sm">{item.tanggal}</td>
+                    <td className="py-2.5 text-sm">{item.id}</td>
+                    <td className="py-2.5 text-sm">{item.from}</td>
+                    <td className="py-2.5 text-sm">{item.letters_type}</td>
+                    <td className="py-2.5 text-sm">{item.updated_at}</td>
                     <td className="py-2">
+                      {console.log(surat.file[index])}
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit
                           className="text-secondary"

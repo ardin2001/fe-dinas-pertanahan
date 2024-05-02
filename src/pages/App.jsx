@@ -1,11 +1,20 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Login } from "../utils/FetchUsers";
 
 function App() {
   const navigate = useNavigate();
+  const [message,setMessage] = useState("")
   const handlerLogin = (event) => {
     event.preventDefault();
-    navigate("/dashboard");
+    Login(event.target.username.value, event.target.password.value).then( (res) => {
+      if (!res.status) {
+        setMessage("Username atau Password yang anda masukkan salah");
+      }else{
+        localStorage.setItem("token", res.token);
+        navigate("/dashboard");
+      }
+    })
   };
   const usernameRef = useRef(null);
   useEffect(() => {
@@ -36,11 +45,13 @@ function App() {
               type="text"
               placeholder="username"
               className="h-8 py-2 outline-none border-secondary border-b-2"
+              id="username"
             />
             <input
               type="password"
               placeholder="password"
               className="h-8 py-2 outline-none border-secondary border-b-2"
+              id="password"
             />
             <button
               type="submit"
@@ -48,6 +59,7 @@ function App() {
             >
               Login
             </button>
+            <p className="text-red-500 font-semibold text-center">{message}</p>
           </form>
         </div>
       </div>

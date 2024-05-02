@@ -1,17 +1,18 @@
 import Sidebar from "../../components/Sidebar";
 import { useState,useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { data } from "../../utils/DataManagemenUser";
+import ModalTambah from "../../components/modal/manajemen_user/tambah";
 import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { GetData } from "../../utils/FetchmanagemenUser";
+import { GetmanagemenUser } from "../../utils/FetchmanagemenUser";
 const ManajemenUserPage = () => {
   const [users, setUsers] = useState([]);
+  const [tambah,setTambah] = useState(false)
   useEffect(()=>{
     (async()=>{
-      const {status,data} = await GetData();
+      const {status,data} = await GetmanagemenUser();
       console.log(data)
       if(status){
         setUsers(data)
@@ -22,10 +23,15 @@ const ManajemenUserPage = () => {
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
+
+  const HandlerTambah = ()=>{
+    setTambah(prev => !prev)
+  }
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
-      <Sidebar />
-      <div className="content col-start-2 col-end-6 w-97/100">
+      <Sidebar modal={tambah} />
+      <ModalTambah modal={tambah} HandlerTambah={HandlerTambah} />
+      <div className={`${tambah ? "blur-sm" : null} content col-start-2 col-end-6 w-97/100`}>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
@@ -41,7 +47,7 @@ const ManajemenUserPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5">
+            <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer" onClick={HandlerTambah}>
               <div className="grid grid-flow-col gap-2 items-center py-2">
                 <GoPlus size="1rem" />
                 <p>Tambah User</p>

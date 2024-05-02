@@ -1,14 +1,15 @@
 const url = 'https://monitoringpersuratan-production.up.railway.app/api'
-const GetmanagemenUser = async() => {
-    const response = await fetch(url+'/users',{
-        method: 'GET',
+
+const Login = async(username,password) => {
+    const response = await fetch(url+'/login',{
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
         },
+        body: JSON.stringify({email:username, password})
     });
     const json = await response.json();
     return json
 }
 
-export {GetmanagemenUser}
+export {Login}
