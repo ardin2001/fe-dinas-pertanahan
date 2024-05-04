@@ -27,10 +27,10 @@ const Sidebar = ({modal,modal2,modal3}) => {
     setTogle((prev) => !prev);
   };
   return (
-    <div className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-sans ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
+    <div className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
       <div className="title row-span-1 grid grid-cols-8 items-center mx-6">
         <img src={logo} alt="" className=" col-span-2" />
-        <h3 className="col-start-3 col-end-9 font-bold text-base justify-self-center tracking-wide">
+        <h3 className="col-start-3 col-end-9 font-black text-sm justify-self-center tracking-wide">
           ATR/BPN JEMBER
         </h3>
       </div>
@@ -45,7 +45,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
           >
             <Link
               to={"/dashboard"}
-              className="py-3 flex gap-3 items-center font-medium text-base px-3"
+              className="py-3 flex gap-3 items-center font-medium text-sm px-3"
             >
               <GoHome size="1.5rem" />
               <p
@@ -53,7 +53,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
                   location.pathname == "/dashboard"
                     ? "text-white"
                     : "text-custom"
-                } font-bold`}
+                } font-semibold`}
               >
                 Beranda
               </p>
@@ -65,11 +65,11 @@ const Sidebar = ({modal,modal2,modal3}) => {
               location.pathname == "/persuratan"
                 ? "bg-secondary rounded-lg text-white"
                 : null
-            } hover:cursor-pointer py-3 grid grid-cols-4 gap-3 items-center font-medium text-base px-3 justify-between`}
+            } hover:cursor-pointer py-3 grid grid-cols-4 gap-3 items-center font-medium text-sm px-3 justify-between`}
           >
             <div className="left flex gap-3 col-start-1 col-end-4 justify-self-start">
               <SlEnvolopeLetter size="1.4rem" />
-              <p className="text-custom font-bold">Persuratan</p>
+              <p className="text-custom font-semibold">Persuratan</p>
             </div>
             <div className="right justify-self-end col-col-start-4 col-end-5">
               {togle ? (
@@ -88,8 +88,8 @@ const Sidebar = ({modal,modal2,modal3}) => {
                   <li
                     className={`${
                       location.pathname == "/surat-masuk"
-                        ? "bg-secondary text-white text-base"
-                        : "text-custom font-bold"
+                        ? "bg-secondary text-white text-sm"
+                        : "text-custom font-semibold"
                     } py-2 px-5 rounded-md`}
                   >
                     Surat Masuk
@@ -99,8 +99,8 @@ const Sidebar = ({modal,modal2,modal3}) => {
                   <li
                     className={`${
                       location.pathname == "/balasan-surat"
-                        ? "bg-secondary text-white text-base"
-                        : "text-custom font-bold"
+                        ? "bg-secondary text-white text-sm"
+                        : "text-custom font-semibold"
                     } py-2 px-5 rounded-md`}
                   >
                     Balasan Surat
@@ -118,7 +118,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
           >
             <Link
               to={"/rekap-surat"}
-              className="py-3 flex gap-3 items-center font-medium text-base px-3"
+              className="py-3 flex gap-3 items-center font-medium text-sm px-3"
             >
               <CiViewList size="1.5rem" />
               <p
@@ -126,7 +126,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
                   location.pathname == "/rekap-surat"
                     ? "text-white"
                     : "text-custom"
-                } font-bold`}
+                } font-semibold`}
               >
                 Rekap Surat
               </p>
@@ -141,7 +141,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
           >
             <Link
               to={"/manajemen-user"}
-              className="hover:cursor-pointer py-3 flex gap-3 items-center font-medium text-base px-3"
+              className="hover:cursor-pointer py-3 flex gap-3 items-center font-semibold text-sm px-3"
             >
               <CiUser size="1.5rem" />
               <p
@@ -149,7 +149,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
                   location.pathname == "/manajemen-user"
                     ? "text-white"
                     : "text-custom"
-                } font-bold`}
+                } font-semibold`}
               >
                 Manajemen User
               </p>

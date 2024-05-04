@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../utils/FetchUsers";
-import UseInput from "../components/hooks/UseInput.js";
+import UseInput from "../hooks/UseInput.js";
 import { FaEye, FaEyeSlash, FaHeadSideCough, FaShower } from "react-icons/fa";
 
 function App() {

@@ -1,6 +1,6 @@
 const url = 'https://monitoringpersuratan-production.up.railway.app/api'
 const GetSuratMasuk = async() => {
-    const response = await fetch(url+'/showletters',{
+    const response = await fetch(url+'/show-admin-letters',{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ const GetSuratMasuk = async() => {
 }
 
 const DeleteSuratMasuk = async(id) => {
-    const response = await fetch(url+'/deleteletter/'+id,{
+    const response = await fetch(url+'/delete-letter/'+id,{
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
