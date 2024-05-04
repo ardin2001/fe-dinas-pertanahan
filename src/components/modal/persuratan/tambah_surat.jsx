@@ -15,7 +15,7 @@ const ModalTambahSurat = (props) => {
     <>
       <div className="modal fixed flex flex-col justify-between bg-white border-solid border-2 rounded-lg p-10 drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 py-4 font-sans">
         <div className="modal-header flex justify-between items-center my-auto">
-          <h3 className="font-bold text-2xl text-custom">Tambah Surat</h3>
+          <h3 className="font-bold text-xl text-custom">Tambah Surat</h3>
           <AiOutlineCloseSquare
             size={"1.5rem"}
             className="text-custom"

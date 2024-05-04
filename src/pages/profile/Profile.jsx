@@ -2,6 +2,7 @@ import { useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import { MdModeEdit } from "react-icons/md";
 import ModalProfile from "../../components/modal/ModalProfile";
+import { CiUser } from "react-icons/ci";
 
 const ProfilePage = () => {
   const [modal, setModal] = useState(false);
@@ -19,7 +20,7 @@ const ProfilePage = () => {
         <div className="rekap mt-8 bg-white h-4/5 rounded-xl drop-shadow-custom grid grid-flow-col grid-cols-2 py-6 pl-12 pr-6">
           <div className="left ">
             <div className="card-profile w-1/2 text-custom flex flex-col gap-2">
-              <img src="profile.png" alt="" className="w-3/4 mb-5" />
+              <CiUser className="w-3/4 m-5 h-full border-2 rounded-lg border-primary" />
               <div>
                 <p className="font-normal">Username</p>
                 <h4 className="text-2xl font-bold">John Doe</h4>
