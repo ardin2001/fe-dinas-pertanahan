@@ -15,7 +15,7 @@ function App() {
     event.preventDefault();
     Login(email, password).then((res) => {
       if (!res.status) {
-        setMessage("email atau password yang anda masukkan salah");
+        setMessage("email atau password salah");
       } else {
         localStorage.setItem("token", res.token);
         navigate("/dashboard");
@@ -31,7 +31,6 @@ function App() {
       );
     }
   };
-
 
   const emailRef = useRef(null);
   useEffect(() => {
@@ -76,7 +75,7 @@ function App() {
         <div className="grid items-center justify-items-center">
           <form
             onSubmit={handlerLogin}
-            className="w-7/12 grid gap-4 px-10 py-3 rounded-md"
+            className="w-7/12 grid gap-4 px-10 py-3 rounded-md relative"
           >
             <h2 className="text-3xl m-0 font-bold text-start text-primary">
               Selamat Datang!
@@ -117,7 +116,9 @@ function App() {
             >
               Login
             </button>
-            <p className="text-red-500 font-normal text-center">{message}</p>
+            <p className="text-red-500 font-normal absolute top-full left-1/2 text-center -translate-x-1/2">
+              {message}
+            </p>
           </form>
         </div>
       </div>

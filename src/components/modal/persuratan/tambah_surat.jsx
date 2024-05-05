@@ -2,32 +2,45 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
-
+import { PostSuratMasuk } from "../../../utils/FetchSuratMasuk";
 
 const ModalTambahSurat = (props) => {
   const { modal, HandlerTambahSurat } = props;
-  const [date, setDate] = useState(FormatDate());
+  const [letter_date, setLetterDate] = useState(FormatDate());
+  const [received_date, setReceivedDate] = useState(FormatDate());
 
   if (!modal) {
     return null;
   }
+  const HandlerSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('letters_number',e.target.letters_number.value);
+    formData.append('letters_type',e.target.letters_type.value);
+    formData.append('letter_date',letter_date);
+    formData.append('received_date',received_date);
+    formData.append('from',e.target.nama.value);
+    formData.append('file',e.target.file.files[0]);
+    formData.append('description',e.target.perihal.value);
+    const response = await PostSuratMasuk(formData);
+    console.log(response);
+  };
 
   return (
-    <>
-      <div className="modal fixed flex flex-col justify-between bg-white rounded-lg p-10 drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 py-4 font-poppins">
-        <div className="modal-header flex justify-between items-center my-auto">
-          <h3 className="font-extrabold text-xl text-custom">Tambah Surat</h3>
-          <AiOutlineCloseSquare
-            size={"1.5rem"}
-            className="text-custom"
-            onClick={HandlerTambahSurat}
-          />
-        </div>
-
+    <div className="modal fixed grid flex-col content-around bg-white rounded-lg drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 font-poppins">
+      <div className="modal-header flex justify-between items-center my-auto">
+        <h3 className="font-extrabold text-xl text-custom">Tambah Surat</h3>
+        <AiOutlineCloseSquare
+          size={"1.5rem"}
+          className="text-custom"
+          onClick={HandlerTambahSurat}
+        />
+      </div>
+      <form onSubmit={HandlerSubmit}>
         <div className="modal-body grid grid-cols-2 gap-5 my-auto">
           <div className="tanggal grid gap-1">
             <label
-              htmlFor="nomor"
+              htmlFor="letters_number"
               className="text-custom text-base font-semibold"
             >
               Nomor Surat
@@ -36,13 +49,13 @@ const ModalTambahSurat = (props) => {
               type="text"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               placeholder="Masukkan Nomor Surat"
-              id="nomor"
-              name="nomor"
+              id="letters_number"
+              name="letters_number"
             />
           </div>
           <div className="tanggal grid gap-1">
             <label
-              htmlFor="tanggal"
+              htmlFor="letters_date"
               className="text-custom text-base font-semibold"
             >
               Tanggal Surat
@@ -50,14 +63,15 @@ const ModalTambahSurat = (props) => {
             <input
               type="date"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-              value={date}
-              id="tanggal"
-              name="tanggal"
+              value={letter_date}
+              id="letters_date"
+              name="letters_date"
+              onChange={(e) => setLetterDate(e.target.value)}
             />
           </div>
           <div className="tanggal grid gap-1">
             <label
-              htmlFor="tanggal"
+              htmlFor="tanggal-diterima"
               className="text-custom text-base font-semibold"
             >
               Tanggal Diterima
@@ -65,15 +79,16 @@ const ModalTambahSurat = (props) => {
             <input
               type="date"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-              value={date}
-              id="tanggal"
-              name="tanggal"
+              value={received_date}
+              id="tanggal-diterima"
+              name="tanggal-diterima"
+              onChange={(e) => setReceivedDate(e.target.value)}
             />
           </div>
 
-          <div className="tanggal grid gap-1">
+          <div className="perihal grid gap-1">
             <label
-              htmlFor="nomor"
+              htmlFor="perihal"
               className="text-custom text-base font-semibold"
             >
               Perihal Surat
@@ -82,13 +97,13 @@ const ModalTambahSurat = (props) => {
               type="text"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               placeholder="Masukkan Perihal Surat"
-              id="nomor"
-              name="nomor"
+              id="perihal"
+              name="perihal"
             />
           </div>
-          <div className="tanggal grid gap-1">
+          <div className="nama grid gap-1">
             <label
-              htmlFor="nomor"
+              htmlFor="nama"
               className="text-custom text-base font-semibold"
             >
               Nama Pengirim
@@ -97,22 +112,22 @@ const ModalTambahSurat = (props) => {
               type="text"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               placeholder="Masukkan Nama Pengirim"
-              id="nomor"
-              name="nomor"
+              id="nama"
+              name="nama"
             />
           </div>
 
-          <div className="disposisi grid gap-1">
+          <div className="letters_type grid gap-1">
             <label
-              htmlFor="disposisi"
+              htmlFor="letters_type"
               className="text-custom text-base font-semibold"
             >
               Jenis Surat
             </label>
             <select
-              id="disposisi"
+              id="letters_type"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-              name="disposisi"
+              name="letters_type"
             >
               <option className="font-normal" value="">
                 Jenis Surat
@@ -129,9 +144,9 @@ const ModalTambahSurat = (props) => {
             </select>
           </div>
 
-          <div className="lampiran grid gap-1 relative">
+          <div className="file grid gap-1 relative">
             <label
-              htmlFor="lampiran"
+              htmlFor="file"
               className="text-custom text-base font-semibold"
             >
               Lampiran
@@ -143,12 +158,11 @@ const ModalTambahSurat = (props) => {
             <input
               type="file"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
-              id="lampiran"
-              name="lampiran"
+              id="file"
+              name="file"
             />
           </div>
         </div>
-
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <button
             type="button"
@@ -157,14 +171,14 @@ const ModalTambahSurat = (props) => {
             Batal
           </button>
           <button
-            type="button"
+            type="submit"
             className="items-center p-3 bg-secondary rounded-lg "
           >
             Simpan
           </button>
         </div>
-      </div>
-    </>
+      </form>
+    </div>
   );
 };
 

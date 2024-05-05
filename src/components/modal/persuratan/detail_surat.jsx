@@ -1,11 +1,8 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
-import { useState } from "react";
-import FormatDate from "../../../utils/Date";
 import { IoMdEye } from "react-icons/io";
 const ModalDetailSurat = (props) => {
-  const { modal, HandlerDetailSurat } = props;
-  const [date, setDate] = useState(FormatDate());
-  if (!modal) {
+  const { modal, HandlerDetailSurat,surat } = props;
+  if (!modal || !surat) {
     return null;
   }
   return (
@@ -21,15 +18,15 @@ const ModalDetailSurat = (props) => {
       <div className="input grid gap-y-3 mt-4">
         <div className="name">
           <p className="text-custom font-normal">Nama Pengirim</p>
-          <h3 className="text-2xl font-bold text-custom">Kepala Kantor Pertanahan Malang</h3>
+          <h3 className="text-2xl font-bold text-custom">{surat.letter.from}</h3>
         </div>
         <div className="tanggal">
           <p className="text-custom font-normal">Tanggal Surat</p>
-          <h3 className="font-bold text-custom">11-03-2024</h3>
+          <h3 className="font-bold text-custom">{surat.letter.letter_date}</h3>
         </div>
         <div className="tanggal-diterima">
           <p className="text-custom font-normal">Tanggal Diterima</p>
-          <h3 className="font-bold text-custom">11-03-2024</h3>
+          <h3 className="font-bold text-custom">{surat.letter.received_date}</h3>
         </div>
         <div className="perihal">
           <p className="text-custom font-normal">Perihal</p>
@@ -37,11 +34,11 @@ const ModalDetailSurat = (props) => {
         </div>
         <div className="perihal">
           <p className="text-custom font-normal">Nomor Surat</p>
-          <h3 className="font-bold text-custom">1128 8976 2765 2836</h3>
+          <h3 className="font-bold text-custom">{surat.letter.id}</h3>
         </div>
         <div className="perihal">
           <p className="text-custom font-normal">Jenis Pengajuan</p>
-          <h3 className="font-bold text-custom">Pengajuan Tanah</h3>
+          <h3 className="font-bold text-custom">{surat.letter.letters_type}</h3>
         </div>
         <div className="file border-secondary border-1.5 flex w-1/4 px-4 py-3 justify-between items-center rounded-xl">
           <p>pengajuan.zip</p>

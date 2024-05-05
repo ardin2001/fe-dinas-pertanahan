@@ -101,6 +101,7 @@ const BalasanSuratPage = () => {
                 </tr>
               </thead>
               <tbody>
+                {console.log(surat)}
                 {!loading ? null :(
                   surat.map((item, index) => (
                     <tr
