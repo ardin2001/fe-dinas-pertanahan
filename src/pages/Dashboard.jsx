@@ -4,7 +4,7 @@ import CardDashboard from "../components/CardDashboard";
 
 const DashboardPage = () => {
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200 font-poppins">
       <Sidebar/>
       <div className="content col-start-2 col-end-6 w-97/100">
         <div className="navbar flex justify-between pt-5">

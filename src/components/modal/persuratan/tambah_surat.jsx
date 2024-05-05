@@ -3,6 +3,7 @@ import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
 
+
 const ModalTambahSurat = (props) => {
   const { modal, HandlerTambahSurat } = props;
   const [date, setDate] = useState(FormatDate());
@@ -13,9 +14,9 @@ const ModalTambahSurat = (props) => {
 
   return (
     <>
-      <div className="modal fixed flex flex-col justify-between bg-white border-solid border-2 rounded-lg p-10 drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 py-4 font-sans">
+      <div className="modal fixed flex flex-col justify-between bg-white rounded-lg p-10 drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 py-4 font-poppins">
         <div className="modal-header flex justify-between items-center my-auto">
-          <h3 className="font-bold text-xl text-custom">Tambah Surat</h3>
+          <h3 className="font-extrabold text-xl text-custom">Tambah Surat</h3>
           <AiOutlineCloseSquare
             size={"1.5rem"}
             className="text-custom"
@@ -27,7 +28,7 @@ const ModalTambahSurat = (props) => {
           <div className="tanggal grid gap-1">
             <label
               htmlFor="nomor"
-              className="text-custom text-base font-medium"
+              className="text-custom text-base font-semibold"
             >
               Nomor Surat
             </label>
@@ -42,7 +43,7 @@ const ModalTambahSurat = (props) => {
           <div className="tanggal grid gap-1">
             <label
               htmlFor="tanggal"
-              className="text-custom text-base font-medium"
+              className="text-custom text-base font-semibold"
             >
               Tanggal Surat
             </label>
@@ -57,7 +58,7 @@ const ModalTambahSurat = (props) => {
           <div className="tanggal grid gap-1">
             <label
               htmlFor="tanggal"
-              className="text-custom text-base font-medium"
+              className="text-custom text-base font-semibold"
             >
               Tanggal Diterima
             </label>
@@ -73,7 +74,7 @@ const ModalTambahSurat = (props) => {
           <div className="tanggal grid gap-1">
             <label
               htmlFor="nomor"
-              className="text-custom text-base font-medium"
+              className="text-custom text-base font-semibold"
             >
               Perihal Surat
             </label>
@@ -88,7 +89,7 @@ const ModalTambahSurat = (props) => {
           <div className="tanggal grid gap-1">
             <label
               htmlFor="nomor"
-              className="text-custom text-base font-medium"
+              className="text-custom text-base font-semibold"
             >
               Nama Pengirim
             </label>
@@ -102,7 +103,10 @@ const ModalTambahSurat = (props) => {
           </div>
 
           <div className="disposisi grid gap-1">
-            <label htmlFor="disposisi" className="text-custom text-lg">
+            <label
+              htmlFor="disposisi"
+              className="text-custom text-base font-semibold"
+            >
               Jenis Surat
             </label>
             <select
@@ -128,7 +132,7 @@ const ModalTambahSurat = (props) => {
           <div className="lampiran grid gap-1 relative">
             <label
               htmlFor="lampiran"
-              className="text-custom text-base font-medium"
+              className="text-custom text-base font-semibold"
             >
               Lampiran
             </label>

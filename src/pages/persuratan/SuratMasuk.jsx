@@ -46,7 +46,7 @@ const SuratMasukPage = () => {
   };
 
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} />
       <ModalEditSurat modal={modal2} HandlerEditSurat={HandlerEditSurat} />
       <ModalDetailSurat
@@ -67,10 +67,10 @@ const SuratMasukPage = () => {
             <div className="left w-1/3 flex relative">
               <input
                 type="text"
-                className="outline-none rounded-lg w-full outline-2 outline-quaternary text-quaternary outline-offset-0 text-base py-1 px-2 italic"
+                className="outline-none rounded-lg w-full outline-2 outline-quaternary  text-quaternary outline-offset-0 text-xs py-3 px-3 font-light italic"
                 onChange={HandlerSearch}
                 value={search}
-                placeholder="Cari surat..."
+                placeholder="Cari disini..."
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
@@ -78,15 +78,15 @@ const SuratMasukPage = () => {
               className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
               onClick={HandlerTambahSurat}
             >
-              <div className="grid grid-flow-col gap-2 items-center py-2">
+              <div className="grid grid-flow-col gap-2 text-sm items-center py-2">
                 <GoPlus size="1rem" />
                 <button>Tambah Surat</button>
               </div>
             </div>
           </div>
           <div className="tabel mt-7">
-            <table className="table-auto w-full text-center text-sm font-normal font-sans">
-              <thead className="text-white font-medium bg-secondary">
+            <table className="table-auto w-full text-center text-sm font-normal font-poppins">
+              <thead className="text-white  bg-secondary">
                 <tr>
                   <th className="py-2">No</th>
                   <th className="py-2">Pengirim</th>
@@ -128,7 +128,7 @@ const SuratMasukPage = () => {
                       </td>
                       <td>
                         <Link to={"/surat-masuk/disposisi-surat"}>
-                          <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
+                          <div className="right bg-secondary rounded-xl text-white grid justify-center w-10/12 m-fixed">
                             <div className="grid grid-flow-col gap-1 items-center py-1">
                               <p className="font-medium">Disposisi Surat</p>
                             </div>

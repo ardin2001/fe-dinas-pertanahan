@@ -1,5 +1,5 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
-import { CiMail } from "react-icons/ci";
+import { CiMail, CiUser } from "react-icons/ci";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa6";
@@ -31,19 +31,6 @@ const ModalProfile = (props) => {
         />
       </div>
       <div className="profile m-6">
-        <div className="">
-          <div className="upload-image relative m-auto w-max">
-            <img
-              src="profile.png"
-              alt="profile user"
-              className=" rounded-full w-36 h-36 object-cover"
-            />
-            <CiCamera
-              size={"2rem"}
-              className="absolute left-full top-full z-50 bg-green-500 rounded-full p-1.5 -translate-x-full -translate-y-full"
-            />
-          </div>
-        </div>
       </div>
       <div className="input w-10/12 m-auto grid gap-3">
         <div className="fullname relative">

@@ -20,7 +20,7 @@ const RekapSuratPage = () => {
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Rekap Surat</h2>
         </div>
-        <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6 font-sans">
+        <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6 font-poppins">
           <div className="search grid grid-flow-col grid-cols-8 gap-8">
             <div className="left col-start-1 col-end-8 grid grid-cols-2 gap-4">
               <div className="kategori">

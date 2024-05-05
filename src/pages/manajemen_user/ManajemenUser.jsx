@@ -32,7 +32,7 @@ const ManajemenUserPage = () => {
     setEdit(prev => !prev)
   }
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <Sidebar modal={tambah} modal2={edit} />
       <ModalTambah modal={tambah} HandlerTambah={HandlerTambah} />
       <ModalEdit modal={edit} HandlerEdit={HandlerEdit} />
@@ -60,14 +60,13 @@ const ManajemenUserPage = () => {
             </div>
           </div>
           <div className="tabel mt-7">
-            <table className="table-auto w-full text-center text-sm font-normal font-sans">
+            <table className="table-auto w-full text-center text-sm font-normal font-poppins">
               <thead className="text-white font-medium bg-secondary ">
                 <tr>
                   <th className="py-2">No</th>
                   <th className="py-2">Nama</th>
                   <th className="py-2">Email</th>
                   <th className="py-2">Role</th>
-                  <th className="py-2">Status</th>
                   <th className="py-2">Aksi</th>
                 </tr>
               </thead>
@@ -81,17 +80,6 @@ const ManajemenUserPage = () => {
                     <td className="py-2.5 text-sm">{item.name}</td>
                     <td className="py-2.5 text-sm">{item.email}</td>
                     <td className="py-2.5 text-sm">{item.type}</td>
-                    <td className="py-2.5 text-sm grid justify-items-center">
-                      <p
-                        className={`${
-                          item.email_verified_at
-                            ? "bg-green-200 text-green-500"
-                            : "bg-red-300 text-red-600"
-                        } w-1/2 rounded-lg text-xs py-1`}
-                      >
-                        {item.status ? "Aktif" : "Tidak Aktif"}
-                      </p>
-                    </td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit className="text-secondary" onClick={HandlerEdit} />
