@@ -7,7 +7,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 import { GetManagemenUser,GetDetailMnagemenUser,DelManagemenUser } from "../../utils/FetchmanagemenUser";
-import ModalEdit from "../../components/modal/manajemen_user/edit";
+import ModalEdit from "../../components/modal/manajemen_user/edit_user";
 import ModalDetail from "../../components/modal/manajemen_user/detail";
 const ManajemenUserPage = () => {
   const [users, setUsers] = useState([]);
