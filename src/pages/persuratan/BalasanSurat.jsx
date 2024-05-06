@@ -28,7 +28,9 @@ const BalasanSuratPage = () => {
   const HandlerDeleteBalasan = (id) => {
     DeleteBalasanSurat(id).then((res) => {
       setSurat(prev => {{
-        return prev.filter(item => item.id !== id)
+        return 
+        letter: prev.replyletter.filter(item => item.id !== id)
+        file: prev.filebalas.filter((surat) => surat.id !== id)
       }})
     })
   }
@@ -103,13 +105,13 @@ const BalasanSuratPage = () => {
               <tbody>
                 {console.log(surat)}
                 {!loading ? null :(
-                  surat.map((item, index) => (
+                  surat.replyletter.map((item, index) => (
                     <tr
                       key={index}
                       className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                     >
                       <td className="py-2.5 text-sm">{item.id}</td>
-                      <td className="py-2.5 text-sm">{item.from}</td>
+                      <td className="py-2.5 text-sm">{item .from}</td>
                       <td className="py-2.5 text-sm">
                         {item.note.substring(0, 35)}
                         {item.note.length > 35 ? "....." : ""}
