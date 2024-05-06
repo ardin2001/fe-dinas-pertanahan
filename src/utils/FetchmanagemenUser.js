@@ -1,5 +1,5 @@
 const url = 'https://monitoringpersuratan-production.up.railway.app/api'
-const GetmanagemenUser = async() => {
+const GetManagemenUser = async() => {
     const response = await fetch(url+'/users',{
         method: 'GET',
         headers: {
@@ -10,5 +10,50 @@ const GetmanagemenUser = async() => {
     const json = await response.json();
     return json
 }
-
-export {GetmanagemenUser}
+const GetDetailMnagemenUser = async(id) => {
+    const response = await fetch(url+'/users/'+id,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+    });
+    const json = await response.json();
+    return json
+}
+const DelManagemenUser = async(id) => {
+    const response = await fetch(url+'/users/'+id,{
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+    });
+    const json = await response.json();
+    return json
+}
+const PostManagemenUser = async(data) => {
+    const response = await fetch(url+'/users',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: JSON.stringify(data)
+    });
+    const json = await response.json();
+    return json
+}
+const PutManagemenUser = async(id,data) => {
+    const response = await fetch(url+'/users/'+id,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: JSON.stringify(data)
+    });
+    const json = await response.json();
+    return json
+}
+export {GetManagemenUser,GetDetailMnagemenUser,DelManagemenUser,PostManagemenUser,PutManagemenUser}

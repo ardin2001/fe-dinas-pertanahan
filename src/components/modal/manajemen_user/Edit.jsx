@@ -1,13 +1,40 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
+import { PutManagemenUser } from "../../../utils/FetchmanagemenUser";
+import { useEffect, useState } from "react";
 const ModalEdit = (props) => {
-  const { modal, HandlerEdit } = props;
-  if (!modal) {
+  const { modal, HandlerEdit, user } = props;
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [type, setType] = useState("");
+
+  useEffect(() => {
+    setName(user?.name);
+    setEmail(user?.email);
+    setType(2);
+  }, [user]);
+  const HandlerSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      nama: event.target.name.value,
+      email: event.target.email.value,
+      old_password: event.target.old_password.value,
+      new_password: event.target.new_password.value,
+      confirm_password: event.target.confirm_password.value,
+      type: event.target.type.value,
+    };
+    const response = await PutManagemenUser(user.id, data);
+    console.log(response);
+  };
+  if (!modal || !user) {
     return null;
   }
   return (
-    <div className="fixed bg-white border-solid rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
-      <div className="header flex justify-between py-4 w-10/12 m-auto items-center">
-        <h3 className="font-semibold text-2xl text-custom">Edit User</h3>
+    <form
+      onSubmit={HandlerSubmit}
+      className="fixed bg-white py-3 content-between border-solid rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-5/100"
+    >
+      <div className="header flex justify-between py-2 w-10/12 m-auto items-center">
+        <h3 className="font-semibold text-xl text-custom">Edit User</h3>
         <AiOutlineCloseSquare
           size={"1.5rem"}
           className="text-custom"
@@ -15,14 +42,17 @@ const ModalEdit = (props) => {
         />
       </div>
       <div className="input w-10/12 m-auto grid gap-3">
-        <div className="username relative grid gap-1">
-          <label htmlFor="username" className="text-custom font-semibold">
-            Username
+        <div className="name relative grid gap-1">
+          <label htmlFor="name" className="text-custom font-semibold">
+            nama Lengkap
           </label>
           <input
             type="text"
             placeholder="Nama Lengkap"
             className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="email relative grid gap-1">
@@ -31,40 +61,87 @@ const ModalEdit = (props) => {
           </label>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Tambahkan email"
             className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="password relative grid gap-1">
-          <label htmlFor="password" className="text-custom font-semibold">
-            Password
+        <div className="old_password relative grid gap-1">
+          <label htmlFor="old_password" className="text-custom font-semibold">
+            Password Lama
           </label>
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Masukkan password"
             className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            id="old_password"
           />
         </div>
-        <div className="repassword relative grid gap-1">
-          <label htmlFor="repassword" className="text-custom font-semibold">
+        <div className="new_password relative grid gap-1">
+          <label htmlFor="new_password" className="text-custom font-semibold">
+            Password baru
+          </label>
+          <input
+            type="password"
+            placeholder="Masukkan password baru"
+            className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            id="new_password"
+          />
+        </div>
+        <div className="confirm_password relative grid gap-1">
+          <label
+            htmlFor="confirm_password"
+            className="text-custom font-semibold"
+          >
             Konfirmasi Password
           </label>
           <input
             type="password"
-            placeholder="Konfirmasi Password"
+            placeholder="Masukkan konfirmasi password"
             className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            id="confirm_password"
           />
         </div>
-        <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center mt-3">
-          <div className="grid grid-flow-col gap-2 items-center py-2 bg-red-500 rounded-lg">
+        <div className="type grid gap-1">
+          <label htmlFor="type" className="text-custom text-base font-semibold">
+            Jenis Surat
+          </label>
+          <select
+            id="type"
+            className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            name="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option className="font-normal" value="">
+              Jenis Role
+            </option>
+            <option className="font-normal" value="1">
+              Mid
+            </option>
+            <option className="font-normal" value="2">
+              Jungler
+            </option>
+            <option className="font-normal" value="3">
+              Exp
+            </option>
+          </select>
+        </div>
+        <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center">
+          <button className="grid grid-flow-col gap-2 items-center py-2 bg-red-500 rounded-lg">
             <p>Batal</p>
-          </div>
-          <div className="grid grid-flow-col gap-2 items-center py-2 bg-quaternary rounded-lg">
+          </button>
+          <button
+            type="submit"
+            className="grid grid-flow-col gap-2 items-center py-2 bg-secondary rounded-lg"
+          >
             <p>Simpan</p>
-          </div>
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

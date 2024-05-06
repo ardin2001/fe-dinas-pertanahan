@@ -20,8 +20,8 @@ const ModalEditSurat = (props) => {
     formData.append("from", event.target.nama.value);
     formData.append("description", event.target.perihal.value);
     formData.append("file", event.target.file.files[0]);
-    const response = await PutSuratMasuk(formData,surat?.letter?.id);
-    if(response.status === true){
+    const response = await PutSuratMasuk(formData, surat?.letter?.id);
+    if (response.status === true) {
       HandlerEditSurat();
     }
   };
@@ -35,15 +35,16 @@ const ModalEditSurat = (props) => {
   if (!modal || !surat) {
     return null;
   }
-  return (    <div className="modal fixed grid flex-col border-solid border-2 border-secondary content-around bg-white rounded-lg drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 font-poppins">
-  <div className="modal-header flex justify-between items-center my-auto">
-    <h3 className="font-extrabold text-xl text-custom">Edit Surat</h3>
-    <AiOutlineCloseSquare
-      size={"1.5rem"}
-      className="text-custom"
-      onClick={HandlerEditSurat}
-    />
-  </div>
+  return (
+    <div className="modal fixed grid flex-col border-solid border-2 border-secondary content-around bg-white rounded-lg drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 font-poppins">
+      <div className="modal-header flex justify-between items-center my-auto">
+        <h3 className="font-extrabold text-xl text-custom">Edit Surat</h3>
+        <AiOutlineCloseSquare
+          size={"1.5rem"}
+          className="text-custom"
+          onClick={HandlerEditSurat}
+        />
+      </div>
       <form onSubmit={HandlerSubmit}>
         <div className="modal-body grid grid-cols-2 gap-5 my-auto">
           <div className="tanggal grid gap-1">

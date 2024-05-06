@@ -36,8 +36,11 @@ const SuratMasukPage = () => {
 
   const HandlerDeleteSurat = (id) => {
     DeleteSuratMasuk(id).then((res) => {
-      GetSuratMasuk().then((res) => {
-        setSurat(res.data);
+      setSurat((prev) => {
+        return {
+          letter: prev.letter.filter((surat) => surat.id !== id),
+          file: prev.file.filter((surat) => surat.id !== id),
+        }
       });
     });
   };

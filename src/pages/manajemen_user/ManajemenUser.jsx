@@ -6,15 +6,19 @@ import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { GetmanagemenUser } from "../../utils/FetchmanagemenUser";
-import ModalEdit from "../../components/modal/manajemen_user/Edit";
+import { GetManagemenUser,GetDetailMnagemenUser,DelManagemenUser } from "../../utils/FetchmanagemenUser";
+import ModalEdit from "../../components/modal/manajemen_user/edit";
+import ModalDetail from "../../components/modal/manajemen_user/detail";
 const ManajemenUserPage = () => {
   const [users, setUsers] = useState([]);
   const [tambah,setTambah] = useState(false)
   const [edit,setEdit] = useState(false)
+  const [detail,setDetail] = useState(false)
+  const [del,setDel] = useState(false)
+  const [detUser,setDetUser] = useState({})
   useEffect(()=>{
     (async()=>{
-      const {status,data} = await GetmanagemenUser();
+      const {status,data} = await GetManagemenUser();
       if(status){
         setUsers(data)
       }
@@ -25,18 +29,41 @@ const ManajemenUserPage = () => {
     setSearch(e.target.value);
   };
 
-  const HandlerTambah = ()=>{
-    setTambah(prev => !prev)
+  const HandlerTambah = () => {
+    setTambah((prev) => !prev);
   }
-  const HandlerEdit = ()=>{
-    setEdit(prev => !prev)
+
+  const HandlerEdit = (id) => {
+    GetDetailMnagemenUser(id).then((res) => {
+      setDetUser(res.data);
+      setEdit((prev) => !prev);
+    })
   }
+  const HandlerDetail = (id) => {
+    if(id){
+      GetDetailMnagemenUser(id).then((res) => {
+        setDetUser(res.data);
+        setDetail((prev) => !prev);
+      })
+    }else{
+        
+      setDetail((prev) => !prev);
+    }
+  }
+
+  const HandlerDelete = (id) => {
+    DelManagemenUser(id).then((res) => {
+      setUsers((prev) => prev.filter((user) => user.id !== id));
+    })
+  }
+
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
-      <Sidebar modal={tambah} modal2={edit} />
+      <Sidebar modal={tambah} modal2={edit} modal3={detail} />
       <ModalTambah modal={tambah} HandlerTambah={HandlerTambah} />
-      <ModalEdit modal={edit} HandlerEdit={HandlerEdit} />
-      <div className={`${tambah || edit ? "blur-sm" : null} content col-start-2 col-end-6 w-97/100`}>
+      <ModalEdit modal={edit} HandlerEdit={HandlerEdit} user={detUser} />
+      <ModalDetail modal={detail} HandlerDetail={HandlerDetail} user={detUser} />
+      <div className={`${tambah || edit || detail ? "blur-sm" : null} content col-start-2 col-end-6 w-97/100`}>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
@@ -82,9 +109,9 @@ const ManajemenUserPage = () => {
                     <td className="py-2.5 text-sm">{item.type}</td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit className="text-secondary" onClick={HandlerEdit} />
-                        <IoMdEye className="text-yellow-300" />
-                        <MdDeleteOutline className="text-red-500" />
+                        <MdModeEdit className="text-secondary" onClick={() => HandlerEdit(item.id)} />
+                        <IoMdEye className="text-yellow-300" onClick={() => HandlerDetail(item.id)} />
+                        <MdDeleteOutline className="text-red-500" onClick={() => HandlerDelete(item.id)} />
                       </div>
                     </td>
                   </tr>
