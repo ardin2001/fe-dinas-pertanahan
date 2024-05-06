@@ -1,20 +1,28 @@
 import Sidebar from "../../components/Sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormatDate from "../../utils/Date";
 import { FaFile, FaSearch } from "react-icons/fa";
-import { data } from "../../utils/DataRekapSurat";
+import { GetRekapSurat } from "../../utils/FetchRekapSurat";
 
 const RekapSuratPage = () => {
   const [kategori, setKategori] = useState("Kategori Surat");
   const [tanggal, setTanggal] = useState(FormatDate());
+  const [surat, setSurat] = useState({});
   const Handlerkategori = (e) => {
     setKategori(e.target.value);
   };
   const HandlerTanggal = (e) => {
     setTanggal(e.target.value);
   };
+  useEffect(() => {
+    GetRekapSurat().then((res) => {
+      setSurat(res.data);
+    });
+  }, []);
+
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary">
+      {console.log(surat)}
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
         <div className="navbar pt-5">
@@ -74,17 +82,20 @@ const RekapSuratPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
+                {surat?.letter?.map((item, index) => (
                   <tr
                     key={index}
-                    className={`${
-                      (index + 1) % 2 == 0 ? "bg-quinary" : null
-                    } `}
+                    className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
                     <td className="py-3 text-sm">{index + 1}</td>
-                    <td className="py-3 text-sm">{item.pengirim}</td>
-                    <td className="py-3 text-sm">{item.keterangan}</td>
-                    <td className="py-3 text-sm">{item.tanggal}</td>
+                    <td className="py-3 text-sm">{item.from}</td>
+                    <td className="py-3 text-sm">
+                      {item.disposition_process
+                        ? item.disposition_process.substring(0, 25)
+                        : ""}
+                      {item?.disposition_process?.length > 25 ? "....." : ""}
+                    </td>
+                    <td className="py-3 text-sm">{item.letter_date}</td>
                     <td className="py-3 text-sm">{item.status}</td>
                     <td className="py-3 text-sm grid justify-items-center">
                       <FaFile className="text-primary" />

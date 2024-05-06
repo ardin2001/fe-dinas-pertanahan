@@ -5,7 +5,6 @@ import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { data } from "../../utils/DataBalasanSurat";
 import { Link } from "react-router-dom";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import ModalEditBalasan from "../../components/modal/persuratan/edit_balasan";
@@ -28,7 +27,10 @@ const BalasanSuratPage = () => {
   const HandlerDeleteBalasan = (id) => {
     DeleteBalasanSurat(id).then((res) => {
       setSurat(prev => {{
-        return prev.filter(item => item.id !== id)
+        return {
+          ...prev,
+          replyletter: prev.replyletter.filter((surat) => surat.id !== id),
+        }
       }})
     })
   }
@@ -56,7 +58,7 @@ const BalasanSuratPage = () => {
         modal={detail}
         HandlerDetailBalasan={HandlerDetailBalasan}
       />
-      <Sidebar modal={tambah} modal2={edit} />
+      <Sidebar modal={tambah} modal2={edit} modal3={detail} />
       <div
         className={`content col-start-2 col-end-6 w-97/100 ${
           tambah || edit || detail ? "blur-sm" : null
@@ -101,9 +103,8 @@ const BalasanSuratPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {console.log(surat)}
                 {!loading ? null :(
-                  surat.map((item, index) => (
+                  surat?.replyletter?.map((item, index) => (
                     <tr
                       key={index}
                       className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
@@ -111,8 +112,8 @@ const BalasanSuratPage = () => {
                       <td className="py-2.5 text-sm">{item.id}</td>
                       <td className="py-2.5 text-sm">{item.from}</td>
                       <td className="py-2.5 text-sm">
-                        {item.note.substring(0, 35)}
-                        {item.note.length > 35 ? "....." : ""}
+                        {item.note ? item.note.substring(0, 35) : ''}
+                        {item?.note?.length > 35 ? "....." : ""}
                       </td>
                       <td className="py-2.5 text-sm">{item.updated_at}</td>
                       <td className={`grid justify-items-center py-2.5 text-sm`}>
