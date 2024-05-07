@@ -44,7 +44,7 @@ const ModalEdit = (props) => {
       <div className="input w-10/12 m-auto grid gap-3">
         <div className="name relative grid gap-1">
           <label htmlFor="name" className="text-custom font-semibold">
-            nama Lengkap
+            Nama Lengkap
           </label>
           <input
             type="text"
@@ -106,7 +106,7 @@ const ModalEdit = (props) => {
         </div>
         <div className="type grid gap-1">
           <label htmlFor="type" className="text-custom text-base font-semibold">
-            Jenis Surat
+            Role
           </label>
           <select
             id="type"

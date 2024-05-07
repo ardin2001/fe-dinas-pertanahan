@@ -29,7 +29,7 @@ const ModalTambah = (props) => {
       <div className="input w-10/12 m-auto grid gap-3">
         <div className="name relative grid gap-1">
           <label htmlFor="name" className="text-custom font-semibold">
-            nama Lengkap
+            Nama Lengkap
           </label>
           <input
             type="text"
@@ -76,7 +76,7 @@ const ModalTambah = (props) => {
             htmlFor="type"
             className="text-custom text-base font-semibold"
           >
-            Jenis Surat
+            Role
           </label>
           <select
             id="type"
@@ -84,7 +84,7 @@ const ModalTambah = (props) => {
             name="type"
           >
             <option className="font-normal" value="">
-              Jenis Surat
+              Jenis Role
             </option>
             <option className="font-normal" value="1">
               Mid

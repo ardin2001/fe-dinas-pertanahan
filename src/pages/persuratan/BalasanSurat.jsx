@@ -85,7 +85,7 @@ const BalasanSuratPage = () => {
             >
               <div className="grid grid-flow-col gap-2 items-center py-2">
                 <GoPlus size="1rem" />
-                <p>Tambah Surat</p>
+                <p>Tambah Balasan</p>
               </div>
             </div>
           </div>
@@ -144,7 +144,7 @@ const BalasanSuratPage = () => {
                         <Link to={"/surat-masuk/disposisi-surat"}>
                           <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
                             <div className="grid grid-flow-col gap-1 items-center py-1">
-                              <p className="font-medium">Tambah Balasan</p>
+                              <p className="font-medium">Disposisi Surat</p>
                             </div>
                           </div>
                         </Link>

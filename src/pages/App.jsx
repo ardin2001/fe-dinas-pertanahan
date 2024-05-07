@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../utils/FetchUsers";
 import UseInput from "../hooks/UseInput.js";
-import { FaEye, FaEyeSlash, FaHeadSideCough, FaShower } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaBan } from "react-icons/fa";
 
 function App() {
   const navigate = useNavigate();
@@ -11,14 +13,34 @@ function App() {
   const [password, setPassword] = UseInput("");
   const [errEmail, setErrEmail] = useState(true);
   const [errPassword, setErrPassword] = useState(true);
+
   const handlerLogin = (event) => {
     event.preventDefault();
     Login(email, password).then((res) => {
       if (!res.status) {
-        setMessage("email atau password salah");
+        toast.error("Login gagal", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         localStorage.setItem("token", res.token);
-        navigate("/dashboard");
+        toast.success("Berhasil login", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1000);
       }
     });
   };
@@ -60,7 +82,7 @@ function App() {
 
   return (
     <div className="grid h-screen">
-      <div className="grid grid-flow-col grid-cols-2 m-5">
+      <div className="grid grid-flow-col grid-cols-2 m-5 font-poppins">
         <div className="grid justify-items-center items-center bg-secondary rounded-lg">
           <div className="grid justify-items-center w-10/12 gap-5">
             <div className="grid justify-items-center w-11/12 gap-5">
@@ -75,7 +97,7 @@ function App() {
         <div className="grid items-center justify-items-center">
           <form
             onSubmit={handlerLogin}
-            className="w-7/12 grid gap-4 px-10 py-3 rounded-md relative"
+            className="w-7/12 grid gap-5 px-10 py-3 rounded-md relative"
           >
             <h2 className="text-3xl m-0 font-bold text-start text-primary">
               Selamat Datang!
@@ -93,7 +115,7 @@ function App() {
                 value={email}
                 onChange={setEmail}
               />
-              <p className="text-red-500 text-xs absolute right-0">
+              <p className="text-red-500 text-xs absolute right-0 my-0.5">
                 {errEmail == true ? null : errEmail}
               </p>
             </div>
@@ -106,7 +128,7 @@ function App() {
                 value={password}
                 onChange={setPassword}
               />
-              <p className="text-red-500 text-xs absolute right-0">
+              <p className="text-red-500 text-xs absolute right-0 my-0.5">
                 {password == true ? null : errPassword}
               </p>
             </div>
@@ -116,6 +138,7 @@ function App() {
             >
               Login
             </button>
+            <ToastContainer />
             <p className="text-red-500 font-normal absolute top-full left-1/2 text-center -translate-x-1/2">
               {message}
             </p>

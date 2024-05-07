@@ -111,7 +111,6 @@ const ManajemenUserPage = () => {
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit className="text-secondary" onClick={() => HandlerEdit(item.id)} />
                         <IoMdEye className="text-yellow-300" onClick={() => HandlerDetail(item.id)} />
-                        <MdDeleteOutline className="text-red-500" onClick={() => HandlerDelete(item.id)} />
                       </div>
                     </td>
                   </tr>
