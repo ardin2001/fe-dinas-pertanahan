@@ -34,10 +34,14 @@ const ManajemenUserPage = () => {
   }
 
   const HandlerEdit = (id) => {
-    GetDetailMnagemenUser(id).then((res) => {
-      setDetUser(res.data);
+    if(id){
+      GetDetailMnagemenUser(id).then((res) => {
+        setDetUser(res.data);
+        setEdit((prev) => !prev);
+      })
+    }else{
       setEdit((prev) => !prev);
-    })
+    }
   }
   const HandlerDetail = (id) => {
     if(id){
@@ -46,7 +50,6 @@ const ManajemenUserPage = () => {
         setDetail((prev) => !prev);
       })
     }else{
-        
       setDetail((prev) => !prev);
     }
   }

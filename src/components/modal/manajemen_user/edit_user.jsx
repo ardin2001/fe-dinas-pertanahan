@@ -14,7 +14,7 @@ const ModalEdit = (props) => {
   }, [user]);
   const HandlerSubmit = async (event) => {
     event.preventDefault();
-    const data = {
+    let data = {
       nama: event.target.name.value,
       email: event.target.email.value,
       old_password: event.target.old_password.value,
@@ -25,6 +25,8 @@ const ModalEdit = (props) => {
     const response = await PutManagemenUser(user.id, data);
     if(response.status === true){
       data.id=user.id
+      data.name = data.nama
+      delete data.nama
       console.log('data :`',data)
       setUsers((prev) => {
         return prev.map((user) => {
