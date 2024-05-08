@@ -9,7 +9,10 @@ import { Link } from "react-router-dom";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import ModalEditBalasan from "../../components/modal/persuratan/edit_balasan";
 import ModalDetailBalasan from "../../components/modal/persuratan/detail-balasan";
-import { GetBalasanSurat,DeleteBalasanSurat } from "../../utils/FetchBalasanSurat";
+import {
+  GetBalasanSurat,
+  DeleteBalasanSurat,
+} from "../../utils/FetchBalasanSurat";
 const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
@@ -26,14 +29,16 @@ const BalasanSuratPage = () => {
   }, []);
   const HandlerDeleteBalasan = (id) => {
     DeleteBalasanSurat(id).then((res) => {
-      setSurat(prev => {{
-        return {
-          ...prev,
-          replyletter: prev.replyletter.filter((surat) => surat.id !== id),
+      setSurat((prev) => {
+        {
+          return {
+            ...prev,
+            replyletter: prev.replyletter.filter((surat) => surat.id !== id),
+          };
         }
-      }})
-    })
-  }
+      });
+    });
+  };
   const HandlerTambahBalasan = () => {
     setTambah((prev) => !prev);
   };
@@ -103,55 +108,64 @@ const BalasanSuratPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {!loading ? null :(
-                  surat?.replyletter?.map((item, index) => (
-                    <tr
-                      key={index}
-                      className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
-                    >
-                      <td className="py-2.5 text-sm">{item.id}</td>
-                      <td className="py-2.5 text-sm">{item.from}</td>
-                      <td className="py-2.5 text-sm">
-                        {item.note ? item.note.substring(0, 35) : ''}
-                        {item?.note?.length > 35 ? "....." : ""}
-                      </td>
-                      <td className="py-2.5 text-sm">{item.updated_at}</td>
-                      <td className={`grid justify-items-center py-2.5 text-sm`}>
-                        <p
-                          className={`${
-                            item.status != "Pending"
-                              ? "bg-green-200 text-green-500"
-                              : "bg-red-300 text-red-600"
-                          } px-4 rounded-lg text-xs py-1`}
+                {!loading
+                  ? null
+                  : surat?.replyletter?.map((item, index) => (
+                      <tr
+                        key={index}
+                        className={`${
+                          (index + 1) % 2 == 0 ? "bg-quinary" : null
+                        } `}
+                      >
+                        <td className="py-2.5 text-sm">{index + 1}</td>
+                        <td className="py-2.5 text-sm">{item.from}</td>
+                        <td className="py-2.5 text-sm">
+                          {item.note ? item.note.substring(0, 35) : ""}
+                          {item?.note?.length > 35 ? "....." : ""}
+                        </td>
+                        <td className="py-2.5 text-sm">
+                          {item.outgoing_letter_date}
+                        </td>
+                        <td
+                          className={`grid justify-items-center py-2.5 text-sm`}
                         >
-                          {item.status != "Pending" ? "Diterima" : "Pending"}
-                        </p>
-                      </td>
-                      <td className="py-2">
-                        <div className="aksi flex justify-center gap-2">
-                          <MdModeEdit
-                            className="text-secondary"
-                            onClick={HandlerEditBalasan}
-                          />
-                          <IoMdEye
-                            className="text-yellow-300"
-                            onClick={HandlerDetailBalasan}
-                          />
-                          <MdDeleteOutline className="text-red-500" onClick={()=>HandlerDeleteBalasan(item.id)} />
-                        </div>
-                      </td>
-                      <td>
-                        <Link to={"/surat-masuk/disposisi-surat"}>
-                          <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
-                            <div className="grid grid-flow-col gap-1 items-center py-1">
-                              <p className="font-medium">Disposisi Surat</p>
-                            </div>
+                          <p
+                            className={`${
+                              item.status != "Pending"
+                                ? "bg-green-200 text-green-500"
+                                : "bg-red-300 text-red-600"
+                            } px-4 rounded-lg text-xs py-1`}
+                          >
+                            {item.status != "Pending" ? "Diterima" : "Pending"}
+                          </p>
+                        </td>
+                        <td className="py-2">
+                          <div className="aksi flex justify-center gap-2">
+                            <MdModeEdit
+                              className="text-secondary"
+                              onClick={HandlerEditBalasan}
+                            />
+                            <IoMdEye
+                              className="text-yellow-300"
+                              onClick={HandlerDetailBalasan}
+                            />
+                            <MdDeleteOutline
+                              className="text-red-500"
+                              onClick={() => HandlerDeleteBalasan(item.id)}
+                            />
                           </div>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                        </td>
+                        <td>
+                          <Link to={"/surat-masuk/disposisi-surat"}>
+                            <div className="right bg-secondary rounded-xl text-white grid justify-center w-8/12 m-auto">
+                              <div className="grid grid-flow-col gap-1 items-center py-1">
+                                <p className="font-medium">Disposisi Surat</p>
+                              </div>
+                            </div>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
               </tbody>
             </table>
           </div>

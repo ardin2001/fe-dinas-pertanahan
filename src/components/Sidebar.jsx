@@ -10,8 +10,10 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Sidebar = ({modal,modal2,modal3}) => {
+const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [togle, setTogle] = useState(false);
@@ -19,7 +21,8 @@ const Sidebar = ({modal,modal2,modal3}) => {
   useEffect(() => {
     if (
       location.pathname == "/surat-masuk" ||
-      location.pathname == "/balasan-surat" || location.pathname == "/surat-masuk/disposisi-surat"
+      location.pathname == "/balasan-surat" ||
+      location.pathname == "/surat-masuk/disposisi-surat"
     ) {
       setTogle((prev) => !prev);
     }
@@ -30,10 +33,25 @@ const Sidebar = ({modal,modal2,modal3}) => {
   };
   const HandlerLogout = () => {
     localStorage.setItem("token", "");
-    navigate('/')
+    toast.success("Berhasil logout", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
   return (
-    <div className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
+    <div
+      className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${
+        modal || modal2 || modal3 ? "blur-sm" : null
+      }`}
+    >
       <div className="title row-span-1 grid grid-cols-8 items-center mx-6">
         <img src={logo} alt="" className=" col-span-2" />
         <h3 className="col-start-3 col-end-9 font-black text-sm justify-self-center tracking-wide">
@@ -168,7 +186,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
           <div
             className={` ${
               location.pathname == "/profile" ? "bg-secondary text-white" : null
-            } flex justify-between items-center mx-8 py-2 px-6 rounded-lg`}
+            } flex justify-between items-center mx-8 py-2 px-5 rounded-lg`}
           >
             <Link to={"/profile"}>
               <div className="status">
@@ -176,9 +194,9 @@ const Sidebar = ({modal,modal2,modal3}) => {
                 <p className="text-xs">admin123@gmail.com</p>
               </div>
             </Link>
-            <div className="logout" onClick={HandlerLogout}>
+            <button className="logout mx-2" onClick={HandlerLogout}>
               <HiOutlineLogout size="1.5rem" />
-            </div>
+            </button>
           </div>
         </div>
       </div>

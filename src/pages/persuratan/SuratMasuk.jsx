@@ -122,10 +122,10 @@ const SuratMasukPage = () => {
                           (index + 1) % 2 == 0 ? "bg-quinary" : null
                         } `}
                       >
-                        <td className="py-2.5 text-sm">{item.id}</td>
+                        <td className="py-2.5 text-sm">{index + 1}</td>
                         <td className="py-2.5 text-sm">{item.from}</td>
                         <td className="py-2.5 text-sm">{item.letters_type}</td>
-                        <td className="py-2.5 text-sm">{item.updated_at}</td>
+                        <td className="py-2.5 text-sm">{item.letter_date}</td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
                             <MdModeEdit

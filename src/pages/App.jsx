@@ -4,7 +4,6 @@ import { Login } from "../utils/FetchUsers";
 import UseInput from "../hooks/UseInput.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaBan } from "react-icons/fa";
 
 function App() {
   const navigate = useNavigate();
