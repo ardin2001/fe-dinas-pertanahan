@@ -2,7 +2,7 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { PutManagemenUser } from "../../../utils/FetchmanagemenUser";
 import { useEffect, useState } from "react";
 const ModalEdit = (props) => {
-  const { modal, HandlerEdit, user } = props;
+  const { modal, HandlerEdit, user,setUsers } = props;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [type, setType] = useState("");
@@ -23,7 +23,19 @@ const ModalEdit = (props) => {
       type: event.target.type.value,
     };
     const response = await PutManagemenUser(user.id, data);
-    console.log(response);
+    if(response.status === true){
+      data.id=user.id
+      console.log('data :`',data)
+      setUsers((prev) => {
+        return prev.map((user) => {
+          if (user.id === data.id) {
+            return data;
+          }
+          return user;
+        });
+      });
+      HandlerEdit()
+    }
   };
   if (!modal || !user) {
     return null;

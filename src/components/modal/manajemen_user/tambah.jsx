@@ -1,7 +1,7 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { PostManagemenUser } from "../../../utils/FetchmanagemenUser";
 const ModalTambah = (props) => {
-  const { modal, HandlerTambah } = props;
+  const { modal, HandlerTambah,setUsers } = props;
   const HandlerSubmit = async (event) => {
     event.preventDefault();
     const data = {
@@ -11,7 +11,10 @@ const ModalTambah = (props) => {
       type:event.target.type.value
     }
     const response = await PostManagemenUser(data)
-    console.log(response);
+    if(response.status === true){
+      setUsers((prev) => [...prev, ]);
+      HandlerTambah()
+    }
   };
   if (!modal) {
     return null;

@@ -60,8 +60,8 @@ const ManajemenUserPage = () => {
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <Sidebar modal={tambah} modal2={edit} modal3={detail} />
-      <ModalTambah modal={tambah} HandlerTambah={HandlerTambah} />
-      <ModalEdit modal={edit} HandlerEdit={HandlerEdit} user={detUser} />
+      <ModalTambah modal={tambah} HandlerTambah={HandlerTambah} setUsers={setUsers} />
+      <ModalEdit modal={edit} HandlerEdit={HandlerEdit} user={detUser} setUsers={setUsers} />
       <ModalDetail modal={detail} HandlerDetail={HandlerDetail} user={detUser} />
       <div className={`${tambah || edit || detail ? "blur-sm" : null} content col-start-2 col-end-6 w-97/100`}>
         <div className="navbar pt-5">
@@ -111,6 +111,7 @@ const ManajemenUserPage = () => {
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit className="text-secondary" onClick={() => HandlerEdit(item.id)} />
                         <IoMdEye className="text-yellow-300" onClick={() => HandlerDetail(item.id)} />
+                        <MdDeleteOutline className="text-red-500" onClick={() => HandlerDelete(item.id)} />
                       </div>
                     </td>
                   </tr>

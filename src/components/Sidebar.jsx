@@ -9,9 +9,11 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({modal,modal2,modal3}) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [togle, setTogle] = useState(false);
 
   useEffect(() => {
@@ -25,6 +27,10 @@ const Sidebar = ({modal,modal2,modal3}) => {
 
   const handlerTogglePersuratan = () => {
     setTogle((prev) => !prev);
+  };
+  const HandlerLogout = () => {
+    localStorage.setItem("token", "");
+    navigate('/')
   };
   return (
     <div className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${modal || modal2 || modal3 ? "blur-sm" : null}`}>
@@ -170,7 +176,7 @@ const Sidebar = ({modal,modal2,modal3}) => {
                 <p className="text-xs">admin123@gmail.com</p>
               </div>
             </Link>
-            <div className="logout">
+            <div className="logout" onClick={HandlerLogout}>
               <HiOutlineLogout size="1.5rem" />
             </div>
           </div>
