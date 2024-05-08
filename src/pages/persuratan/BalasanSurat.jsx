@@ -4,9 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
-import { GoPlus } from "react-icons/go";
 import { Link } from "react-router-dom";
-import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import ModalEditBalasan from "../../components/modal/persuratan/edit_balasan";
 import ModalDetailBalasan from "../../components/modal/persuratan/detail-balasan";
 import {
@@ -17,7 +15,6 @@ const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
   const [surat, setSurat] = useState([]);
-  const [tambah, setTambah] = useState(false);
   const [edit, setEdit] = useState(false);
   const [detail, setDetail] = useState(false);
 
@@ -39,9 +36,6 @@ const BalasanSuratPage = () => {
       });
     });
   };
-  const HandlerTambahBalasan = () => {
-    setTambah((prev) => !prev);
-  };
   const HandlerEditBalasan = () => {
     setEdit((prev) => !prev);
   };
@@ -54,19 +48,15 @@ const BalasanSuratPage = () => {
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
-      <ModalTambahBalasan
-        modal={tambah}
-        HandlerTambahBalasan={HandlerTambahBalasan}
-      />
       <ModalEditBalasan modal={edit} HandlerEditBalasan={HandlerEditBalasan} />
       <ModalDetailBalasan
         modal={detail}
         HandlerDetailBalasan={HandlerDetailBalasan}
       />
-      <Sidebar modal={tambah} modal2={edit} modal3={detail} />
+      <Sidebar modal2={edit} modal3={detail} />
       <div
         className={`content col-start-2 col-end-6 w-97/100 ${
-          tambah || edit || detail ? "blur-sm" : null
+          edit || detail ? "blur-sm" : null
         }`}
       >
         <div className="navbar pt-5">
@@ -83,15 +73,6 @@ const BalasanSuratPage = () => {
                 placeholder="Cari surat..."
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
-            </div>
-            <div
-              className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
-              onClick={HandlerTambahBalasan}
-            >
-              <div className="grid grid-flow-col gap-2 items-center py-2">
-                <GoPlus size="1rem" />
-                <p>Tambah Balasan</p>
-              </div>
             </div>
           </div>
           <div className="tabel mt-7">
