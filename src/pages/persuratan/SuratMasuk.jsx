@@ -5,7 +5,6 @@ import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { Link } from "react-router-dom";
 import ModalTambahSurat from "../../components/modal/persuratan/tambah_surat";
 import ModalEditSurat from "../../components/modal/persuratan/edit_surat";
 import ModalDetailSurat from "../../components/modal/persuratan/detail_surat";
@@ -67,11 +66,12 @@ const SuratMasukPage = () => {
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
-      <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} />
+      <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} setSurat={setSurat} />
       <ModalEditSurat
         modal={modal2}
         HandlerEditSurat={HandlerEditSurat}
         surat={detail}
+        setSurat={setSurat}
       />
       <ModalDetailSurat
         modal={modal3}

@@ -27,7 +27,6 @@ const ModalEdit = (props) => {
       data.id=user.id
       data.name = data.nama
       delete data.nama
-      console.log('data :`',data)
       setUsers((prev) => {
         return prev.map((user) => {
           if (user.id === data.id) {

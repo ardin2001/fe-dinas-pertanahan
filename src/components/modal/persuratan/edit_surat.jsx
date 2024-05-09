@@ -4,7 +4,7 @@ import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
 import { PutSuratMasuk } from "../../../utils/FetchSuratMasuk";
 const ModalEditSurat = (props) => {
-  const { modal, HandlerEditSurat, surat } = props;
+  const { modal, HandlerEditSurat, surat,setSurat } = props;
   const [no, setNo] = useState(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
@@ -20,8 +20,29 @@ const ModalEditSurat = (props) => {
     formData.append("from", event.target.nama.value);
     formData.append("description", event.target.perihal.value);
     formData.append("file", event.target.file.files[0]);
+
     const response = await PutSuratMasuk(formData, surat?.letter?.id);
+    
     if (response.status === true) {
+      setSurat(prev => {
+        const newState = prev.letter.map((data,index) => {
+          if(data.id == surat.letter.id){
+            return {
+              letter :{...data,...response.data.letter},
+              file : {...prev.file[index],...response.data.file}
+            }
+          }
+          return {
+            letter :{...data},
+            file : prev.file[index]
+          }
+        })
+        
+        return {
+          letter : newState.map(data => data.letter),
+          file : newState.map(data => data.file),
+        }
+      })
       HandlerEditSurat();
     }
   };

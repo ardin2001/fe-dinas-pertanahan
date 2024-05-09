@@ -2,10 +2,10 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
-import { PostSuratMasuk } from "../../../utils/FetchSuratMasuk";
+import { PostSuratMasuk,GetDetailSuratMasuk } from "../../../utils/FetchSuratMasuk";
 
 const ModalTambahSurat = (props) => {
-  const { modal, HandlerTambahSurat } = props;
+  const { modal, HandlerTambahSurat,setSurat } = props;
   const [letter_date, setLetterDate] = useState(FormatDate());
   const [received_date, setReceivedDate] = useState(FormatDate());
 
@@ -22,8 +22,19 @@ const ModalTambahSurat = (props) => {
     formData.append('from',e.target.nama.value);
     formData.append('file',e.target.file.files[0]);
     formData.append('description',e.target.perihal.value);
-    const response = await PostSuratMasuk(formData);
-    console.log(response);
+    const {status,data} = await PostSuratMasuk(formData);
+    if(status){
+      const response = await GetDetailSuratMasuk(data.letter.id)
+      if(response.status){
+        setSurat(prev => (
+          {
+            letter : [...prev.letter,response.data.letter],
+            file : [...prev.file,response.data.file]
+          }
+        ))
+        HandlerTambahSurat()
+      }
+    }
   };
 
   return (
