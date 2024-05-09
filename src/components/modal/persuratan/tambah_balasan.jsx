@@ -126,10 +126,10 @@ const ModalTambahBalasan = (props) => {
       </div>
       <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/3 justify-self-end items-end row-start-5 row-end-7">
         <div className="grid grid-flow-col gap-2 items-center py-1 bg-red-500 rounded-lg">
-          <p>Batal</p>
+          <button>Batal</button>
         </div>
         <div className="grid grid-flow-col gap-2 items-center py-1 bg-secondary rounded-lg">
-          <p>Simpan</p>
+          <button>Simpan</button>
         </div>
       </div>
     </div>

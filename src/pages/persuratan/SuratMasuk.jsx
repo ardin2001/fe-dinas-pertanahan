@@ -14,6 +14,7 @@ import {
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
+import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
@@ -23,6 +24,7 @@ const SuratMasukPage = () => {
   const [modal3, setModal3] = useState(false);
   const [surat, setSurat] = useState([]);
   const [detail, setDetail] = useState(false);
+  const [tambah, setTambah] = useState(false);
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -40,7 +42,7 @@ const SuratMasukPage = () => {
         return {
           letter: prev.letter.filter((surat) => surat.id !== id),
           file: prev.file.filter((surat) => surat.id !== id),
-        }
+        };
       });
     });
   };
@@ -59,20 +61,31 @@ const SuratMasukPage = () => {
       setModal3((prev) => !prev);
     });
   };
+  const HandlerTambahBalasan = () => {
+    setTambah((prev) => !prev);
+  };
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} />
-      <ModalEditSurat modal={modal2} HandlerEditSurat={HandlerEditSurat} surat={detail} />
+      <ModalEditSurat
+        modal={modal2}
+        HandlerEditSurat={HandlerEditSurat}
+        surat={detail}
+      />
       <ModalDetailSurat
         modal={modal3}
         HandlerDetailSurat={HandlerDetailSurat}
         surat={detail}
       />
+      <ModalTambahBalasan
+        modal={tambah}
+        HandlerTambahBalasan={HandlerTambahBalasan}
+      />
       <Sidebar modal={modal} modal2={modal2} modal3={modal3} />
       <div
         className={`content col-start-2 col-end-6 w-97/100 ${
-          modal || modal2 || modal3 ? "blur-sm" : null
+          tambah || modal || modal2 || modal3 ? "blur-sm" : null
         }`}
       >
         <div className="navbar pt-5">
@@ -146,13 +159,16 @@ const SuratMasukPage = () => {
                           </div>
                         </td>
                         <td>
-                          <Link to={"/surat-masuk/disposisi-surat"}>
-                            <div className="right bg-secondary rounded-xl text-white grid justify-center w-10/12 m-fixed">
-                              <div className="grid grid-flow-col gap-1 items-center py-1">
-                                <p className="font-medium">Disposisi Surat</p>
-                              </div>
+                          <div
+                            onClick={HandlerTambahBalasan}
+                            className="right bg-secondary rounded-xl text-white grid justify-center w-10/12 m-fixed"
+                          >
+                            <div className="grid grid-flow-col gap-1 items-center py-1">
+                              <button className="font-medium">
+                                Tambah Balasan
+                              </button>
                             </div>
-                          </Link>
+                          </div>
                         </td>
                       </tr>
                     ))}
