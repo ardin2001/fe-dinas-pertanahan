@@ -45,15 +45,9 @@ const ModalEditSurat = (props) => {
         }
       })
       HandlerEditSurat();
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Data berhasil diubah",
-        showConfirmButton: false,
-        timer: 1500,
-      });
     }
   };
+  
   useEffect(() => {
     setLetterDate(surat?.letter?.letter_date);
     setReceivedDate(surat?.letter?.received_date);
