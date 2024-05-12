@@ -2,12 +2,14 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
+
 const ModalTambahBalasan = (props) => {
   const { modal, HandlerTambahBalasan } = props;
   const [date, setDate] = useState(FormatDate());
   if (!modal) {
     return null;
   }
+  
   return (
     <div className="modal fixed bg-white border-solid font-poppins rounded-lg drop-shadow-custom z-50 inset-x-2/10 inset-y-1/10 px-8 py-4 grid grid-rows-6">
       <div className="header flex justify-between items-start row-start-1 row-end-2 my-auto">

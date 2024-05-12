@@ -14,7 +14,6 @@ import {
   DeleteSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
-import Swal from "sweetalert2";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
@@ -37,64 +36,41 @@ const SuratMasukPage = () => {
   }, []);
 
   const HandlerDeleteSurat = (id) => {
-    Swal.fire({
-      title: "Anda yakin ingin menghapus data ini?",
-      text: "Data yang dihapus tidak dapat dipulihkan!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#828282",
-      cancelButtonText: "Batal",
-      confirmButtonText: "Hapus",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        DeleteSuratMasuk(id).then((res) => {
-          if (!res.status) {
-            setSurat((prev) => {
-              return {
-                letter: prev.letter.filter((surat) => surat.id !== id),
-                file: prev.file.filter((surat) => surat.id !== id),
-              };
-            });
-          }
-        });
-        Swal.fire({
-          title: "Berhasil",
-          text: "Data berhasil dihapus!",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
+    DeleteSuratMasuk(id).then((res) => {
+      setSurat((prev) => {
+        return {
+          letter: prev.letter.filter((surat) => surat.id !== id),
+          file: prev.file.filter((surat) => surat.id !== id),
+        };
+      });
     });
   };
 
   const HandlerTambahSurat = () => {
     setModal((prev) => !prev);
   };
+
   const HandlerEditSurat = (id) => {
     GetDetailSuratMasuk(id).then((res) => {
       setDetail(res.data);
       setModal2((prev) => !prev);
     });
   };
+  
   const HandlerDetailSurat = (id) => {
     GetDetailSuratMasuk(id).then((res) => {
       setDetail(res.data);
       setModal3((prev) => !prev);
     });
   };
+  
   const HandlerTambahBalasan = () => {
     setTambah((prev) => !prev);
   };
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
-      <ModalTambahSurat
-        modal={modal}
-        HandlerTambahSurat={HandlerTambahSurat}
-        setSurat={setSurat}
-      />
+      <ModalTambahSurat modal={modal} HandlerTambahSurat={HandlerTambahSurat} setSurat={setSurat} />
       <ModalEditSurat
         modal={modal2}
         HandlerEditSurat={HandlerEditSurat}
