@@ -11,6 +11,7 @@ import {
   GetBalasanSurat,
   DeleteBalasanSurat,
 } from "../../utils/FetchBalasanSurat";
+import Swal from "sweetalert2";
 
 const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
@@ -27,15 +28,37 @@ const BalasanSuratPage = () => {
   }, []);
 
   const HandlerDeleteBalasan = (id) => {
-    DeleteBalasanSurat(id).then((res) => {
-      setSurat((prev) => {
-        {
-          return {
-            ...prev,
-            replyletter: prev.replyletter.filter((surat) => surat.id !== id),
-          };
-        }
-      });
+    Swal.fire({
+      title: "Anda yakin ingin menghapus data ini?",
+      text: "Data yang dihapus tidak dapat dipulihkan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#828282",
+      cancelButtonText: "Batal",
+      confirmButtonText: "Hapus",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeleteBalasanSurat(id).then((res) => {
+          setSurat((prev) => {
+            {
+              return {
+                ...prev,
+                replyletter: prev.replyletter.filter(
+                  (surat) => surat.id !== id
+                ),
+              };
+            }
+          });
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Data berhasil dihapus.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+      }
     });
   };
 

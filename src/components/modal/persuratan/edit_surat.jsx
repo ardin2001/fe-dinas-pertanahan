@@ -46,7 +46,7 @@ const ModalEditSurat = (props) => {
       HandlerEditSurat();
     }
   };
-  
+
   useEffect(() => {
     setLetterDate(surat?.letter?.letter_date);
     setReceivedDate(surat?.letter?.received_date);
@@ -57,6 +57,7 @@ const ModalEditSurat = (props) => {
   if (!modal || !surat) {
     return null;
   }
+  
   return (
     <div className="modal fixed grid flex-col border-solid border-2 border-secondary content-around bg-white rounded-lg drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 font-poppins">
       <div className="modal-header flex justify-between items-center my-auto">
