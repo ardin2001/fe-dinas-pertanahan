@@ -11,6 +11,8 @@ import {
   GetBalasanSurat,
   DeleteBalasanSurat,
 } from "../../utils/FetchBalasanSurat";
+import Swal from "sweetalert2";
+
 const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
@@ -24,18 +26,44 @@ const BalasanSuratPage = () => {
       setLoading(true);
     });
   }, []);
+
   const HandlerDeleteBalasan = (id) => {
-    DeleteBalasanSurat(id).then((res) => {
-      setSurat((prev) => {
-        {
-          return {
-            ...prev,
-            replyletter: prev.replyletter.filter((surat) => surat.id !== id),
-          };
-        }
-      });
+    Swal.fire({
+      title: "Anda yakin ingin menghapus data ini?",
+      text: "Data yang dihapus tidak dapat dipulihkan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#828282",
+      cancelButtonText: "Batal",
+      confirmButtonText: "Hapus",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeleteBalasanSurat(id).then((res) => {
+          if (!res.status) {
+            setSurat((prev) => {
+              {
+                return {
+                  ...prev,
+                  replyletter: prev.replyletter.filter(
+                    (surat) => surat.id !== id
+                  ),
+                };
+              }
+            });
+          }
+        });
+        Swal.fire({
+          title: "Berhasil",
+          text: "Data berhasil dihapus!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     });
   };
+
   const HandlerEditBalasan = () => {
     setEdit((prev) => !prev);
   };
@@ -47,7 +75,7 @@ const BalasanSuratPage = () => {
   };
 
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <ModalEditBalasan modal={edit} HandlerEditBalasan={HandlerEditBalasan} />
       <ModalDetailBalasan
         modal={detail}
@@ -67,10 +95,10 @@ const BalasanSuratPage = () => {
             <div className="left w-1/3 flex relative">
               <input
                 type="text"
-                className="outline-none rounded-lg w-full outline-2 outline-quaternary text-quaternary outline-offset-0 text-base py-1 px-2 italic"
+                className="outline-none rounded-lg w-full outline-2 outline-quaternary  text-quaternary outline-offset-0 text-xs py-3 px-3 font-light italic"
                 onChange={HandlerSearch}
                 value={search}
-                placeholder="Cari surat..."
+                placeholder="Cari disini..."
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>

@@ -1,8 +1,9 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
 import { PutSuratMasuk } from "../../../utils/FetchSuratMasuk";
+import Swal from "sweetalert2";
+
 const ModalEditSurat = (props) => {
   const { modal, HandlerEditSurat, surat,setSurat } = props;
   const [no, setNo] = useState(null);
@@ -44,6 +45,13 @@ const ModalEditSurat = (props) => {
         }
       })
       HandlerEditSurat();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Data berhasil diubah",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
   useEffect(() => {

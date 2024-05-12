@@ -2,10 +2,13 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
-import { PostSuratMasuk,GetDetailSuratMasuk } from "../../../utils/FetchSuratMasuk";
+import {
+  PostSuratMasuk,
+  GetDetailSuratMasuk,
+} from "../../../utils/FetchSuratMasuk";
 
 const ModalTambahSurat = (props) => {
-  const { modal, HandlerTambahSurat,setSurat } = props;
+  const { modal, HandlerTambahSurat, setSurat } = props;
   const [letter_date, setLetterDate] = useState(FormatDate());
   const [received_date, setReceivedDate] = useState(FormatDate());
 
@@ -15,24 +18,22 @@ const ModalTambahSurat = (props) => {
   const HandlerSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('letters_number',e.target.letters_number.value);
-    formData.append('letters_type',e.target.letters_type.value);
-    formData.append('letter_date',letter_date);
-    formData.append('received_date',received_date);
-    formData.append('from',e.target.nama.value);
-    formData.append('file',e.target.file.files[0]);
-    formData.append('description',e.target.perihal.value);
-    const {status,data} = await PostSuratMasuk(formData);
-    if(status){
-      const response = await GetDetailSuratMasuk(data.letter.id)
-      if(response.status){
-        setSurat(prev => (
-          {
-            letter : [...prev.letter,response.data.letter],
-            file : [...prev.file,response.data.file]
-          }
-        ))
-        HandlerTambahSurat()
+    formData.append("letters_number", e.target.letters_number.value);
+    formData.append("letters_type", e.target.letters_type.value);
+    formData.append("letter_date", letter_date);
+    formData.append("received_date", received_date);
+    formData.append("from", e.target.nama.value);
+    formData.append("file", e.target.file.files[0]);
+    formData.append("description", e.target.perihal.value);
+    const { status, data } = await PostSuratMasuk(formData);
+    if (status) {
+      const response = await GetDetailSuratMasuk(data.letter.id);
+      if (response.status) {
+        setSurat((prev) => ({
+          letter: [...prev.letter, response.data.letter],
+          file: [...prev.file, response.data.file],
+        }));
+        HandlerTambahSurat();
       }
     }
   };

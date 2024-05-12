@@ -1,8 +1,10 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { PutManagemenUser } from "../../../utils/FetchmanagemenUser";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+
 const ModalEdit = (props) => {
-  const { modal, HandlerEdit, user,setUsers } = props;
+  const { modal, HandlerEdit, user, setUsers } = props;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [type, setType] = useState("");
@@ -12,6 +14,7 @@ const ModalEdit = (props) => {
     setEmail(user?.email);
     setType(2);
   }, [user]);
+
   const HandlerSubmit = async (event) => {
     event.preventDefault();
     let data = {
@@ -23,10 +26,10 @@ const ModalEdit = (props) => {
       type: event.target.type.value,
     };
     const response = await PutManagemenUser(user.id, data);
-    if(response.status === true){
-      data.id=user.id
-      data.name = data.nama
-      delete data.nama
+    if (response.status === true) {
+      data.id = user.id;
+      data.name = data.nama;
+      delete data.nama;
       setUsers((prev) => {
         return prev.map((user) => {
           if (user.id === data.id) {
@@ -35,12 +38,20 @@ const ModalEdit = (props) => {
           return user;
         });
       });
-      HandlerEdit()
+      HandlerEdit();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Data berhasil diubah",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
   if (!modal || !user) {
     return null;
   }
+
   return (
     <form
       onSubmit={HandlerSubmit}

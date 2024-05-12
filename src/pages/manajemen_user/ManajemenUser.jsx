@@ -6,21 +6,25 @@ import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { GetManagemenUser,GetDetailMnagemenUser,DelManagemenUser } from "../../utils/FetchmanagemenUser";
+import {
+  GetManagemenUser,
+  GetDetailMnagemenUser,
+  DelManagemenUser,
+} from "../../utils/FetchmanagemenUser";
 import ModalEdit from "../../components/modal/manajemen_user/edit_user";
 import ModalDetail from "../../components/modal/manajemen_user/detail";
 const ManajemenUserPage = () => {
   const [users, setUsers] = useState([]);
-  const [tambah,setTambah] = useState(false)
-  const [edit,setEdit] = useState(false)
-  const [detail,setDetail] = useState(false)
-  const [del,setDel] = useState(false)
-  const [detUser,setDetUser] = useState({})
-  useEffect(()=>{
-    (async()=>{
-      const {status,data} = await GetManagemenUser();
-      if(status){
-        setUsers(data)
+  const [tambah, setTambah] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [detail, setDetail] = useState(false);
+  const [del, setDel] = useState(false);
+  const [detUser, setDetUser] = useState({});
+  useEffect(() => {
+    (async () => {
+      const { status, data } = await GetManagemenUser();
+      if (status) {
+        setUsers(data);
       }
     })();
   }, []);
@@ -31,42 +35,59 @@ const ManajemenUserPage = () => {
 
   const HandlerTambah = () => {
     setTambah((prev) => !prev);
-  }
+  };
 
   const HandlerEdit = (id) => {
-    if(id){
+    if (id) {
       GetDetailMnagemenUser(id).then((res) => {
         setDetUser(res.data);
         setEdit((prev) => !prev);
-      })
-    }else{
+      });
+    } else {
       setEdit((prev) => !prev);
     }
-  }
+  };
   const HandlerDetail = (id) => {
-    if(id){
+    if (id) {
       GetDetailMnagemenUser(id).then((res) => {
         setDetUser(res.data);
         setDetail((prev) => !prev);
-      })
-    }else{
+      });
+    } else {
       setDetail((prev) => !prev);
     }
-  }
+  };
 
   const HandlerDelete = (id) => {
     DelManagemenUser(id).then((res) => {
       setUsers((prev) => prev.filter((user) => user.id !== id));
-    })
-  }
+    });
+  };
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <Sidebar modal={tambah} modal2={edit} modal3={detail} />
-      <ModalTambah modal={tambah} HandlerTambah={HandlerTambah} setUsers={setUsers} />
-      <ModalEdit modal={edit} HandlerEdit={HandlerEdit} user={detUser} setUsers={setUsers} />
-      <ModalDetail modal={detail} HandlerDetail={HandlerDetail} user={detUser} />
-      <div className={`${tambah || edit || detail ? "blur-sm" : null} content col-start-2 col-end-6 w-97/100`}>
+      <ModalTambah
+        modal={tambah}
+        HandlerTambah={HandlerTambah}
+        setUsers={setUsers}
+      />
+      <ModalEdit
+        modal={edit}
+        HandlerEdit={HandlerEdit}
+        user={detUser}
+        setUsers={setUsers}
+      />
+      <ModalDetail
+        modal={detail}
+        HandlerDetail={HandlerDetail}
+        user={detUser}
+      />
+      <div
+        className={`${
+          tambah || edit || detail ? "blur-sm" : null
+        } content col-start-2 col-end-6 w-97/100`}
+      >
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
@@ -82,7 +103,10 @@ const ManajemenUserPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer" onClick={HandlerTambah}>
+            <div
+              className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
+              onClick={HandlerTambah}
+            >
               <div className="grid grid-flow-col gap-2 items-center py-2">
                 <GoPlus size="1rem" />
                 <p>Tambah User</p>
@@ -106,14 +130,20 @@ const ManajemenUserPage = () => {
                     key={index}
                     className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
-                    <td className="py-2.5 text-sm">{item.id}</td>
+                    <td className="py-2.5 text-sm">{index + 1}</td>
                     <td className="py-2.5 text-sm">{item.name}</td>
                     <td className="py-2.5 text-sm">{item.email}</td>
                     <td className="py-2.5 text-sm">{item.type}</td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit className="text-secondary" onClick={() => HandlerEdit(item.id)} />
-                        <IoMdEye className="text-yellow-300" onClick={() => HandlerDetail(item.id)} />
+                        <MdModeEdit
+                          className="text-secondary"
+                          onClick={() => HandlerEdit(item.id)}
+                        />
+                        <IoMdEye
+                          className="text-yellow-300"
+                          onClick={() => HandlerDetail(item.id)}
+                        />
                       </div>
                     </td>
                   </tr>

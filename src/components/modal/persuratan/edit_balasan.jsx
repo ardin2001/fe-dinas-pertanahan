@@ -2,6 +2,7 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
+
 const ModalEditBalasan = (props) => {
   const { modal, HandlerEditBalasan } = props;
   const [date, setDate] = useState(FormatDate());

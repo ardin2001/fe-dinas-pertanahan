@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
@@ -31,11 +32,12 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
   const handlerTogglePersuratan = () => {
     setTogle((prev) => !prev);
   };
+
   const HandlerLogout = () => {
     localStorage.setItem("token", "");
     toast.success("Berhasil logout", {
       position: "top-right",
-      autoClose: 2000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -46,6 +48,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
       navigate("/");
     }, 1000);
   };
+
   return (
     <div
       className={`sidebar col-span-1 grid grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${
