@@ -9,6 +9,7 @@ import ModalEditBalasan from "../../components/modal/persuratan/edit_balasan";
 import ModalDetailBalasan from "../../components/modal/persuratan/detail-balasan";
 import {
   GetBalasanSurat,
+  GetDetailBalasan,
   DeleteBalasanSurat,
 } from "../../utils/FetchBalasanSurat";
 import Swal from "sweetalert2";
@@ -17,8 +18,14 @@ const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
   const [surat, setSurat] = useState([]);
-  const [edit, setEdit] = useState(false);
-  const [detail, setDetail] = useState(false);
+  const [detailSurat, setDetailSurat] = useState({});
+  const [edit, setEdit] = useState({});
+  const [detail, setDetail] = useState({});
+  const [modalDetail, setModalDetail] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [modalDel, setModalDel] = useState(false);
+  const [modalTambah, setModalTambah] = useState(false);
+
 
   useEffect(() => {
     GetBalasanSurat().then((res) => {
@@ -63,26 +70,31 @@ const BalasanSuratPage = () => {
   };
 
   const HandlerEditBalasan = () => {
-    setEdit((prev) => !prev);
+    setModalEdit((prev) => !prev);
   };
-  const HandlerDetailBalasan = () => {
-    setDetail((prev) => !prev);
+  const HandlerDetailBalasan = (id) => {
+    GetDetailBalasan(id).then((res) => {
+      setDetail(res.data);
+      setModalDetail((prev) => !prev);
+    });
   };
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
 
+
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
-      <ModalEditBalasan modal={edit} HandlerEditBalasan={HandlerEditBalasan} />
+      <ModalEditBalasan modal={modalEdit} HandlerEditBalasan={HandlerEditBalasan} />
       <ModalDetailBalasan
-        modal={detail}
+        modal={modalDetail}
         HandlerDetailBalasan={HandlerDetailBalasan}
+        surat = {detail}
       />
-      <Sidebar modal2={edit} modal3={detail} />
+      <Sidebar modal={modalDetail} modal2={modalTambah} modal3={modalEdit} />
       <div
         className={`content col-start-2 col-end-6 w-97/100 ${
-          edit || detail ? "blur-sm" : null
+          modalDetail || modalEdit || modalTambah ? "blur-sm" : null
         }`}
       >
         <div className="navbar pt-5">
@@ -154,7 +166,7 @@ const BalasanSuratPage = () => {
                             />
                             <IoMdEye
                               className="text-yellow-300"
-                              onClick={HandlerDetailBalasan}
+                              onClick={() => HandlerDetailBalasan(item.id)}
                             />
                             <MdDeleteOutline
                               className="text-red-500"

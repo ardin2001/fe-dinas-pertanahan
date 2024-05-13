@@ -23,4 +23,29 @@ const DeleteBalasanSurat = async(id) => {
     return json
 }
 
-export {GetBalasanSurat,DeleteBalasanSurat}
+const GetDetailBalasan = async(id) => {
+    const response = await fetch(url+'/show-reply-detail/'+id,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+    });
+    const json = await response.json();
+    return json
+}
+
+const PostBalasanSurat = async(id,data) => {
+    console.log(id,data)
+    const response = await fetch(url+'/add-reply/'+id,{
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: data
+    });
+    const json = await response.json();
+    return json
+}
+
+export {GetBalasanSurat,GetDetailBalasan,PostBalasanSurat,DeleteBalasanSurat}

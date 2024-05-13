@@ -13,6 +13,7 @@ import {
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
+import { PostBalasanSurat } from "../../utils/FetchBalasanSurat";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import Swal from "sweetalert2";
 
@@ -25,6 +26,7 @@ const SuratMasukPage = () => {
   const [surat, setSurat] = useState([]);
   const [detail, setDetail] = useState(false);
   const [tambah, setTambah] = useState(false);
+  const [id,setId] = useState(null);
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -85,7 +87,8 @@ const SuratMasukPage = () => {
     });
   };
 
-  const HandlerTambahBalasan = () => {
+  const HandlerTambahBalasan = (id) => {
+    setId(id);
     setTambah((prev) => !prev);
   };
 
@@ -95,6 +98,7 @@ const SuratMasukPage = () => {
         modal={modal}
         HandlerTambahSurat={HandlerTambahSurat}
         setSurat={setSurat}
+        id={id}
       />
       <ModalEditSurat
         modal={modal2}
@@ -110,6 +114,7 @@ const SuratMasukPage = () => {
       <ModalTambahBalasan
         modal={tambah}
         HandlerTambahBalasan={HandlerTambahBalasan}
+        id={id}
       />
       <Sidebar modal={modal} modal2={modal2} modal3={modal3} />
       <div
@@ -189,7 +194,7 @@ const SuratMasukPage = () => {
                         </td>
                         <td>
                           <div
-                            onClick={HandlerTambahBalasan}
+                            onClick={() => HandlerTambahBalasan(item.id)}
                             className="right bg-secondary rounded-xl text-white grid justify-center w-10/12 m-fixed"
                           >
                             <div className="grid grid-flow-col gap-1 items-center py-1">
