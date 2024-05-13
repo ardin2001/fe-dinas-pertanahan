@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 
 const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
@@ -194,7 +193,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
             <Link to={"/profile"}>
               <div className="status">
                 <h4 className="font-bold text-sm">ADMIN ATR/BPN</h4>
-                <p className="text-xs">admin123@gmail.com</p>
+                <p className="text-xs">admin@gmail.com</p>
               </div>
             </Link>
             <button className="logout mx-2" onClick={HandlerLogout}>

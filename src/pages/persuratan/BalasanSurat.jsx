@@ -26,7 +26,6 @@ const BalasanSuratPage = () => {
   const [modalDel, setModalDel] = useState(false);
   const [modalTambah, setModalTambah] = useState(false);
 
-
   useEffect(() => {
     GetBalasanSurat().then((res) => {
       setSurat(res.data);
@@ -82,14 +81,16 @@ const BalasanSuratPage = () => {
     setSearch(e.target.value);
   };
 
-
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
-      <ModalEditBalasan modal={modalEdit} HandlerEditBalasan={HandlerEditBalasan} />
+      <ModalEditBalasan
+        modal={modalEdit}
+        HandlerEditBalasan={HandlerEditBalasan}
+      />
       <ModalDetailBalasan
         modal={modalDetail}
         HandlerDetailBalasan={HandlerDetailBalasan}
-        surat = {detail}
+        surat={detail}
       />
       <Sidebar modal={modalDetail} modal2={modalTambah} modal3={modalEdit} />
       <div
@@ -110,7 +111,7 @@ const BalasanSuratPage = () => {
                 value={search}
                 placeholder="Cari disini..."
               />
-              <FaSearch className="absolute right-2 top-3 text-secondary" />
+              <FaSearch className="absolute right-2 top-3 text-quaternary" />
             </div>
           </div>
           <div className="tabel mt-7">
@@ -160,18 +161,24 @@ const BalasanSuratPage = () => {
                         </td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
-                            <MdModeEdit
-                              className="text-secondary"
-                              onClick={HandlerEditBalasan}
-                            />
-                            <IoMdEye
-                              className="text-yellow-300"
-                              onClick={() => HandlerDetailBalasan(item.id)}
-                            />
-                            <MdDeleteOutline
-                              className="text-red-500"
-                              onClick={() => HandlerDeleteBalasan(item.id)}
-                            />
+                            <button>
+                              <MdModeEdit
+                                className="text-secondary text-xl"
+                                onClick={HandlerEditBalasan}
+                              />
+                            </button>
+                            <button>
+                              <IoMdEye
+                                className="text-custom text-xl"
+                                onClick={() => HandlerDetailBalasan(item.id)}
+                              />
+                            </button>
+                            <button>
+                              <MdDeleteOutline
+                                className="text-red-500 text-xl"
+                                onClick={() => HandlerDeleteBalasan(item.id)}
+                              />
+                            </button>
                           </div>
                         </td>
                         <td>

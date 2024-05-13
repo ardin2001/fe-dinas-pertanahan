@@ -13,7 +13,6 @@ import {
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
-import { PostBalasanSurat } from "../../utils/FetchBalasanSurat";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import Swal from "sweetalert2";
 
@@ -26,7 +25,7 @@ const SuratMasukPage = () => {
   const [surat, setSurat] = useState([]);
   const [detail, setDetail] = useState(false);
   const [tambah, setTambah] = useState(false);
-  const [id,setId] = useState(null);
+  const [id, setId] = useState(null);
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -135,7 +134,7 @@ const SuratMasukPage = () => {
                 value={search}
                 placeholder="Cari disini..."
               />
-              <FaSearch className="absolute right-2 top-3 text-secondary" />
+              <FaSearch className="absolute right-2 top-3 text-quaternary" />
             </div>
             <div
               className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
@@ -175,21 +174,27 @@ const SuratMasukPage = () => {
                         <td className="py-2.5 text-sm">{item.letter_date}</td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
-                            <MdModeEdit
-                              className="text-secondary"
-                              type="button"
-                              onClick={() => HandlerEditSurat(item.id)}
-                            />
-                            <IoMdEye
-                              className="text-yellow-300"
-                              type="button"
-                              onClick={() => HandlerDetailSurat(item.id)}
-                            />
-                            <MdDeleteOutline
-                              className="text-red-500"
-                              type="button"
-                              onClick={() => HandlerDeleteSurat(item.id)}
-                            />
+                            <button>
+                              <MdModeEdit
+                                className="text-secondary text-xl"
+                                type="button"
+                                onClick={() => HandlerEditSurat(item.id)}
+                              />
+                            </button>
+                            <button>
+                              <IoMdEye
+                                className="text-custom text-xl"
+                                type="button"
+                                onClick={() => HandlerDetailSurat(item.id)}
+                              />
+                            </button>
+                            <button>
+                              <MdDeleteOutline
+                                className="text-red-500 text-xl"
+                                type="button"
+                                onClick={() => HandlerDeleteSurat(item.id)}
+                              />
+                            </button>
                           </div>
                         </td>
                         <td>

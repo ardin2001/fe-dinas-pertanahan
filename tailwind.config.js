@@ -34,6 +34,7 @@ export default {
         tertiary: "#F4BE42",
         quaternary: "#DEDEDE",
         quinary: "#E5E7EB",
+        custom: "#9CA3AF",
       },
       outlineColor: {
         primary: "#1F4162",

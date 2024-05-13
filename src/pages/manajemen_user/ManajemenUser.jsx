@@ -101,7 +101,7 @@ const ManajemenUserPage = () => {
                 value={search}
                 placeholder="Cari user..."
               />
-              <FaSearch className="absolute right-2 top-3 text-secondary" />
+              <FaSearch className="absolute right-2 top-3 text-quaternary" />
             </div>
             <div
               className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
@@ -136,14 +136,18 @@ const ManajemenUserPage = () => {
                     <td className="py-2.5 text-sm">{item.type}</td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit
-                          className="text-secondary"
-                          onClick={() => HandlerEdit(item.id)}
-                        />
-                        <IoMdEye
-                          className="text-yellow-300"
-                          onClick={() => HandlerDetail(item.id)}
-                        />
+                        <button>
+                          <MdModeEdit
+                            className="text-secondary text-xl"
+                            onClick={() => HandlerEdit(item.id)}
+                          />
+                        </button>
+                        <button>
+                          <IoMdEye
+                            className="text-custom text-xl"
+                            onClick={() => HandlerDetail(item.id)}
+                          />
+                        </button>
                       </div>
                     </td>
                   </tr>

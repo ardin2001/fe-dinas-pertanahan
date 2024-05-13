@@ -25,6 +25,7 @@ const ModalTambahSurat = (props) => {
     formData.append("from", e.target.nama.value);
     formData.append("file", e.target.file.files[0]);
     formData.append("description", e.target.perihal.value);
+
     const { status, data } = await PostSuratMasuk(formData);
     if (status) {
       const response = await GetDetailSuratMasuk(data.letter.id);
@@ -164,21 +165,26 @@ const ModalTambahSurat = (props) => {
               Lampiran
             </label>
             <div className="custom-input grid grid-flow-col outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg justify-between">
-              <p>Pilih File</p>
-              <FaFile className="mt-1" />
+              <label
+                htmlFor="file-upload"
+                className="relative cursor-pointer rounded-md bg-white font-semibold text-custom"
+              >
+                <input type="file" id="file-upload" name="file-upload" />
+              </label>
+              <input
+                type="file"
+                className="sr-only outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
+                id="file"
+                name="file-upload"
+              />
             </div>
-            <input
-              type="file"
-              className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
-              id="file"
-              name="file"
-            />
           </div>
         </div>
+        <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/3 justify-self-end items-end row-start-5 row-end-7"></div>
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <button
             type="button"
-            className="items-center p-3 bg-red-500 rounded-lg "
+            className="items-center p-3 bg-custom rounded-lg "
           >
             Batal
           </button>

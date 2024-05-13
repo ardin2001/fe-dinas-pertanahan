@@ -3,6 +3,8 @@ import { useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
 import { PostBalasanSurat } from "../../../utils/FetchBalasanSurat";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ModalTambahBalasan = (props) => {
   const { modal, HandlerTambahBalasan, id } = props;
@@ -11,7 +13,12 @@ const ModalTambahBalasan = (props) => {
 
   const HandleTambahBalasan = async (e) => {
     e.preventDefault();
-    console.log(e.target.nomor.value, e.target.status.value, e.target.perihal.value, e.target.lampiran.files[0]);
+    console.log(
+      e.target.nomor.value,
+      e.target.status.value,
+      e.target.perihal.value,
+      e.target.lampiran.files[0]
+    );
     let formData = new FormData();
     formData.append("reference_number2", e.target.nomor.value);
     formData.append("status", e.target.status.value);
@@ -133,31 +140,39 @@ const ModalTambahBalasan = (props) => {
             </option>
           </select>
         </div>
-        <div className="lampiran grid gap-1 relative content-start">
-          <label
-            htmlFor="lampiran"
-            className="text-custom text-base font-semibold"
-          >
+        <div className="file grid gap-1 relative">
+          <label htmlFor="file" className="text-custom text-base font-semibold">
             Lampiran
           </label>
           <div className="custom-input grid grid-flow-col outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg justify-between">
-            <p>Pilih File</p>
-            <FaFile />
+            <label
+              htmlFor="file-upload"
+              className="relative cursor-pointer rounded-md bg-white font-semibold text-custom"
+            >
+              <input type="file" id="file-upload" name="file-upload" />
+            </label>
+            <input
+              type="file"
+              className="sr-only outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
+              id="file"
+              name="file-upload"
+            />
           </div>
-          <input
-            type="file"
-            className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
-            id="lampiran"
-            name="lampiran"
-          />
         </div>
-        <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/3 justify-self-end items-end row-start-5 row-end-7">
-          <div className="grid grid-flow-col gap-2 items-center py-1 bg-red-500 rounded-lg">
-            <button>Batal</button>
-          </div>
-          <div className="grid grid-flow-col gap-2 items-center py-1 bg-secondary rounded-lg">
-            <button type="submit">Simpan</button>
-          </div>
+        <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/3 justify-self-end items-end row-start-5 row-end-7"></div>
+        <div className="modal-footer grid col-start-1 col-end-3 justify-end gap-5 text-white font-semibold text-center my-auto">
+          <button
+            type="button"
+            className="items-center p-3 bg-custom rounded-lg"
+          >
+            Batal
+          </button>
+          <button
+            type="submit"
+            className="items-center p-3 bg-secondary rounded-lg"
+          >
+            Simpan
+          </button>
         </div>
       </form>
     </div>

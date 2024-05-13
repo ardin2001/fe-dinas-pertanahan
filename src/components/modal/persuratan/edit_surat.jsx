@@ -4,7 +4,7 @@ import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
 import { PutSuratMasuk } from "../../../utils/FetchSuratMasuk";
 const ModalEditSurat = (props) => {
-  const { modal, HandlerEditSurat, surat,setSurat } = props;
+  const { modal, HandlerEditSurat, surat, setSurat } = props;
   const [no, setNo] = useState(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
@@ -22,27 +22,27 @@ const ModalEditSurat = (props) => {
     formData.append("file", event.target.file.files[0]);
 
     const response = await PutSuratMasuk(formData, surat?.letter?.id);
-    
+
     if (response.status === true) {
-      setSurat(prev => {
-        const newState = prev.letter.map((data,index) => {
-          if(data.id == surat.letter.id){
+      setSurat((prev) => {
+        const newState = prev.letter.map((data, index) => {
+          if (data.id == surat.letter.id) {
             return {
-              letter :{...data,...response.data.letter},
-              file : {...prev.file[index],...response.data.file}
-            }
+              letter: { ...data, ...response.data.letter },
+              file: { ...prev.file[index], ...response.data.file },
+            };
           }
           return {
-            letter :{...data},
-            file : prev.file[index]
-          }
-        })
-        
+            letter: { ...data },
+            file: prev.file[index],
+          };
+        });
+
         return {
-          letter : newState.map(data => data.letter),
-          file : newState.map(data => data.file),
-        }
-      })
+          letter: newState.map((data) => data.letter),
+          file: newState.map((data) => data.file),
+        };
+      });
       HandlerEditSurat();
     }
   };
@@ -57,9 +57,9 @@ const ModalEditSurat = (props) => {
   if (!modal || !surat) {
     return null;
   }
-  
+
   return (
-    <div className="modal fixed grid flex-col border-solid border-2 border-secondary content-around bg-white rounded-lg drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 font-poppins">
+    <div className="modal fixed grid flex-col content-around bg-white rounded-lg drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 font-poppins">
       <div className="modal-header flex justify-between items-center my-auto">
         <h3 className="font-extrabold text-xl text-custom">Edit Surat</h3>
         <AiOutlineCloseSquare
@@ -190,21 +190,25 @@ const ModalEditSurat = (props) => {
               Lampiran
             </label>
             <div className="custom-input grid grid-flow-col outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg justify-between">
-              <p>Pilih File</p>
-              <FaFile className="mt-1" />
+              <label
+                htmlFor="file-upload"
+                className="relative cursor-pointer rounded-md bg-white font-semibold text-custom"
+              >
+                <input type="file" id="file-upload" name="file-upload" />
+              </label>
+              <input
+                type="file"
+                className="sr-only outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
+                id="file"
+                name="file-upload"
+              />
             </div>
-            <input
-              type="file"
-              className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
-              id="file"
-              name="file"
-            />
           </div>
         </div>
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <button
             type="button"
-            className="items-center p-3 bg-red-500 rounded-lg "
+            className="items-center p-3 bg-custom rounded-lg "
           >
             Batal
           </button>

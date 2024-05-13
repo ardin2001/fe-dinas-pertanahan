@@ -6,7 +6,7 @@ const ModalDetailSurat = (props) => {
     return null;
   }
   return (
-    <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-2/10 inset-y-1/10 px-8 py-6 grid">
+    <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-2/10 inset-y-1/10 px-8 py-6 grid">
       <div className="header flex justify-between items-start">
         <h3 className="font-bold text-xl text-custom">Detail Surat</h3>
         <AiOutlineCloseSquare
