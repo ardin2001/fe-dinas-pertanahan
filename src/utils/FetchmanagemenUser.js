@@ -1,4 +1,5 @@
-const url = 'https://monitoringpersuratan-production.up.railway.app/api'
+const url = "https://api.persuratankantah.xyz/api";
+
 const GetManagemenUser = async() => {
     const response = await fetch(url+'/users',{
         method: 'GET',
