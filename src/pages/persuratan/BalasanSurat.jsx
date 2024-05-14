@@ -25,7 +25,7 @@ const BalasanSuratPage = () => {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDel, setModalDel] = useState(false);
   const [modalTambah, setModalTambah] = useState(false);
-
+  const [id, setId] = useState();
 
   useEffect(() => {
     GetBalasanSurat().then((res) => {
@@ -69,7 +69,12 @@ const BalasanSuratPage = () => {
     });
   };
 
-  const HandlerEditBalasan = () => {
+  const HandlerEditBalasan = (id) => {
+    if (id) {
+      setId(id);
+    }else{
+      setId(null)
+    }
     setModalEdit((prev) => !prev);
   };
   const HandlerDetailBalasan = (id) => {
@@ -82,14 +87,18 @@ const BalasanSuratPage = () => {
     setSearch(e.target.value);
   };
 
-
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
-      <ModalEditBalasan modal={modalEdit} HandlerEditBalasan={HandlerEditBalasan} />
+      <ModalEditBalasan
+        modal={modalEdit}
+        HandlerEditBalasan={HandlerEditBalasan}
+        id={id}
+        setSurat={setSurat}
+      />
       <ModalDetailBalasan
         modal={modalDetail}
         HandlerDetailBalasan={HandlerDetailBalasan}
-        surat = {detail}
+        surat={detail}
       />
       <Sidebar modal={modalDetail} modal2={modalTambah} modal3={modalEdit} />
       <div
@@ -162,7 +171,7 @@ const BalasanSuratPage = () => {
                           <div className="aksi flex justify-center gap-2">
                             <MdModeEdit
                               className="text-secondary"
-                              onClick={HandlerEditBalasan}
+                              onClick={() => HandlerEditBalasan(item.id)}
                             />
                             <IoMdEye
                               className="text-yellow-300"

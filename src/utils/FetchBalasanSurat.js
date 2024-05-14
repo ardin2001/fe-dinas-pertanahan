@@ -49,4 +49,16 @@ const PostBalasanSurat = async(id,data) => {
     return json
 }
 
-export {GetBalasanSurat,GetDetailBalasan,PostBalasanSurat,DeleteBalasanSurat}
+const PutBalasanSurat = async(id,data) => {
+    const response = await fetch(url+'/update-reply/'+id,{
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: data
+    });
+    const json = await response.json();
+    return json
+}
+
+export {GetBalasanSurat,GetDetailBalasan,PostBalasanSurat,PutBalasanSurat,DeleteBalasanSurat}

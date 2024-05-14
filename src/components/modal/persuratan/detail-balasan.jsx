@@ -4,12 +4,11 @@ import FormatDate from "../../../utils/Date";
 import { IoMdEye } from "react-icons/io";
 const ModalDetailBalasan = (props) => {
   const { modal, HandlerDetailBalasan,surat } = props;
-  console.log('HandlerDetailBalasan :',modal)
   const [date, setDate] = useState(FormatDate());
   if (!modal || !surat) {
     return null;
   }
-  {console.log(surat)}
+
   return (
     <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-3/10 inset-y-15/100 px-8 py-6 grid">
       <div className="header flex justify-between items-start">
