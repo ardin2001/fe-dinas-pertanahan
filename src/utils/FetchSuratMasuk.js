@@ -58,4 +58,17 @@ const PutSuratMasuk = async (data,id) => {
     const json = await response.json();
     return json
 }
-export {GetSuratMasuk,GetDetailSuratMasuk,PostSuratMasuk,PutSuratMasuk,DeleteSuratMasuk}
+const PutDisposisiSurat = async (data,id) => {
+    const response = await fetch(url+'/disposition/'+id,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: JSON.stringify(data)
+    });
+    const json = await response.json();
+    return json
+}
+
+export {GetSuratMasuk,GetDetailSuratMasuk,PostSuratMasuk,PutSuratMasuk,DeleteSuratMasuk,PutDisposisiSurat}

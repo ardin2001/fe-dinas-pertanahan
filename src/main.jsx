@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     element: <ProfilePage/>,
   },
   {
-    path: "/surat-masuk/disposisi-surat",
+    path: "/surat-masuk/disposisi-surat/:id",
     element: <DisposisiSuratPage/>,
   },
 ]);

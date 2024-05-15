@@ -16,6 +16,7 @@ import {
 import { PostBalasanSurat } from "../../utils/FetchBalasanSurat";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
@@ -26,7 +27,7 @@ const SuratMasukPage = () => {
   const [surat, setSurat] = useState([]);
   const [detail, setDetail] = useState(false);
   const [tambah, setTambah] = useState(false);
-  const [id,setId] = useState(null);
+  const [id, setId] = useState(null);
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -192,10 +193,10 @@ const SuratMasukPage = () => {
                             />
                           </div>
                         </td>
-                        <td>
+                        <td className="grid grid-flow-col grid-cols-2 gap-4">
                           <div
                             onClick={() => HandlerTambahBalasan(item.id)}
-                            className="right bg-secondary rounded-xl text-white grid justify-center w-10/12 m-fixed"
+                            className="right bg-secondary rounded-xl text-white grid m-fixed"
                           >
                             <div className="grid grid-flow-col gap-1 items-center py-1">
                               <button className="font-medium">
@@ -203,6 +204,13 @@ const SuratMasukPage = () => {
                               </button>
                             </div>
                           </div>
+                          <Link to={`/surat-masuk/disposisi-surat/${item.id}`}>
+                            <div className="right bg-secondary rounded-xl text-white grid m-auto">
+                              <div className="grid grid-flow-col items-center py-1">
+                                <p className="font-medium">Disposisi Surat</p>
+                              </div>
+                            </div>
+                          </Link>
                         </td>
                       </tr>
                     ))}
