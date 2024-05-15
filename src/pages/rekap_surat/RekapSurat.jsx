@@ -77,6 +77,7 @@ const RekapSuratPage = () => {
                   <th className="py-2 text-sm">No</th>
                   <th className="py-2 text-sm">Pengirim</th>
                   <th className="py-2 text-sm">Disposisi</th>
+                  <th className="py-2 text-sm">Keterangan</th>
                   <th className="py-2 text-sm">Tanggal</th>
                   <th className="py-2 text-sm">Status</th>
                   <th className="py-2 text-sm">Draft</th>
@@ -90,7 +91,8 @@ const RekapSuratPage = () => {
                   >
                     <td className="py-3 text-sm">{index + 1}</td>
                     <td className="py-3 text-sm">{item.from}</td>
-                    <td className="py-3 text-sm">{item.disposition_process}</td>
+                    <td className="py-3 text-sm ">{item.disposition_process}</td>
+                    <td className="py-3 text-sm">{item.disposition_note}</td>
                     <td className="py-3 text-sm">{item.letter_date}</td>
                     <td className="py-3 text-sm">{item.status}</td>
                     <td className="py-3 text-sm grid justify-items-center">
