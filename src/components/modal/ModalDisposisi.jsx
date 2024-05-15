@@ -22,29 +22,31 @@ const ModalDisposisi = (props) => {
 
   const HandlerSubmitDisposisi = async (event) => {
     event.preventDefault();
-    
+
     let data = {
       disposition_date: date,
       disposition_process: dispositionProcess,
       disposition_process2: dispositionProcess2,
       disposition_note: dispositionNote,
     };
-    const response = await PutDisposisiSurat(data, surat.id)
-    if(response.status){
-      const sumDisposition = [dispositionProcess,dispositionProcess2]
-      setDisposisi(prev => ({...prev,disposition_note:dispositionNote,disposition_process:sumDisposition,disposition_date:date}));
+    const response = await PutDisposisiSurat(data, surat.id);
+    if (response.status) {
+      const sumDisposition = [dispositionProcess, dispositionProcess2];
+      setDisposisi((prev) => ({
+        ...prev,
+        disposition_note: dispositionNote,
+        disposition_process: sumDisposition,
+        disposition_date: date,
+      }));
       HandlerEditDisposisi();
     }
-    
   };
-  
+
   if (!modal) {
     return null;
   }
   return (
-    <div
-      className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10"
-    >
+    <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
       <div className="header flex justify-between py-4 w-10/12 m-auto items-center">
         <h3 className="font-semibold text-2xl text-custom">Edit Disposisi</h3>
         <AiOutlineCloseSquare
@@ -53,7 +55,10 @@ const ModalDisposisi = (props) => {
           onClick={HandlerEditDisposisi}
         />
       </div>
-      <form className="input w-10/12 m-auto grid gap-3" onSubmit={HandlerSubmitDisposisi}>
+      <form
+        className="input w-10/12 m-auto grid gap-3"
+        onSubmit={HandlerSubmitDisposisi}
+      >
         <div className="tanggal relative grid gap-1">
           <label htmlFor="tanggal" className="text-custom text-lg">
             Tanggal Disposisi
@@ -81,14 +86,21 @@ const ModalDisposisi = (props) => {
             <option className="font-normal" value="Belum ditindak lanjuti">
               Belum ditindak lanjuti
             </option>
-            <option className="font-normal" value="TU">
-              TU
+            <option value="Tata Usaha">Tata Usaha</option>
+            <option value="Seksi penetapan hak dan pendaftaran">
+              Seksi penetapan hak dan pendaftaran{" "}
             </option>
-            <option className="font-normal" value="Kakan">
-              Kakan
+            <option value="Seksi survei dan pemetaan">
+              Seksi survei dan pemetaan
             </option>
-            <option className="font-normal" value="Seksi">
-              Seksi
+            <option value="Seksi penataan dan pemberdayaan">
+              Seksi penataan dan pemberdayaan
+            </option>
+            <option value="Seksi pengadaan tanah dan pengembangan">
+              Seksi pengadaan tanah dan pengembangan
+            </option>
+            <option value="Seksi pengendalian dan penanganan sengketa">
+              Seksi pengendalian dan penanganan sengketa
             </option>
           </select>
         </div>
@@ -106,14 +118,21 @@ const ModalDisposisi = (props) => {
             <option className="font-normal" value="Belum ditindak lanjuti">
               Belum ditindak lanjuti
             </option>
-            <option className="font-normal" value="TU">
-              TU
+            <option value="Tata Usaha">Tata Usaha</option>
+            <option value="Seksi penetapan hak dan pendaftaran">
+              Seksi penetapan hak dan pendaftaran{" "}
             </option>
-            <option className="font-normal" value="Kakan">
-              Kakan
+            <option value="Seksi survei dan pemetaan">
+              Seksi survei dan pemetaan
             </option>
-            <option className="font-normal" value="Seksi">
-              Seksi
+            <option value="Seksi penataan dan pemberdayaan">
+              Seksi penataan dan pemberdayaan
+            </option>
+            <option value="Seksi pengadaan tanah dan pengembangan">
+              Seksi pengadaan tanah dan pengembangan
+            </option>
+            <option value="Seksi pengendalian dan penanganan sengketa">
+              Seksi pengendalian dan penanganan sengketa
             </option>
           </select>
         </div>
