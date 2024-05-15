@@ -21,6 +21,7 @@ const RekapSuratPage = () => {
     });
   }, []);
 
+  console.log(surat.letter);
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary">
       {console.log(surat)}
@@ -73,17 +74,16 @@ const RekapSuratPage = () => {
           <div className="tabel mt-7">
             <table className="table-auto w-full text-center">
               <thead className="text-white font-semibold bg-secondary">
-                <tr>
-                  <th className="py-2 text-sm">No</th>
-                  <th className="py-2 text-sm">Pengirim</th>
-                  <th className="py-2 text-sm">Disposisi</th>
-                  <th className="py-2 text-sm">Keterangan</th>
-                  <th className="py-2 text-sm">Tanggal</th>
-                  <th className="py-2 text-sm">Status</th>
-                  <th className="py-2 text-sm">Draft</th>
+                <tr className="">
+                  <th className="py-2 text-sm text-start pl-4">No</th>
+                  <th className="py-2 text-sm text-start">Pengirim</th>
+                  <th className="py-2 text-sm text-start">Disposisi</th>
+                  <th className="py-2 text-sm text-start">Tanggal</th>
+                  <th className="py-2 text-sm text-start">Status</th>
+                  <th className="py-2 text-sm text-start">Draft</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="text-start">
                 {surat?.letter?.map((item, index) => (
                   <tr
                     key={index}
@@ -91,11 +91,16 @@ const RekapSuratPage = () => {
                   >
                     <td className="py-3 text-sm">{index + 1}</td>
                     <td className="py-3 text-sm">{item.from}</td>
-                    <td className="py-3 text-sm ">{item.disposition_process}</td>
-                    <td className="py-3 text-sm">{item.disposition_note}</td>
+                    <td className="py-3 text-sm ">
+                      <ul className="list-disc list-inside">
+                        {item.disposition_process.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    </td>
                     <td className="py-3 text-sm">{item.letter_date}</td>
                     <td className="py-3 text-sm">{item.status}</td>
-                    <td className="py-3 text-sm grid justify-items-center">
+                    <td className="py-3 text-sm grid ">
                       <FaFile className="text-primary" />
                     </td>
                   </tr>
