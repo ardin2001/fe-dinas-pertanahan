@@ -137,11 +137,11 @@ const ManajemenUserPage = () => {
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit
-                          className="text-secondary"
+                          className="text-secondary cursor-pointer text-xl"
                           onClick={() => HandlerEdit(item.id)}
                         />
                         <IoMdEye
-                          className="text-yellow-300"
+                          className="text-yellow-300 cursor-pointer text-xl"
                           onClick={() => HandlerDetail(item.id)}
                         />
                       </div>

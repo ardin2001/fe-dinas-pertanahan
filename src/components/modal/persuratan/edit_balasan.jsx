@@ -56,7 +56,7 @@ const ModalEditBalasan = (props) => {
         <h3 className="font-extrabold text-xl text-custom">Edit Balasan</h3>
         <AiOutlineCloseSquare
           size={"1.5rem"}
-          className="text-custom"
+          className="text-custom cursor-pointer"
           onClick={HandlerEditBalasan}
         />
       </div>

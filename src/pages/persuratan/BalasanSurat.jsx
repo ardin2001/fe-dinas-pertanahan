@@ -170,15 +170,15 @@ const BalasanSuratPage = () => {
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
                             <MdModeEdit
-                              className="text-secondary"
+                              className="text-secondary cursor-pointer text-xl"
                               onClick={() => HandlerEditBalasan(item.id)}
                             />
                             <IoMdEye
-                              className="text-yellow-300"
+                              className="text-yellow-300 cursor-pointer text-xl"
                               onClick={() => HandlerDetailBalasan(item.id)}
                             />
                             <MdDeleteOutline
-                              className="text-red-500"
+                              className="text-red-500 cursor-pointer text-xl"
                               onClick={() => HandlerDeleteBalasan(item.id)}
                             />
                           </div>

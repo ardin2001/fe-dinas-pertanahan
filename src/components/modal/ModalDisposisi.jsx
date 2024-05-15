@@ -1,6 +1,7 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { PutDisposisiSurat } from "../../utils/FetchSuratMasuk";
+
 const ModalDisposisi = (props) => {
   const [kategori, setKategori] = useState("Kategori Disposisi");
   const [date, setDate] = useState("");
@@ -29,6 +30,7 @@ const ModalDisposisi = (props) => {
       disposition_process2: dispositionProcess2,
       disposition_note: dispositionNote,
     };
+
     const response = await PutDisposisiSurat(data, surat.id);
     if (response.status) {
       const sumDisposition = [dispositionProcess, dispositionProcess2];
@@ -46,12 +48,12 @@ const ModalDisposisi = (props) => {
     return null;
   }
   return (
-    <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
+    <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
       <div className="header flex justify-between py-4 w-10/12 m-auto items-center">
         <h3 className="font-semibold text-2xl text-custom">Edit Disposisi</h3>
         <AiOutlineCloseSquare
           size={"1.5rem"}
-          className="text-custom"
+          className="text-custom cursor-pointer"
           onClick={HandlerEditDisposisi}
         />
       </div>
