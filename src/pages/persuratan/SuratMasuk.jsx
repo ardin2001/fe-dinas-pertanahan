@@ -13,7 +13,6 @@ import {
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
-import { PostBalasanSurat } from "../../utils/FetchBalasanSurat";
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
@@ -177,23 +176,23 @@ const SuratMasukPage = () => {
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
                             <MdModeEdit
-                              className="text-secondary"
+                              className="text-secondary cursor-pointer text-xl "
                               type="button"
                               onClick={() => HandlerEditSurat(item.id)}
                             />
                             <IoMdEye
-                              className="text-yellow-300"
+                              className="text-yellow-300 cursor-pointer text-xl"
                               type="button"
                               onClick={() => HandlerDetailSurat(item.id)}
                             />
                             <MdDeleteOutline
-                              className="text-red-500"
+                              className="text-red-500 cursor-pointer text-xl"
                               type="button"
                               onClick={() => HandlerDeleteSurat(item.id)}
                             />
                           </div>
                         </td>
-                        <td className="grid grid-flow-col grid-cols-2 gap-4">
+                        <td className="grid grid-flow-col grid-cols-2 gap-4 p-2">
                           <div
                             onClick={() => HandlerTambahBalasan(item.id)}
                             className="right bg-secondary rounded-xl text-white grid m-fixed"

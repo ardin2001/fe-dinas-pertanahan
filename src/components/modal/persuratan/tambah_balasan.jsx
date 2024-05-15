@@ -37,7 +37,7 @@ const ModalTambahBalasan = (props) => {
         <h3 className="font-extrabold text-xl text-custom">Tambah Balasan</h3>
         <AiOutlineCloseSquare
           size={"1.5rem"}
-          className="text-custom"
+          className="text-custom cursor-pointer"
           onClick={HandlerTambahBalasan}
         />
       </div>

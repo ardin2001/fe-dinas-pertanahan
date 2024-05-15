@@ -10,23 +10,27 @@ const ModalDetailBalasan = (props) => {
   }
 
   return (
-    <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-3/10 inset-y-15/100 px-8 py-6 grid">
+    <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-3/10 inset-y-15/100 px-8 py-6 grid">
       <div className="header flex justify-between items-start">
         <h3 className="font-bold text-xl text-custom">Detail Balasan</h3>
         <AiOutlineCloseSquare
           size={"1.5rem"}
-          className="text-custom"
+          className="text-custom cursor-pointer"
           onClick={HandlerDetailBalasan}
         />
       </div>
       <div className="input grid gap-y-3">
         <div className="perihal">
           <p className="text-custom font-normal">Nomor Surat</p>
-          <h3 className="font-bold text-custom">{surat.replyletter[0].reference_number2}</h3>
+          <h3 className="font-bold text-custom">
+            {surat.replyletter[0].reference_number2}
+          </h3>
         </div>
         <div className="tanggal">
           <p className="text-custom font-normal">Tanggal Surat</p>
-          <h3 className="font-bold text-custom">{surat.replyletter[0].outgoing_letter_date}</h3>
+          <h3 className="font-bold text-custom">
+            {surat.replyletter[0].outgoing_letter_date}
+          </h3>
         </div>
         <div className="tanggal-diterima">
           <p className="text-custom font-normal">Keterangan</p>
@@ -44,9 +48,6 @@ const ModalDetailBalasan = (props) => {
       <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/2 justify-self-end items-end">
         <div className="grid grid-flow-col gap-2 items-center py-1 bg-red-500 rounded-lg">
           <p>Batal</p>
-        </div>
-        <div className="grid grid-flow-col gap-2 items-center py-1 bg-secondary rounded-lg">
-          <p>Simpan</p>
         </div>
       </div>
     </div>

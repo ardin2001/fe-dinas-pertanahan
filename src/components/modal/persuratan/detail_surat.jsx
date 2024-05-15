@@ -6,19 +6,21 @@ const ModalDetailSurat = (props) => {
     return null;
   }
   return (
-    <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-2/10 inset-y-1/10 px-8 py-6 grid">
+    <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-2/10 inset-y-1/10 px-8 py-6 grid">
       <div className="header flex justify-between items-start">
         <h3 className="font-bold text-xl text-custom">Detail Surat</h3>
         <AiOutlineCloseSquare
           size={"1.5rem"}
-          className="text-custom"
+          className="text-custom cursor-pointer"
           onClick={HandlerDetailSurat}
         />
       </div>
       <div className="input grid gap-y-3 mt-4">
         <div className="name">
           <p className="text-custom font-normal">Nama Pengirim</p>
-          <h3 className="text-2xl font-bold text-custom">{surat.letter.from}</h3>
+          <h3 className="text-2xl font-bold text-custom">
+            {surat.letter.from}
+          </h3>
         </div>
         <div className="tanggal">
           <p className="text-custom font-normal">Tanggal Surat</p>
@@ -26,7 +28,9 @@ const ModalDetailSurat = (props) => {
         </div>
         <div className="tanggal-diterima">
           <p className="text-custom font-normal">Tanggal Diterima</p>
-          <h3 className="font-bold text-custom">{surat.letter.received_date}</h3>
+          <h3 className="font-bold text-custom">
+            {surat.letter.received_date}
+          </h3>
         </div>
         <div className="perihal">
           <p className="text-custom font-normal">Perihal</p>
@@ -47,11 +51,8 @@ const ModalDetailSurat = (props) => {
       </div>
 
       <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/3 justify-self-end items-end">
-        <div className="grid grid-flow-col gap-2 items-center py-1 bg-red-500 rounded-lg">
+        <div className="grid grid-flow-col gap-2 items-center py-1 bg-red-500 rounded-lg cursor-pointer">
           <p>Batal</p>
-        </div>
-        <div className="grid grid-flow-col gap-2 items-center py-1 bg-secondary rounded-lg">
-          <p>Simpan</p>
         </div>
       </div>
     </div>

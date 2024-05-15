@@ -193,8 +193,8 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
           >
             <Link to={"/profile"}>
               <div className="status">
-                <h4 className="font-bold text-sm">ADMIN ATR/BPN</h4>
-                <p className="text-xs">admin123@gmail.com</p>
+                <h4 className="font-bold text-sm">ADMIN GEGE</h4>
+                <p className="text-xs">admin@gmail.com</p>
               </div>
             </Link>
             <button className="logout mx-2" onClick={HandlerLogout}>
