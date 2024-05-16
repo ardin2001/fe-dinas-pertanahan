@@ -1,10 +1,21 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
-import { IoMdEye } from "react-icons/io";
+import { getShowFile } from "../../../utils/FetchSuratMasuk";
+import { useState } from "react";
+
 const ModalDetailSurat = (props) => {
-  const { modal, HandlerDetailSurat,surat } = props;
+  const { modal, HandlerDetailSurat, surat } = props;
+  const [fileUrl, setFileUrl] = useState("");
+
   if (!modal || !surat) {
     return null;
   }
+
+  const handleViewFile = async (id) => {
+    const url = await getShowFile(id);
+    setFileUrl(url);
+    window.open(url, "_blank");
+  };
+
   return (
     <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-2/10 inset-y-1/10 px-8 py-6 grid">
       <div className="header flex justify-between items-start">
@@ -34,19 +45,27 @@ const ModalDetailSurat = (props) => {
         </div>
         <div className="perihal">
           <p className="text-custom font-normal">Perihal</p>
-          <h3 className="font-bold text-custom">-</h3>
+          <h3 className="font-bold text-custom">
+            {surat.letter.description}
+          </h3>
         </div>
         <div className="perihal">
           <p className="text-custom font-normal">Nomor Surat</p>
-          <h3 className="font-bold text-custom">{surat.letter.id}</h3>
+          <h3 className="font-bold text-custom">
+            {surat.letter.reference_number}
+          </h3>
         </div>
         <div className="perihal">
           <p className="text-custom font-normal">Jenis Pengajuan</p>
           <h3 className="font-bold text-custom">{surat.letter.letters_type}</h3>
         </div>
         <div className="file border-secondary border-1.5 flex w-1/4 px-4 py-3 justify-between items-center rounded-xl">
-          <p>pengajuan.zip</p>
-          <IoMdEye />
+          <button
+            onClick={() => handleViewFile(surat.letter.id)}
+            className="cursor-pointer"
+          >
+            Lihat File
+          </button>
         </div>
       </div>
 
