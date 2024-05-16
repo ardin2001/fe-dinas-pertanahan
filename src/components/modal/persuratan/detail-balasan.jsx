@@ -1,13 +1,22 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useState } from "react";
 import FormatDate from "../../../utils/Date";
-import { IoMdEye } from "react-icons/io";
+import { getShowFileBalas } from "../../../utils/FetchBalasanSurat";
+
 const ModalDetailBalasan = (props) => {
-  const { modal, HandlerDetailBalasan,surat } = props;
+  const { modal, HandlerDetailBalasan, surat } = props;
   const [date, setDate] = useState(FormatDate());
+  const [fileUrl, setFileUrl] = useState("");
+
   if (!modal || !surat) {
     return null;
   }
+
+  const handleViewFile = async (id) => {
+    const url = await getShowFileBalas(id);
+    setFileUrl(url);
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-3/10 inset-y-15/100 px-8 py-6 grid">
@@ -40,9 +49,13 @@ const ModalDetailBalasan = (props) => {
           <p className="text-custom font-normal">Perihal Surat</p>
           <h3 className="font-bold text-custom">-</h3>
         </div>
-        <div className="file border-secondary border-1.5 flex w-1/3 px-4 py-1.5 justify-between items-center rounded-xl">
-          <p>pengajuan.zip</p>
-          <IoMdEye />
+        <div className="file border-secondary border-1.5 flex w-1/4 px-4 py-3 justify-between items-center rounded-xl">
+          <button
+            onClick={() => handleViewFile(surat.replyletter.id)}
+            className="cursor-pointer"
+          >
+            Lihat File
+          </button>
         </div>
       </div>
       <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/2 justify-self-end items-end">

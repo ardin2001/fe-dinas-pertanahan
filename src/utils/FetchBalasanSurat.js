@@ -61,4 +61,17 @@ const PutBalasanSurat = async(id,data) => {
     return json
 }
 
-export {GetBalasanSurat,GetDetailBalasan,PostBalasanSurat,PutBalasanSurat,DeleteBalasanSurat}
+const getShowFileBalas = async (id) => {
+  const response = await fetch(url + "/show-file-balas/" + id, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  });
+  const blob = await response.blob();
+  const objectUrl = window.URL.createObjectURL(blob);
+  return objectUrl;
+};
+
+export {GetBalasanSurat,GetDetailBalasan,PostBalasanSurat,PutBalasanSurat,DeleteBalasanSurat, getShowFileBalas}
