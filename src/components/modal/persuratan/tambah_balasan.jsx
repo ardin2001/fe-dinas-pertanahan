@@ -6,7 +6,6 @@ import { PostBalasanSurat } from "../../../utils/FetchBalasanSurat";
 
 const ModalTambahBalasan = (props) => {
   const { modal, HandlerTambahBalasan, id } = props;
-  const [date, setDate] = useState(FormatDate());
   const [letter_date, setLetterDate] = useState(FormatDate());
 
   const HandleTambahBalasan = async (e) => {
@@ -20,10 +19,9 @@ const ModalTambahBalasan = (props) => {
     const response = await PostBalasanSurat(id, formData);
     console.log(response);
     if (response.status) {
-      console.log("Surat Berhasil dibalas");
-      HandlerTambahSurat();
+      HandlerTambahBalasan({status:response.status});
     } else {
-      console.log("Surat Gagal Disurahkan");
+      HandlerTambahBalasan({status:response.status});
     }
   };
 
@@ -151,7 +149,7 @@ const ModalTambahBalasan = (props) => {
         </div>
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-red-500 rounded-lg">
-            <button>Batal</button>
+            <button type="button" onClick={HandlerTambahBalasan}>Batal</button>
           </div>
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-secondary rounded-lg">
             <button type="submit">Simpan</button>

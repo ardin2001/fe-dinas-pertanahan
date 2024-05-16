@@ -16,6 +16,8 @@ import {
 import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
@@ -87,8 +89,32 @@ const SuratMasukPage = () => {
     });
   };
 
-  const HandlerTambahBalasan = (id) => {
-    setId(id);
+  const HandlerTambahBalasan = ({ id,status }) => {
+    if(id){
+      setId(id);
+    }
+    if(status){
+      toast.success("Surat berhasil dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if(status == false){
+      toast.error("Surat gagal dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     setTambah((prev) => !prev);
   };
 
@@ -194,7 +220,9 @@ const SuratMasukPage = () => {
                         </td>
                         <td className="grid grid-flow-col grid-cols-2 gap-4 p-2">
                           <div
-                            onClick={() => HandlerTambahBalasan(item.id)}
+                            onClick={() =>
+                              HandlerTambahBalasan({ id: item.id })
+                            }
                             className="right bg-secondary rounded-xl text-white grid m-fixed"
                           >
                             <div className="grid grid-flow-col gap-1 items-center py-1">
@@ -216,6 +244,7 @@ const SuratMasukPage = () => {
               </tbody>
             </table>
           </div>
+          <ToastContainer />
         </div>
       </div>
     </main>
