@@ -16,9 +16,12 @@ const DisposisiSuratPage = () => {
       setLoading(false);
     });
   }, [id]);
+
   const HandlerEditDisposisi = () => {
     setModal((prev) => !prev);
   };
+
+  
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">

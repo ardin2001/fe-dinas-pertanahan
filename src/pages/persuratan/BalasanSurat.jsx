@@ -13,6 +13,8 @@ import {
   DeleteBalasanSurat,
 } from "../../utils/FetchBalasanSurat";
 import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BalasanSuratPage = () => {
   const [search, setSearch] = useState();
@@ -25,9 +27,10 @@ const BalasanSuratPage = () => {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDel, setModalDel] = useState(false);
   const [modalTambah, setModalTambah] = useState(false);
+  const [tambah, setTambah] = useState(false);
   const [id, setId] = useState();
 
-  useEffect(() => {
+  useEffect((e) => {
     GetBalasanSurat().then((res) => {
       setSurat(res.data);
       setLoading(true);
@@ -69,14 +72,36 @@ const BalasanSuratPage = () => {
     });
   };
 
-  const HandlerEditBalasan = (id) => {
+  const HandlerEditBalasan = (id, status) => {
+    console.log("Status: ", status);
     if (id) {
       setId(id);
-    }else{
-      setId(null)
+    }
+    if (status) {
+      toast.success("Surat berhasil dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (status == false) {
+      toast.error("Surat gagal dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
     setModalEdit((prev) => !prev);
   };
+
   const HandlerDetailBalasan = (id) => {
     GetDetailBalasan(id).then((res) => {
       setDetail(res.data);
@@ -130,7 +155,6 @@ const BalasanSuratPage = () => {
                   <th className="py-2">Pengirim</th>
                   <th className="py-2">Keterangan</th>
                   <th className="py-2">Tanggal</th>
-                  <th className="py-2">Status</th>
                   <th className="py-2">Aksi</th>
                   <th></th>
                 </tr>
@@ -154,19 +178,6 @@ const BalasanSuratPage = () => {
                         <td className="py-2.5 text-sm">
                           {item.outgoing_letter_date}
                         </td>
-                        <td
-                          className={`grid justify-items-center py-2.5 text-sm`}
-                        >
-                          <p
-                            className={`${
-                              item.status != "Pending"
-                                ? "bg-green-200 text-green-500"
-                                : "bg-red-300 text-red-600"
-                            } px-4 rounded-lg text-xs py-1`}
-                          >
-                            {item.status != "Pending" ? "Diterima" : "Pending"}
-                          </p>
-                        </td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
                             <MdModeEdit
@@ -188,6 +199,7 @@ const BalasanSuratPage = () => {
               </tbody>
             </table>
           </div>
+          <ToastContainer />
         </div>
       </div>
     </main>

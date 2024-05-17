@@ -29,11 +29,15 @@ const ModalDetailBalasan = (props) => {
         />
       </div>
       <div className="input grid gap-y-3">
-        <div className="perihal">
+        <div className="Nomor Surat">
           <p className="text-custom font-normal">Nomor Surat</p>
           <h3 className="font-bold text-custom">
             {surat.replyletter[0].reference_number2}
           </h3>
+        </div>
+        <div className="perihal">
+          <p className="text-custom font-normal">Pengirim</p>
+          <h3 className="font-bold text-custom">{surat.replyletter[0].from}</h3>
         </div>
         <div className="tanggal">
           <p className="text-custom font-normal">Tanggal Surat</p>
@@ -41,26 +45,17 @@ const ModalDetailBalasan = (props) => {
             {surat.replyletter[0].outgoing_letter_date}
           </h3>
         </div>
-        <div className="tanggal-diterima">
+        <div className="perihal">
           <p className="text-custom font-normal">Keterangan</p>
           <h3 className="font-bold text-custom">{surat.replyletter[0].note}</h3>
         </div>
-        <div className="perihal">
-          <p className="text-custom font-normal">Perihal Surat</p>
-          <h3 className="font-bold text-custom">-</h3>
-        </div>
         <div className="file border-secondary border-1.5 flex w-1/4 px-4 py-3 justify-between items-center rounded-xl">
           <button
-            onClick={() => handleViewFile(surat.replyletter.id)}
+            onClick={() => handleViewFile(surat.replyletter[0].id)}
             className="cursor-pointer"
           >
             Lihat File
           </button>
-        </div>
-      </div>
-      <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/2 justify-self-end items-end">
-        <div className="grid grid-flow-col gap-2 items-center py-1 bg-red-500 rounded-lg">
-          <p>Batal</p>
         </div>
       </div>
     </div>
