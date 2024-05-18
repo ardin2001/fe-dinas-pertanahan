@@ -1,6 +1,7 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { PutDisposisiSurat } from "../../utils/FetchSuratMasuk";
+import FormatDate from "../../utils/Date";
 
 const ModalDisposisi = (props) => {
   const [kategori, setKategori] = useState("Kategori Disposisi");
@@ -8,6 +9,7 @@ const ModalDisposisi = (props) => {
   const { modal, HandlerEditDisposisi, surat, setDisposisi } = props;
   const [newSurat, setNewSurat] = useState(surat);
   const [dispositionNote, setDispositionNote] = useState("");
+  const [letter_date, setLetterDate] = useState(FormatDate());
   const [dispositionProcess, setDispositionProcess] = useState("");
   const [dispositionProcess2, setDispositionProcess2] = useState("");
 
@@ -23,6 +25,8 @@ const ModalDisposisi = (props) => {
 
   const HandlerSubmitDisposisi = async (event) => {
     event.preventDefault();
+    let formData = new FormData();
+    formData.append("disposisi_date", letter_date);
 
     let data = {
       disposition_date: date,
@@ -48,7 +52,7 @@ const ModalDisposisi = (props) => {
     return null;
   }
   return (
-    <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
+    <div className="fixed font-poppins bg-white rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
       <div className="header flex justify-between py-4 w-10/12 m-auto items-center">
         <h3 className="font-semibold text-2xl text-custom">Edit Disposisi</h3>
         <AiOutlineCloseSquare
@@ -67,11 +71,11 @@ const ModalDisposisi = (props) => {
           </label>
           <input
             type="date"
-            className="outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-            value={date}
+            className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            value={letter_date}
             id="tanggal"
             name="tanggal"
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e) => setLetterDate(e.target.value)}
           />
         </div>
         <div className="disposisi relative grid gap-1">
@@ -81,7 +85,7 @@ const ModalDisposisi = (props) => {
           <select
             id="disposisi"
             onChange={(e) => setDispositionProcess(e.target.value)}
-            className="outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
             name="disposisi"
             value={dispositionProcess}
           >
@@ -113,7 +117,7 @@ const ModalDisposisi = (props) => {
           <select
             id="disposisi"
             onChange={(e) => setDispositionProcess2(e.target.value)}
-            className="outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
+            className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
             name="disposisi"
             value={dispositionProcess2}
           >
@@ -146,7 +150,7 @@ const ModalDisposisi = (props) => {
             value={dispositionNote}
             onChange={(e) => setDispositionNote(e.target.value)}
             placeholder="Tambahkan catatan....."
-            className="outline-none border-2 border-secondary w-full py-2.5 px-3 text-sm text-custom rounded-lg h-28"
+            className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg h-28"
           />
         </div>
         <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center mt-3">

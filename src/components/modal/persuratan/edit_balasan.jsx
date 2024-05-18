@@ -2,10 +2,14 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
-import { PutBalasanSurat,GetDetailBalasan,GetBalasanSurat } from "../../../utils/FetchBalasanSurat";
+import {
+  PutBalasanSurat,
+  GetDetailBalasan,
+  GetBalasanSurat,
+} from "../../../utils/FetchBalasanSurat";
 
 const ModalEditBalasan = (props) => {
-  const { modal, HandlerEditBalasan, id,setSurat } = props;
+  const { modal, HandlerEditBalasan, id, setSurat } = props;
   const [letter_date, setLetterDate] = useState(FormatDate());
   const [detailLetter, setDetailLetter] = useState({});
   const [status, setStatus] = useState(1);
@@ -13,7 +17,7 @@ const ModalEditBalasan = (props) => {
   const [note, setNote] = useState(null);
 
   useEffect(() => {
-    if(id){
+    if (id) {
       GetDetailBalasan(id).then((res) => {
         setDetailLetter(res.data);
         setStatus(res.data.replyletter[0].status);
@@ -22,30 +26,24 @@ const ModalEditBalasan = (props) => {
         setLetterDate(res.data.replyletter[0].outgoing_letter_date);
       });
     }
-  },[id])
+  }, [id]);
 
   const HandleTambahBalasan = async (e) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append("reference_number2", referenceNumber);
-    formData.append("status", status);
-    formData.append("outgoing_letter_date", letter_date);
+     formData.append("outgoing_letter_date", letter_date);
     formData.append("file", e.target.lampiran.files[0]);
     formData.append("note", note);
     const response = await PutBalasanSurat(id, formData);
-    
+    console.log(response);
     if (response.status) {
-      console.log("Surat Berhasil diubah");
-      HandlerEditBalasan();
-      GetBalasanSurat().then((res) => {
-        setSurat(res.data);
-      });
-      setSurat()
+      HandlerEditBalasan({ status: response.status });
     } else {
-      console.log("Surat Gagal diubah");
+      HandlerEditBalasan({ status: response.status });
     }
   };
-  
+
   if (!modal) {
     return null;
   }

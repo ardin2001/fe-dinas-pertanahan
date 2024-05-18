@@ -19,9 +19,9 @@ const ModalTambahBalasan = (props) => {
     const response = await PostBalasanSurat(id, formData);
     console.log(response);
     if (response.status) {
-      HandlerTambahBalasan({status:response.status});
+      HandlerTambahBalasan({ status: response.status });
     } else {
-      HandlerTambahBalasan({status:response.status});
+      HandlerTambahBalasan({ status: response.status });
     }
   };
 
@@ -72,21 +72,6 @@ const ModalTambahBalasan = (props) => {
               onChange={(e) => setLetterDate(e.target.value)}
             />
           </div>
-          <div className="perihal grid gap-1 content-start">
-            <label
-              htmlFor="perihal"
-              className="text-custom text-base font-semibold"
-            >
-              Perihal Surat
-            </label>
-            <input
-              type="text"
-              className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-              placeholder="Perihal surat..."
-              id="perihal"
-              name="perihal"
-            />
-          </div>
           <div className="keterangan grid gap-1">
             <label
               htmlFor="keterangan"
@@ -114,17 +99,14 @@ const ModalTambahBalasan = (props) => {
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               name="status"
             >
-              <option className="font-normal" value="">
+              <option className="font-normal" value="Pending">
                 Pilih Status Surat
               </option>
-              <option className="font-normal" value="1">
-                Penting
+              <option className="font-normal" value="Pending">
+                Pending
               </option>
-              <option className="font-normal" value="2">
-                Biasa
-              </option>
-              <option className="font-normal" value="3">
-                Tidak Penting
+              <option className="font-normal" value="Selesai">
+                Selesai
               </option>
             </select>
           </div>
@@ -149,7 +131,9 @@ const ModalTambahBalasan = (props) => {
         </div>
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-red-500 rounded-lg">
-            <button type="button" onClick={HandlerTambahBalasan}>Batal</button>
+            <button type="button" onClick={HandlerTambahBalasan}>
+              Batal
+            </button>
           </div>
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-secondary rounded-lg">
             <button type="submit">Simpan</button>

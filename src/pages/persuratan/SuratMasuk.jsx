@@ -181,6 +181,7 @@ const SuratMasukPage = () => {
                   <th className="py-2">Pengirim</th>
                   <th className="py-2">Jenis Surat</th>
                   <th className="py-2">Tanggal</th>
+                  <th className="py-2">Status</th>
                   <th className="py-2">Aksi</th>
                   <th></th>
                 </tr>
@@ -199,6 +200,17 @@ const SuratMasukPage = () => {
                         <td className="py-2.5 text-sm">{item.from}</td>
                         <td className="py-2.5 text-sm">{item.letters_type}</td>
                         <td className="py-2.5 text-sm">{item.letter_date}</td>
+                        <td className="py-2.5 text-sm">
+                          <p
+                            className={`${
+                              item.status != "Pending"
+                                ? "bg-green-200 text-green-500"
+                                : "bg-red-300 text-red-600"
+                            } rounded-lg py-1 text-s`}
+                          >
+                            {item.status}
+                          </p>
+                        </td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
                             <MdModeEdit
