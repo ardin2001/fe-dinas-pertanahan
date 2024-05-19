@@ -13,6 +13,9 @@ import {
 } from "../../utils/FetchmanagemenUser";
 import ModalEdit from "../../components/modal/manajemen_user/edit_user";
 import ModalDetail from "../../components/modal/manajemen_user/detail";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ManajemenUserPage = () => {
   const [users, setUsers] = useState([]);
   const [tambah, setTambah] = useState(false);
@@ -33,17 +36,57 @@ const ManajemenUserPage = () => {
     setSearch(e.target.value);
   };
 
-  const HandlerTambah = () => {
-    setTambah((prev) => !prev);
+  const HandlerTambah = ({status}) => {
+    if(status) {
+      setTambah((prev) => !prev);
+      toast.success("Surat berhasil dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }else if(status == false) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Data berhasil dihapus.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }else{
+      setTambah((prev) => !prev);
+    }
   };
 
-  const HandlerEdit = (id) => {
+  const HandlerEdit = ({id,status}) => {
     if (id) {
       GetDetailMnagemenUser(id).then((res) => {
         setDetUser(res.data);
         setEdit((prev) => !prev);
       });
-    } else {
+    } else if(status) {
+      setEdit((prev) => !prev);
+      toast.success("Surat berhasil dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }else if(status == false) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Data berhasil dihapus.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }else{
       setEdit((prev) => !prev);
     }
   };
@@ -88,6 +131,7 @@ const ManajemenUserPage = () => {
           tambah || edit || detail ? "blur-sm" : null
         } content col-start-2 col-end-6 w-97/100`}
       >
+        <ToastContainer/>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
@@ -138,7 +182,7 @@ const ManajemenUserPage = () => {
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit
                           className="text-secondary cursor-pointer text-xl"
-                          onClick={() => HandlerEdit(item.id)}
+                          onClick={() => HandlerEdit({id:item.id})}
                         />
                         <IoMdEye
                           className="text-yellow-300 cursor-pointer text-xl"

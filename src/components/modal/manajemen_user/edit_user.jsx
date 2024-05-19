@@ -26,6 +26,7 @@ const ModalEdit = (props) => {
       type: event.target.type.value,
     };
     const response = await PutManagemenUser(user.id, data);
+    console.log(response);
     if (response.status === true) {
       data.id = user.id;
       data.name = data.nama;
@@ -38,14 +39,9 @@ const ModalEdit = (props) => {
           return user;
         });
       });
-      HandlerEdit();
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Data berhasil diubah",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      HandlerEdit({ status: response.status });
+    }else{
+      HandlerEdit({ status: false });
     }
   };
   if (!modal || !user) {

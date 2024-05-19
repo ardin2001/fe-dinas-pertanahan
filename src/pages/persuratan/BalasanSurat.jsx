@@ -72,12 +72,14 @@ const BalasanSuratPage = () => {
     });
   };
 
-  const HandlerEditBalasan = (id, status) => {
+  const HandlerEditBalasan = ({ id, status }) => {
     console.log("Status: ", status);
     if (id) {
       setId(id);
     }
+
     if (status) {
+      setModalEdit((prev) => !prev);
       toast.success("Surat berhasil dibalas", {
         position: "bottom-right",
         autoClose: 2000,
@@ -87,19 +89,17 @@ const BalasanSuratPage = () => {
         draggable: true,
         progress: undefined,
       });
-    }
-    if (status == false) {
-      toast.error("Surat gagal dibalas", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    }else if(status == false) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Data berhasil dihapus.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
       });
+    } else {
+      setModalEdit((prev) => !prev);
     }
-    setModalEdit((prev) => !prev);
   };
 
   const HandlerDetailBalasan = (id) => {
@@ -182,7 +182,9 @@ const BalasanSuratPage = () => {
                           <div className="aksi flex justify-center gap-2">
                             <MdModeEdit
                               className="text-secondary cursor-pointer text-xl"
-                              onClick={() => HandlerEditBalasan(item.id)}
+                              onClick={() =>
+                                HandlerEditBalasan({ id: item.id })
+                              }
                             />
                             <IoMdEye
                               className="text-yellow-300 cursor-pointer text-xl"

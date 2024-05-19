@@ -14,7 +14,9 @@ const ModalTambah = (props) => {
     if(response.status === true){
       const {data} = await GetDetailMnagemenUser(response.userId)
       setUsers((prev) => [...prev,data]);
-      HandlerTambah()
+      HandlerTambah({status:response.status})
+    }else{
+      HandlerTambah({status:false})
     }
   };
   if (!modal) {

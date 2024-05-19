@@ -32,15 +32,14 @@ const ModalEditBalasan = (props) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append("reference_number2", referenceNumber);
-     formData.append("outgoing_letter_date", letter_date);
+    formData.append("outgoing_letter_date", letter_date);
     formData.append("file", e.target.lampiran.files[0]);
     formData.append("note", note);
     const response = await PutBalasanSurat(id, formData);
-    console.log(response);
-    if (response.status) {
+    if(response.status) {
       HandlerEditBalasan({ status: response.status });
-    } else {
-      HandlerEditBalasan({ status: response.status });
+    }else{
+      HandlerEditBalasan({ status: false });
     }
   };
 
@@ -174,7 +173,9 @@ const ModalEditBalasan = (props) => {
         </div>
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-red-500 rounded-lg">
-            <button type="button" onClick={HandlerEditBalasan}>Batal</button>
+            <button type="button" onClick={HandlerEditBalasan}>
+              Batal
+            </button>
           </div>
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-secondary rounded-lg">
             <button type="submit">Simpan</button>
