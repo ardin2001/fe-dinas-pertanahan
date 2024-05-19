@@ -39,7 +39,7 @@ const ManajemenUserPage = () => {
   const HandlerTambah = ({status}) => {
     if(status) {
       setTambah((prev) => !prev);
-      toast.success("Surat berhasil dibalas", {
+      toast.success("User berhasil ditambahkan", {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -51,7 +51,7 @@ const ManajemenUserPage = () => {
     }else if(status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
+        text: "User gagal ditambahkan",
         icon: "error",
         showConfirmButton: false,
         timer: 1500,

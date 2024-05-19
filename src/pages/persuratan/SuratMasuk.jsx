@@ -74,9 +74,9 @@ const SuratMasukPage = () => {
   const HandlerTambahSurat = ({ status }) => {
     if (status) {
       setModal((prev) => !prev);
-      toast.success("Surat berhasil dibalas", {
+      toast.success("Surat berhasil ditambah", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -86,7 +86,7 @@ const SuratMasukPage = () => {
     } else if (status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
+        text: "Surat berhasil dihapus",
         icon: "success",
         showConfirmButton: false,
         timer: 1500,
@@ -98,9 +98,9 @@ const SuratMasukPage = () => {
 
   const HandlerEditSurat = ({id,status}) => {
     if(status){
-      toast.success("Surat berhasil dibalas", {
+      toast.success("Surat berhasil diedit", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -133,7 +133,7 @@ const SuratMasukPage = () => {
       setTambah((prev) => !prev);
       toast.success("Surat berhasil dibalas", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -143,7 +143,7 @@ const SuratMasukPage = () => {
     }else if (status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
+        text: "Balasan gagal ditambahkan",
         icon: "success",
         showConfirmButton: false,
         timer: 1500,

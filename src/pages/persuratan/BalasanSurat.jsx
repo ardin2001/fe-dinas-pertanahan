@@ -80,7 +80,7 @@ const BalasanSuratPage = () => {
 
     if (status) {
       setModalEdit((prev) => !prev);
-      toast.success("Surat berhasil dibalas", {
+      toast.success("Surat Balasan berhasil diedit", {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -92,7 +92,7 @@ const BalasanSuratPage = () => {
     }else if(status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
+        text: "Surat balasan gagal diedit",
         icon: "error",
         showConfirmButton: false,
         timer: 1500,
