@@ -25,7 +25,7 @@ const ModalTambahSurat = (props) => {
     formData.append("from", e.target.nama.value);
     formData.append("file", e.target.file.files[0]);
     formData.append("description", e.target.perihal.value);
-    const { status, data } = await PostSuratMasuk(formData);
+    let { status, data } = await PostSuratMasuk(formData);
     if (status) {
       const response = await GetDetailSuratMasuk(data.letter.id);
       if (response.status) {
@@ -33,9 +33,12 @@ const ModalTambahSurat = (props) => {
           letter: [...prev.letter, response.data.letter],
           file: [...prev.file, response.data.file],
         }));
-        HandlerTambahSurat();
       }
     }
+    if(status == undefined){
+      status = false
+    }
+    HandlerTambahSurat({status});
   };
 
   return (

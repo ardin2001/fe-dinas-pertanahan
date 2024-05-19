@@ -4,24 +4,44 @@ import { GoPlus } from "react-icons/go";
 import ModalDisposisi from "../../components/modal/ModalDisposisi";
 import { GetDetailSuratMasuk } from "../../utils/FetchSuratMasuk";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const DisposisiSuratPage = () => {
   let { id } = useParams();
   const [modal, setModal] = useState(false);
   const [disposisi, setDisposisi] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     GetDetailSuratMasuk(id).then((res) => {
       setDisposisi(res.data.letter);
-      setLoading(false);
     });
   }, [id]);
 
-  const HandlerEditDisposisi = () => {
-    setModal((prev) => !prev);
+  const HandlerEditDisposisi = ({ status }) => {
+    if (status) {
+      setModal((prev) => !prev);
+      toast.success("Surat berhasil dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else if (status == false) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Data berhasil dihapus.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      setModal((prev) => !prev);
+    }
   };
-
-  
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-sans">
@@ -37,6 +57,7 @@ const DisposisiSuratPage = () => {
           modal ? "blur-sm" : null
         }`}
       >
+      <ToastContainer/>
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Disposisi Surat</h2>
         </div>

@@ -4,8 +4,6 @@ import { PutDisposisiSurat } from "../../utils/FetchSuratMasuk";
 import FormatDate from "../../utils/Date";
 
 const ModalDisposisi = (props) => {
-  const [kategori, setKategori] = useState("Kategori Disposisi");
-  const [date, setDate] = useState("");
   const { modal, HandlerEditDisposisi, surat, setDisposisi } = props;
   const [newSurat, setNewSurat] = useState(surat);
   const [dispositionNote, setDispositionNote] = useState("");
@@ -19,33 +17,33 @@ const ModalDisposisi = (props) => {
       setDispositionNote(surat.disposition_note);
       setDispositionProcess(surat.disposition_process[0]);
       setDispositionProcess2(surat.disposition_process[1]);
-      setDate(surat.disposition_date);
+      setLetterDate(surat.disposition_date);
     }
   }, [surat]);
 
   const HandlerSubmitDisposisi = async (event) => {
     event.preventDefault();
-    let formData = new FormData();
-    formData.append("disposisi_date", letter_date);
 
     let data = {
-      disposition_date: date,
+      disposition_date: letter_date,
       disposition_process: dispositionProcess,
       disposition_process2: dispositionProcess2,
       disposition_note: dispositionNote,
     };
 
     const response = await PutDisposisiSurat(data, surat.id);
+    console.log(response)
+    console.log(letter_date)
     if (response.status) {
       const sumDisposition = [dispositionProcess, dispositionProcess2];
       setDisposisi((prev) => ({
         ...prev,
         disposition_note: dispositionNote,
         disposition_process: sumDisposition,
-        disposition_date: date,
+        disposition_date: letter_date,
       }));
-      HandlerEditDisposisi();
     }
+    HandlerEditDisposisi({status:response.status});
   };
 
   if (!modal) {
@@ -154,7 +152,7 @@ const ModalDisposisi = (props) => {
           />
         </div>
         <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center mt-3">
-          <button className="grid grid-flow-col gap-2 items-center py-2 bg-red-500 rounded-lg">
+          <button type="button" onClick={HandlerEditDisposisi} className="grid grid-flow-col gap-2 items-center py-2 bg-red-500 rounded-lg">
             <p>Batal</p>
           </button>
           <button

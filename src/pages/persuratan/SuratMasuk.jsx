@@ -71,28 +71,32 @@ const SuratMasukPage = () => {
     });
   };
 
-  const HandlerTambahSurat = () => {
-    setModal((prev) => !prev);
-  };
-
-  const HandlerEditSurat = (id) => {
-    GetDetailSuratMasuk(id).then((res) => {
-      setDetail(res.data);
-      setModal2((prev) => !prev);
-    });
-  };
-
-  const HandlerDetailSurat = (id) => {
-    GetDetailSuratMasuk(id).then((res) => {
-      setDetail(res.data);
-      setModal3((prev) => !prev);
-    });
-  };
-
-  const HandlerTambahBalasan = ({ id,status }) => {
-    if(id){
-      setId(id);
+  const HandlerTambahSurat = ({ status }) => {
+    if (status) {
+      setModal((prev) => !prev);
+      toast.success("Surat berhasil dibalas", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else if (status == false) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Data berhasil dihapus.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      setModal((prev) => !prev);
     }
+  };
+
+  const HandlerEditSurat = ({id,status}) => {
     if(status){
       toast.success("Surat berhasil dibalas", {
         position: "bottom-right",
@@ -104,8 +108,30 @@ const SuratMasukPage = () => {
         progress: undefined,
       });
     }
-    if(status == false){
-      toast.error("Surat gagal dibalas", {
+    if (id) {
+      GetDetailSuratMasuk(id).then((res) => {
+        setDetail(res.data);
+        setModal2((prev) => !prev);
+      });
+    }else{
+      setModal2((prev) => !prev);
+    }
+  };
+
+  const HandlerDetailSurat = (id) => {
+    GetDetailSuratMasuk(id).then((res) => {
+      setDetail(res.data);
+      setModal3((prev) => !prev);
+    });
+  };
+
+  const HandlerTambahBalasan = ({ id, status }) => {
+    if (id) {
+      setId(id);
+    }
+    if (status) {
+      setTambah((prev) => !prev);
+      toast.success("Surat berhasil dibalas", {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -114,8 +140,16 @@ const SuratMasukPage = () => {
         draggable: true,
         progress: undefined,
       });
-    }
-    setTambah((prev) => !prev);
+    }else if (status == false) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Data berhasil dihapus.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }else{
+      setTambah((prev) => !prev);}
   };
 
   return (
@@ -216,7 +250,7 @@ const SuratMasukPage = () => {
                             <MdModeEdit
                               className="text-secondary cursor-pointer text-xl "
                               type="button"
-                              onClick={() => HandlerEditSurat(item.id)}
+                              onClick={() => HandlerEditSurat({id:item.id})}
                             />
                             <IoMdEye
                               className="text-yellow-300 cursor-pointer text-xl"
