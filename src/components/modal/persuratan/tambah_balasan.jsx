@@ -15,9 +15,9 @@ const ModalTambahBalasan = (props) => {
     formData.append("status", e.target.status.value);
     formData.append("outgoing_letter_date", letter_date);
     formData.append("file", e.target.lampiran.files[0]);
-    formData.append("note", e.target.perihal.value);
+    formData.append("note", e.target.keterangan.value);
     const response = await PostBalasanSurat(id, formData);
-    console.log(response);
+    
     if (response.status) {
       HandlerTambahBalasan({ status: response.status });
     } else {

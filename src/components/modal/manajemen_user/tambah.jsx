@@ -102,7 +102,7 @@ const ModalTambah = (props) => {
           </select>
         </div>
         <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center">
-          <button className="grid grid-flow-col gap-2 items-center py-2 bg-red-500 rounded-lg">
+          <button type="button" onClick={HandlerTambah} className="grid grid-flow-col gap-2 items-center py-2 bg-red-500 rounded-lg">
             <p>Batal</p>
           </button>
           <button type="submit" className="grid grid-flow-col gap-2 items-center py-2 bg-secondary rounded-lg">

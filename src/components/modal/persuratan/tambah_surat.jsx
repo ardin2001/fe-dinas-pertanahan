@@ -178,6 +178,7 @@ const ModalTambahSurat = (props) => {
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <button
             type="button"
+            onClick={HandlerTambahSurat}
             className="items-center p-3 bg-red-500 rounded-lg "
           >
             Batal

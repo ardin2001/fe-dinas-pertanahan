@@ -68,12 +68,6 @@ const ModalDetailSurat = (props) => {
           </button>
         </div>
       </div>
-
-      <div className="button grid gap-8 grid-flow-col text-white font-semibold text-center w-1/3 justify-self-end items-end">
-        <div className="grid grid-flow-col gap-2 items-center py-1 bg-red-500 rounded-lg cursor-pointer">
-          <p>Batal</p>
-        </div>
-      </div>
     </div>
   );
 };

@@ -174,7 +174,7 @@ const ModalEditBalasan = (props) => {
         </div>
         <div className="modal-footer flex justify-end gap-5 text-white font-semibold text-center my-auto">
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-red-500 rounded-lg">
-            <button>Batal</button>
+            <button type="button" onClick={HandlerEditBalasan}>Batal</button>
           </div>
           <div className="grid grid-flow-col gap-2 items-center py-1 px-5 bg-secondary rounded-lg">
             <button type="submit">Simpan</button>
