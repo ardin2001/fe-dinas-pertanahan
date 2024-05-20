@@ -83,7 +83,7 @@ const RekapSuratPage = () => {
             <table className="table-auto w-full text-center">
               <thead className="text-white font-semibold bg-secondary">
                 <tr className="">
-                  <th className="py-2 text-sm px-3">No</th>
+                  <th className="py-2 text-sm text-start pl-5">No</th>
                   <th className="py-2 text-sm text-start">Pengirim</th>
                   <th className="py-2 text-sm text-start">Disposisi</th>
                   <th className="py-2 text-sm ">Tanggal</th>
