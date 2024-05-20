@@ -32,8 +32,8 @@ const DisposisiSuratPage = () => {
       });
     } else if (status == false) {
       Swal.fire({
-        title: "Gagal!",
-        text: "Surat gagal di disposisi",
+        title: "Gagal",
+        text: "Lengkapi data yang kosong!",
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,

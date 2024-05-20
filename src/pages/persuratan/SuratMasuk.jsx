@@ -85,8 +85,8 @@ const SuratMasukPage = () => {
       });
     } else if (status == false) {
       Swal.fire({
-        title: "Gagal!",
-        text: "Surat gagal ditambahkan",
+        title: "Gagal",
+        text: "Lengkapi data yang kosong!",
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
@@ -143,8 +143,8 @@ const SuratMasukPage = () => {
       });
     }else if (status == false) {
       Swal.fire({
-        title: "Gagal!",
-        text: "Balasan gagal ditambahkan",
+        title: "Gagal",
+        text: "Lengkapi data yang kosong!",
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,

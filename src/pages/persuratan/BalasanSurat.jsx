@@ -91,8 +91,8 @@ const BalasanSuratPage = () => {
       });
     }else if(status == false) {
       Swal.fire({
-        title: "Gagal!",
-        text: "Surat balasan gagal diedit",
+        title: "Gagal",
+        text: "Lengkapi data yang kosong!",
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,

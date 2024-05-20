@@ -112,7 +112,7 @@ const RekapSuratPage = () => {
                       <FaFile
                         className="text-primary cursor-pointer"
                         type="button"
-                        onClick={() => handleViewFile(surat.letter.id)}
+                        onClick={() => handleViewFile(surat.letter[0].id)}
                       />
                     </td>
                   </tr>

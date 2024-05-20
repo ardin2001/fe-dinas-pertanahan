@@ -51,7 +51,7 @@ const ManajemenUserPage = () => {
     }else if(status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "User gagal ditambahkan",
+        text: "Lengkapi data yang kosong!",
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
@@ -70,7 +70,7 @@ const ManajemenUserPage = () => {
       });
     } else if(status) {
       setEdit((prev) => !prev);
-      toast.success("Surat berhasil dibalas", {
+      toast.success("User berhasil diedit", {
         position: "bottom-right",
         autoClose: 1000,
         hideProgressBar: false,
@@ -81,8 +81,8 @@ const ManajemenUserPage = () => {
       });
     }else if(status == false) {
       Swal.fire({
-        title: "Gagal!",
-        text: "Data berhasil dihapus.",
+        title: "Gagal",
+        text: "Lengkapi data yang kosong!",
         icon: "error",
         showConfirmButton: false,
         timer: 1000,
