@@ -1,4 +1,5 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
+
 const ModalDetail = (props) => {
   const { modal, HandlerDetail, user } = props;
   if (!modal || !user) {
