@@ -34,9 +34,10 @@ const DisposisiSuratPage = () => {
       Swal.fire({
         title: "Gagal!",
         text: "Surat gagal di disposisi",
-        icon: "success",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     } else {
       setModal((prev) => !prev);

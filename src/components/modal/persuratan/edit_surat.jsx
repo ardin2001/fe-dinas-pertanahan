@@ -47,11 +47,12 @@ const ModalEditSurat = (props) => {
       HandlerEditSurat({status : true});
     }else{
       Swal.fire({
-        position: "center",
-        icon: "error",
-        title: response.message,
+        title: "Gagal!",
+        text: "Surat gagal diedit",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     }
   };

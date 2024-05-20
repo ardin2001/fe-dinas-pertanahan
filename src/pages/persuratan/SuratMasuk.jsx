@@ -61,7 +61,7 @@ const SuratMasukPage = () => {
           });
           Swal.fire({
             title: "Berhasil!",
-            text: "Data berhasil dihapus.",
+            text: "Data berhasil dihapus",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -86,10 +86,11 @@ const SuratMasukPage = () => {
     } else if (status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Surat berhasil dihapus",
-        icon: "success",
+        text: "Surat gagal ditambahkan",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     } else {
       setModal((prev) => !prev);
@@ -144,9 +145,10 @@ const SuratMasukPage = () => {
       Swal.fire({
         title: "Gagal!",
         text: "Balasan gagal ditambahkan",
-        icon: "success",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     }else{
       setTambah((prev) => !prev);}
