@@ -61,7 +61,7 @@ const SuratMasukPage = () => {
           });
           Swal.fire({
             title: "Berhasil!",
-            text: "Data berhasil dihapus.",
+            text: "Data berhasil dihapus",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -74,9 +74,9 @@ const SuratMasukPage = () => {
   const HandlerTambahSurat = ({ status }) => {
     if (status) {
       setModal((prev) => !prev);
-      toast.success("Surat berhasil dibalas", {
+      toast.success("Surat berhasil ditambah", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -86,10 +86,11 @@ const SuratMasukPage = () => {
     } else if (status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
-        icon: "success",
+        text: "Surat gagal ditambahkan",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     } else {
       setModal((prev) => !prev);
@@ -98,9 +99,9 @@ const SuratMasukPage = () => {
 
   const HandlerEditSurat = ({id,status}) => {
     if(status){
-      toast.success("Surat berhasil dibalas", {
+      toast.success("Surat berhasil diedit", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -133,7 +134,7 @@ const SuratMasukPage = () => {
       setTambah((prev) => !prev);
       toast.success("Surat berhasil dibalas", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -143,10 +144,11 @@ const SuratMasukPage = () => {
     }else if (status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
-        icon: "success",
+        text: "Balasan gagal ditambahkan",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     }else{
       setTambah((prev) => !prev);}

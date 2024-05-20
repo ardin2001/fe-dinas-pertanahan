@@ -21,9 +21,9 @@ const DisposisiSuratPage = () => {
   const HandlerEditDisposisi = ({ status }) => {
     if (status) {
       setModal((prev) => !prev);
-      toast.success("Surat berhasil dibalas", {
+      toast.success("Surat berhasil di disposisi", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -33,10 +33,11 @@ const DisposisiSuratPage = () => {
     } else if (status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
-        icon: "success",
+        text: "Surat gagal di disposisi",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     } else {
       setModal((prev) => !prev);

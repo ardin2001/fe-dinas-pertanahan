@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import FormatDate from "../../utils/Date";
 import { FaFile, FaSearch } from "react-icons/fa";
 import { GetRekapSurat } from "../../utils/FetchRekapSurat";
+import { getShowFile } from "../../utils/FetchSuratMasuk";
 
 const RekapSuratPage = () => {
   const [kategori, setKategori] = useState("Kategori Surat");
   const [tanggal, setTanggal] = useState(FormatDate());
   const [surat, setSurat] = useState({});
+  const [fileUrl, setFileUrl] = useState("");
   const Handlerkategori = (e) => {
     setKategori(e.target.value);
   };
@@ -20,6 +22,12 @@ const RekapSuratPage = () => {
       setLoading(true);
     });
   }, []);
+
+  const handleViewFile = async (id) => {
+    const url = await getShowFile(id);
+    setFileUrl(url);
+    window.open(url, "_blank");
+  };
 
   console.log(surat.letter);
   return (
@@ -75,23 +83,23 @@ const RekapSuratPage = () => {
             <table className="table-auto w-full text-center">
               <thead className="text-white font-semibold bg-secondary">
                 <tr className="">
-                  <th className="py-2 text-sm text-start pl-4">No</th>
+                  <th className="py-2 text-sm px-3">No</th>
                   <th className="py-2 text-sm text-start">Pengirim</th>
                   <th className="py-2 text-sm text-start">Disposisi</th>
-                  <th className="py-2 text-sm text-start">Tanggal</th>
-                  <th className="py-2 text-sm text-start">Status</th>
-                  <th className="py-2 text-sm text-start">Draft</th>
+                  <th className="py-2 text-sm ">Tanggal</th>
+                  <th className="py-2 text-sm ">Status</th>
+                  <th className="py-2 text-sm ">Draft</th>
                 </tr>
               </thead>
-              <tbody className="text-start">
+              <tbody className="text-center">
                 {surat?.letter?.map((item, index) => (
                   <tr
                     key={index}
                     className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
                     <td className="py-3 text-sm">{index + 1}</td>
-                    <td className="py-3 text-sm">{item.from}</td>
-                    <td className="py-3 text-sm ">
+                    <td className="py-3 text-sm text-start">{item.from}</td>
+                    <td className="py-3 text-sm text-start ">
                       <ul className="list-disc list-inside">
                         {item.disposition_process.map((item, index) => (
                           <li key={index}>{item}</li>
@@ -100,8 +108,12 @@ const RekapSuratPage = () => {
                     </td>
                     <td className="py-3 text-sm">{item.letter_date}</td>
                     <td className="py-3 text-sm">{item.status}</td>
-                    <td className="py-3 text-sm grid ">
-                      <FaFile className="text-primary" />
+                    <td className="py-6 text-sm grid place-items-center">
+                      <FaFile
+                        className="text-primary cursor-pointer"
+                        type="button"
+                        onClick={() => handleViewFile(surat.letter.id)}
+                      />
                     </td>
                   </tr>
                 ))}

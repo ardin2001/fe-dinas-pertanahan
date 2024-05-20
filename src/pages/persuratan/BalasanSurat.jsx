@@ -43,7 +43,7 @@ const BalasanSuratPage = () => {
       text: "Data yang dihapus tidak dapat dipulihkan!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
+      confirmButtonColor: "#FB0017",
       cancelButtonColor: "#828282",
       cancelButtonText: "Batal",
       confirmButtonText: "Hapus",
@@ -80,9 +80,9 @@ const BalasanSuratPage = () => {
 
     if (status) {
       setModalEdit((prev) => !prev);
-      toast.success("Surat berhasil dibalas", {
+      toast.success("Surat Balasan berhasil diedit", {
         position: "bottom-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -92,10 +92,11 @@ const BalasanSuratPage = () => {
     }else if(status == false) {
       Swal.fire({
         title: "Gagal!",
-        text: "Data berhasil dihapus.",
-        icon: "error",
+        text: "Surat balasan gagal diedit",
+        icon: "warning",
+        iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     } else {
       setModalEdit((prev) => !prev);

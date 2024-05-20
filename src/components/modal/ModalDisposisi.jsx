@@ -23,6 +23,7 @@ const ModalDisposisi = (props) => {
 
   const HandlerSubmitDisposisi = async (event) => {
     event.preventDefault();
+  
 
     let data = {
       disposition_date: letter_date,
