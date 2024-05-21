@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import { AuthContext } from "../context/Auth.jsx";
+import { AuthContext } from "../context/Auth";
 
 const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
