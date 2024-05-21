@@ -3,15 +3,16 @@ import ReactDOM from "react-dom/client";
 import App from "./pages/App";
 import ErrorPage from "./pages/Error";
 import DashboardPage from "./pages/Dashboard";
-import RekapSuratPage from "./pages/rekap_surat/RekapSurat";
-import ManajemenUserPage from "./pages/manajemen_user/ManajemenUser";
+import RekapSuratPage from "./pages/rekap-surat/RekapSurat";
+import ManajemenUserPage from "./pages/manajemen-user/ManajemenUser";
 import SuratMasukPage from "./pages/persuratan/SuratMasuk";
 import BalasanSuratPage from "./pages/persuratan/BalasanSurat";
 import ProfilePage from "./pages/profile/Profile";
 import DisposisiSuratPage from "./pages/persuratan/DisposisiSurat";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import { AuthContextProvider } from "./context/auth";
+import { AuthContextProvider } from "./context/Auth";
+import DaftarBalasanPage from "./components/BalasanSuratUser";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/surat-masuk",
     element: <SuratMasukPage />,
+  },
+  {
+    path: "/surat-masuk/daftar-balasan/:id",
+    element: <DaftarBalasanPage />,
   },
   {
     path: "/profile",

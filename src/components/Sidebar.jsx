@@ -13,17 +13,17 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import { AuthContext } from "../context/auth.jsx";
+import { AuthContext } from "../context/Auth.jsx";
 
 const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [togle, setTogle] = useState(false);
-  const {auth,setAuth} = useContext(AuthContext);
-  
+  const { auth, setAuth } = useContext(AuthContext);
+
   useEffect(() => {
-    if(!auth){
-      navigate("/")
+    if (!auth) {
+      navigate("/");
     }
     if (
       location.pathname == "/surat-masuk" ||

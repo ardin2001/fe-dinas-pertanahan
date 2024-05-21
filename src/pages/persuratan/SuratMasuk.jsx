@@ -1,23 +1,24 @@
 import Sidebar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
+import { MdModeEdit, MdQuickreply } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import ModalTambahSurat from "../../components/modal/persuratan/tambah_surat";
-import ModalEditSurat from "../../components/modal/persuratan/edit_surat";
-import ModalDetailSurat from "../../components/modal/persuratan/detail_surat";
+import ModalTambahSurat from "../../components/modal/persuratan/TambahSurat";
+import ModalEditSurat from "../../components/modal/persuratan/EditSurat";
+import ModalDetailSurat from "../../components/modal/persuratan/DetailSurat";
 import {
   GetSuratMasuk,
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
-import ModalTambahBalasan from "../../components/modal/persuratan/tambah_balasan";
+import ModalTambahBalasan from "../../components/modal/persuratan/TambahBalasan";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BsReplyAll } from "react-icons/bs";
 
 const SuratMasukPage = () => {
   const [search, setSearch] = useState();
@@ -97,8 +98,8 @@ const SuratMasukPage = () => {
     }
   };
 
-  const HandlerEditSurat = ({id,status}) => {
-    if(status){
+  const HandlerEditSurat = ({ id, status }) => {
+    if (status) {
       toast.success("Surat berhasil diedit", {
         position: "bottom-right",
         autoClose: 1000,
@@ -114,7 +115,7 @@ const SuratMasukPage = () => {
         setDetail(res.data);
         setModal2((prev) => !prev);
       });
-    }else{
+    } else {
       setModal2((prev) => !prev);
     }
   };
@@ -141,7 +142,7 @@ const SuratMasukPage = () => {
         draggable: true,
         progress: undefined,
       });
-    }else if (status == false) {
+    } else if (status == false) {
       Swal.fire({
         title: "Gagal",
         text: "Lengkapi data yang kosong!",
@@ -150,8 +151,9 @@ const SuratMasukPage = () => {
         showConfirmButton: false,
         timer: 1000,
       });
-    }else{
-      setTambah((prev) => !prev);}
+    } else {
+      setTambah((prev) => !prev);
+    }
   };
 
   return (
@@ -252,7 +254,7 @@ const SuratMasukPage = () => {
                             <MdModeEdit
                               className="text-secondary cursor-pointer text-xl "
                               type="button"
-                              onClick={() => HandlerEditSurat({id:item.id})}
+                              onClick={() => HandlerEditSurat({ id: item.id })}
                             />
                             <IoMdEye
                               className="text-yellow-300 cursor-pointer text-xl"
@@ -264,6 +266,12 @@ const SuratMasukPage = () => {
                               type="button"
                               onClick={() => HandlerDeleteSurat(item.id)}
                             />
+                            <Link to={`/surat-masuk/daftar-balasan/${item.id}`}>
+                              <BsReplyAll
+                                className="text-red-500 cursor-pointer text-xl"
+                                type="button"
+                              />
+                            </Link>
                           </div>
                         </td>
                         <td className="grid grid-flow-col grid-cols-2 gap-4 p-2">

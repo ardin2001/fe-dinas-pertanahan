@@ -1,7 +1,7 @@
 import Sidebar from "../../components/Sidebar";
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import ModalTambah from "../../components/modal/manajemen_user/tambah";
+import ModalTambah from "../../components/modal/manajemen-user/TambahUser";
 import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
@@ -11,8 +11,8 @@ import {
   GetDetailMnagemenUser,
   DelManagemenUser,
 } from "../../utils/FetchmanagemenUser";
-import ModalEdit from "../../components/modal/manajemen_user/edit_user";
-import ModalDetail from "../../components/modal/manajemen_user/detail";
+import ModalEdit from "../../components/modal/manajemen-user/EditUser";
+import ModalDetail from "../../components/modal/manajemen-user/DetailUser";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

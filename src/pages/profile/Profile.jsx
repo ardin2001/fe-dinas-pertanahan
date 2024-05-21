@@ -4,17 +4,17 @@ import { MdModeEdit } from "react-icons/md";
 import ModalProfile from "../../components/modal/ModalProfile";
 import { CiUser } from "react-icons/ci";
 import { useContext } from "react";
-import { AuthContext } from "../../context/auth";
+import { AuthContext } from "../../context/Auth";
 import { GetDetailMnagemenUser } from "../../utils/FetchmanagemenUser";
 const ProfilePage = () => {
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({});
-  const {auth} = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   useEffect(() => {
     GetDetailMnagemenUser(auth.id).then((res) => {
-     setUser(res.data);
+      setUser(res.data);
     });
-  })
+  });
   const HandlerEditProfile = () => {
     setModal((prev) => !prev);
   };
@@ -22,7 +22,11 @@ const ProfilePage = () => {
     <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200">
       <ModalProfile modal={modal} HandlerEditProfile={HandlerEditProfile} />
       <Sidebar modal={modal} />
-      <div className={`content col-start-2 col-end-6 w-97/100 ${modal ? "blur-sm" : null}`}>
+      <div
+        className={`content col-start-2 col-end-6 w-97/100 ${
+          modal ? "blur-sm" : null
+        }`}
+      >
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Profile</h2>
         </div>
@@ -48,7 +52,11 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          <div className={`${auth == 'admin' ? "grid" : 'hidden'} right grid-flow-col grid-cols-2`}>
+          <div
+            className={`${
+              auth == "admin" ? "grid" : "hidden"
+            } right grid-flow-col grid-cols-2`}
+          >
             <div
               className="col-start-2 col-end-3 self-end justify-self-end"
               onClick={HandlerEditProfile}

@@ -4,7 +4,7 @@ import CardDashboard from "../components/CardDashboard";
 import Chart from "../components/charts/Charts";
 import { GetDashboard } from "../utils/FetchChartDashboard";
 import { IoIosNotifications } from "react-icons/io";
-import ModalNotification from "../components/modal/notification";
+import ModalNotification from "../components/modal/Notification";
 
 const DashboardPage = () => {
     const [data, setData] = useState(null);

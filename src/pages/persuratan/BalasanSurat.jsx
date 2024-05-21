@@ -5,8 +5,8 @@ import { MdModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { Link } from "react-router-dom";
-import ModalEditBalasan from "../../components/modal/persuratan/edit_balasan";
-import ModalDetailBalasan from "../../components/modal/persuratan/detail-balasan";
+import ModalEditBalasan from "../../components/modal/persuratan/EditBalasan";
+import ModalDetailBalasan from "../../components/modal/persuratan/DetailBalasan";
 import {
   GetBalasanSurat,
   GetDetailBalasan,
