@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../utils/FetchUsers";
 import UseInput from "../hooks/UseInput.js";
-import { AuthContext } from "../context/Auth.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
 import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

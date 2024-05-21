@@ -4,7 +4,7 @@ import { MdModeEdit } from "react-icons/md";
 import ModalProfile from "../../components/modal/ModalProfile";
 import { CiUser } from "react-icons/ci";
 import { useContext } from "react";
-import { AuthContext } from "../../context/Auth";
+import { AuthContext } from "../../context/AuthContext";
 import { GetDetailMnagemenUser } from "../../utils/FetchmanagemenUser";
 const ProfilePage = () => {
   const [modal, setModal] = useState(false);

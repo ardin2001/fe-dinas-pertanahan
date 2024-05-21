@@ -12,7 +12,7 @@ import DisposisiSuratPage from "./pages/persuratan/DisposisiSurat";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import DaftarBalasanPage from "./components/BalasanSuratUser";
-import { AuthContextProvider } from "./context/Auth";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter([
   {
