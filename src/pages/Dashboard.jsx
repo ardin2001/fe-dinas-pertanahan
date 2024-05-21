@@ -4,25 +4,28 @@ import CardDashboard from "../components/CardDashboard";
 import Chart from "../components/charts/Charts";
 import { GetDashboard } from "../utils/FetchChartDashboard";
 import { IoIosNotifications } from "react-icons/io";
-import ModalNotification from "../components/modal/Notif";
+import ModalNotification from "../components/modal/Notification";
+import UseAuth from "../hooks/UseAuth";
 
 const DashboardPage = () => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [notif,setNotif] = useState(false);
-    useEffect(() => {
-      setLoading(true);
-      GetDashboard()
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }, []);
+  const auth = UseAuth();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [notif, setNotif] = useState(false);
+  
+  useEffect(() => {
+    setLoading(true);
+    GetDashboard()
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200 font-poppins">
@@ -36,8 +39,7 @@ const DashboardPage = () => {
             onClick={() => setNotif(!notif)}
           >
             <IoIosNotifications />
-            <ModalNotification notif={notif} /> 
-            
+            <ModalNotification notif={notif} />
           </div>
         </div>
         <div className="rekap grid gap-10 grid-flow-col grid-cols-4 mt-4 font-semibold text-base">

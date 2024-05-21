@@ -4,8 +4,10 @@ import FormatDate from "../../utils/Date";
 import { FaFile, FaSearch } from "react-icons/fa";
 import { GetRekapSurat } from "../../utils/FetchRekapSurat";
 import { getShowFile } from "../../utils/FetchSuratMasuk";
+import UseAuth from "../../hooks/UseAuth";
 
 const RekapSuratPage = () => {
+  const auth = UseAuth()
   const [kategori, setKategori] = useState("Kategori Surat");
   const [tanggal, setTanggal] = useState(FormatDate());
   const [surat, setSurat] = useState({});

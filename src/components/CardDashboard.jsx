@@ -4,12 +4,20 @@ import { useEffect, useState } from "react";
 import { GetDashboard } from "../utils/FetchChartDashboard";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const CardDashboard = ({ title, count, description }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { auth } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (auth == null) {
+      navigate("/");
+    }
     setLoading(true);
     GetDashboard()
       .then((res) => {

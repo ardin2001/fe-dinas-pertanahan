@@ -15,8 +15,10 @@ import {
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UseAuth from "../../hooks/UseAuth";
 
 const BalasanSuratPage = () => {
+  const auth = UseAuth();
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
   const [surat, setSurat] = useState([]);

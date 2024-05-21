@@ -19,12 +19,9 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [togle, setTogle] = useState(false);
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!auth) {
-      navigate("/");
-    }
     if (
       location.pathname == "/surat-masuk" ||
       location.pathname == "/balasan-surat" ||
@@ -198,7 +195,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
           >
             <Link to={"/profile"}>
               <div className="status">
-                <h4 className="font-bold text-sm">ADMIN GEGE</h4>
+                <h4 className="font-bold text-sm">{auth?.name}</h4>
                 <p className="text-xs">{auth?.email}</p>
               </div>
             </Link>

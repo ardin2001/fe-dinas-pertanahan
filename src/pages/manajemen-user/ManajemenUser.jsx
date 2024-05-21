@@ -16,14 +16,18 @@ import ModalDetail from "../../components/modal/manajemen-user/DetailUser";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UseAuth from "../../hooks/UseAuth";
+
 const ManajemenUserPage = () => {
+  const auth = UseAuth()
   const [users, setUsers] = useState([]);
   const [tambah, setTambah] = useState(false);
   const [edit, setEdit] = useState(false);
   const [detail, setDetail] = useState(false);
   const [del, setDel] = useState(false);
   const [detUser, setDetUser] = useState({});
-  useEffect(() => {
+
+  useEffect(() => {    
     (async () => {
       const { status, data } = await GetManagemenUser();
       if (status) {

@@ -3,13 +3,14 @@ import Sidebar from "../../components/Sidebar";
 import { MdModeEdit } from "react-icons/md";
 import ModalProfile from "../../components/modal/ModalProfile";
 import { CiUser } from "react-icons/ci";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { GetDetailMnagemenUser } from "../../utils/FetchmanagemenUser";
+import UseAuth from "../../hooks/UseAuth";
+
 const ProfilePage = () => {
+  const auth = UseAuth();
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({});
-  const { auth } = useContext(AuthContext);
+  
   useEffect(() => {
     GetDetailMnagemenUser(auth.id).then((res) => {
       setUser(res.data);

@@ -7,7 +7,10 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UseAuth from "../../hooks/UseAuth";
+
 const DisposisiSuratPage = () => {
+  const auth = UseAuth();
   let { id } = useParams();
   const [modal, setModal] = useState(false);
   const [disposisi, setDisposisi] = useState(null);
