@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import { MdModeEdit } from "react-icons/md";
 import ModalProfile from "../../components/modal/ModalProfile";
 import { CiUser } from "react-icons/ci";
-
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth";
+import { GetDetailMnagemenUser } from "../../utils/FetchmanagemenUser";
 const ProfilePage = () => {
   const [modal, setModal] = useState(false);
+  const [user, setUser] = useState({});
+  const {auth} = useContext(AuthContext);
+  useEffect(() => {
+    GetDetailMnagemenUser(auth.id).then((res) => {
+     setUser(res.data);
+    });
+  })
   const HandlerEditProfile = () => {
     setModal((prev) => !prev);
   };
@@ -22,16 +31,16 @@ const ProfilePage = () => {
             <div className="card-profile w-1/2 text-custom flex flex-col gap-2">
               <CiUser className="w-3/4 m-5 h-full border-2 rounded-lg border-primary" />
               <div>
-                <p className="font-normal">Username</p>
-                <h4 className="text-2xl font-bold">John Doe</h4>
+                <p className="font-normal">Name</p>
+                <h4 className="text-2xl font-bold">{user?.name}</h4>
               </div>
               <div>
                 <p className="font-normal">Email</p>
-                <p className="font-bold">johndoe@gmail.com</p>
+                <p className="font-bold">{user?.email}</p>
               </div>
               <div>
-                <p className="font-normal">Password</p>
-                <p className="font-bold">**********</p>
+                <p className="font-normal">Role</p>
+                <p className="font-bold">{user?.type}</p>
               </div>
               <div>
                 <p className="font-normal">Nomor Telepon</p>
@@ -39,7 +48,7 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          <div className="right grid grid-flow-col grid-cols-2">
+          <div className={`${auth == 'admin' ? "grid" : 'hidden'} right grid-flow-col grid-cols-2`}>
             <div
               className="col-start-2 col-end-3 self-end justify-self-end"
               onClick={HandlerEditProfile}

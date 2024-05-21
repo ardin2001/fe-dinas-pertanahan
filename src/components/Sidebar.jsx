@@ -12,14 +12,19 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.jsx";
 
 const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [togle, setTogle] = useState(false);
-
+  const {auth,setAuth} = useContext(AuthContext);
+  
   useEffect(() => {
+    if(!auth){
+      navigate("/")
+    }
     if (
       location.pathname == "/surat-masuk" ||
       location.pathname == "/balasan-surat" ||
@@ -194,7 +199,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
             <Link to={"/profile"}>
               <div className="status">
                 <h4 className="font-bold text-sm">ADMIN GEGE</h4>
-                <p className="text-xs">admin@gmail.com</p>
+                <p className="text-xs">{auth?.email}</p>
               </div>
             </Link>
             <button className="logout mx-2" onClick={HandlerLogout}>

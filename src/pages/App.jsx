@@ -2,11 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../utils/FetchUsers";
 import UseInput from "../hooks/UseInput.js";
+import { AuthContext } from "../context/auth.jsx";
+import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const navigate = useNavigate();
+  const {setAuth} = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const [email, setEmail] = UseInput("");
   const [password, setPassword] = UseInput("");
@@ -37,6 +40,7 @@ function App() {
           draggable: true,
           progress: undefined,
         });
+        setAuth({id:8,email,role:res.user})
         setTimeout(() => {
           navigate("/dashboard");
         }, 1000);

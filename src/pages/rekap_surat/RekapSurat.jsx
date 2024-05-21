@@ -19,7 +19,6 @@ const RekapSuratPage = () => {
   useEffect(() => {
     GetRekapSurat().then((res) => {
       setSurat(res.data);
-      setLoading(true);
     });
   }, []);
 
@@ -29,10 +28,8 @@ const RekapSuratPage = () => {
     window.open(url, "_blank");
   };
 
-  console.log(surat.letter);
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary">
-      {console.log(surat)}
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
         <div className="navbar pt-5">
