@@ -19,7 +19,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [togle, setTogle] = useState(false);
-  const { auth } = useContext(AuthContext);
+  const { auth,setAuth } = useContext(AuthContext);
 
   useEffect(() => {
     if (
@@ -37,6 +37,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
 
   const HandlerLogout = () => {
     localStorage.setItem("token", "");
+    setAuth(null);
     toast.success("Berhasil logout", {
       position: "top-right",
       autoClose: 1500,

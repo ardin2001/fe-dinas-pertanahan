@@ -5,7 +5,7 @@ const GetManagemenUser = async() => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
     });
     const json = await response.json();
@@ -16,7 +16,7 @@ const GetDetailMnagemenUser = async(id) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
     });
     const json = await response.json();
@@ -27,7 +27,7 @@ const DelManagemenUser = async(id) => {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
     });
     const json = await response.json();
@@ -38,7 +38,7 @@ const PostManagemenUser = async(data) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
         body: JSON.stringify(data)
     });
@@ -50,7 +50,7 @@ const PutManagemenUser = async(id,data) => {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
         body: JSON.stringify(data)
     });

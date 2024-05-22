@@ -5,7 +5,7 @@ const GetBalasanSurat = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const json = await response.json();
@@ -17,7 +17,7 @@ const DeleteBalasanSurat = async (id) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const json = await response.json();
@@ -29,7 +29,7 @@ const GetDetailBalasan = async (id) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const json = await response.json();
@@ -41,7 +41,7 @@ const PostBalasanSurat = async (id, data) => {
   const response = await fetch(url + "/add-reply/" + id, {
     method: "POST",
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: data,
   });
@@ -53,7 +53,7 @@ const PutBalasanSurat = async (id, data) => {
   const response = await fetch(url + "/update-reply/" + id, {
     method: "POST",
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: data,
   });
@@ -66,7 +66,7 @@ const getShowFileBalas = async (id) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const blob = await response.blob();
@@ -79,7 +79,7 @@ const GetBalasanSuratSpesifik = async (id) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const json = await response.json();

@@ -5,7 +5,7 @@ const GetSuratMasuk = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const json = await response.json();
@@ -17,7 +17,7 @@ const GetDetailSuratMasuk = async (id) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const json = await response.json();
@@ -29,7 +29,7 @@ const DeleteSuratMasuk = async (id) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const json = await response.json();
@@ -39,7 +39,7 @@ const PostSuratMasuk = async (data) => {
   const response = await fetch(url + "/add-letters", {
     method: "POST",
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: data,
   });
@@ -51,7 +51,7 @@ const PutSuratMasuk = async (data, id) => {
   const response = await fetch(url + "/update-letter/" + id, {
     method: "POST",
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: data,
   });
@@ -63,7 +63,7 @@ const PutDisposisiSurat = async (data, id) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(data),
   });
@@ -76,7 +76,7 @@ const getShowFile = async (id) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
   });
   const blob = await response.blob();

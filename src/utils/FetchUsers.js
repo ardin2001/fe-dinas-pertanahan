@@ -15,7 +15,7 @@ const GetProfile = async() => {
     const response = await fetch(url+'/profile',{
         headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
     });
     const json = await response.json();

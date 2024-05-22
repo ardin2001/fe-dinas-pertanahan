@@ -31,7 +31,7 @@ function App() {
           progress: undefined,
         });
       } else {
-        localStorage.setItem("token", res.token);
+        sessionStorage.setItem("token", res.token);
         toast.success("Berhasil login", {
           position: "top-right",
           autoClose: 2000,
