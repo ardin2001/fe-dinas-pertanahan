@@ -6,12 +6,11 @@ import { useEffect } from "react";
 export default function UseAuth() {
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (auth == null) {
       navigate("/");
     }
-  }, []);
+  }, [auth]);
 
   return auth
 }

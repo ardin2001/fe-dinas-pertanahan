@@ -53,9 +53,10 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
+          
           <div
             className={`${
-              auth == "admin" ? "grid" : "hidden"
+              auth?.type == "admin" ? "grid" : "hidden"
             } right grid-flow-col grid-cols-2`}
           >
             <div

@@ -36,7 +36,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
   };
 
   const HandlerLogout = () => {
-    localStorage.setItem("token", "");
+    sessionStorage.setItem("token", "");
     setAuth(null);
     toast.success("Berhasil logout", {
       position: "top-right",

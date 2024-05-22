@@ -6,15 +6,21 @@ import { GetDashboard } from "../utils/FetchChartDashboard";
 import { IoIosNotifications } from "react-icons/io";
 import ModalNotification from "../components/modal/Notification";
 import UseAuth from "../hooks/UseAuth";
+import { Notification } from "../utils/FetchSuratMasuk";
 
 const DashboardPage = () => {
   const auth = UseAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [notif, setNotif] = useState(false);
-  
+  const [notifData, setNotifData] = useState([]);
+  const [update, setUpdate] = useState(false);
+
   useEffect(() => {
     setLoading(true);
+    Notification().then((res) => {
+      setNotifData(res.data.letter);
+    });
     GetDashboard()
       .then((res) => {
         setData(res.data);
@@ -27,6 +33,26 @@ const DashboardPage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (notifData.length > 0) {
+      const intervalId = setInterval(() => {
+        Notification().then((res) => {
+          console.log(res.data.letter.length + "   " + notifData.length);
+          if (res.data.letter.length != notifData.length) {
+            console.log("masuk if true");
+            setNotifData(() => res.data.letter);
+            setUpdate(true);
+          }
+        });
+      }, 2000);
+
+      return () => {
+        console.log("clear notif");
+        return clearInterval(intervalId);
+      };
+    }
+  }, [notifData]);
+
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200 font-poppins">
       <Sidebar />
@@ -36,10 +62,18 @@ const DashboardPage = () => {
           <div
             id="month"
             className="text-xl bg-white rounded-xl p-1.5 shadow-xl cursor-pointer"
-            onClick={() => setNotif(!notif)}
+            onClick={() => {
+              setNotif(!notif);
+              setUpdate(false);
+            }}
           >
             <IoIosNotifications />
-            <ModalNotification notif={notif} />
+            <div
+              className={`${
+                update ? "block" : "hidden"
+              } p-1.5 bg-red-500 absolute rounded-full`}
+            ></div>
+            <ModalNotification notif={notif} notifData={notifData} />
           </div>
         </div>
         <div className="rekap grid gap-10 grid-flow-col grid-cols-4 mt-4 font-semibold text-base">

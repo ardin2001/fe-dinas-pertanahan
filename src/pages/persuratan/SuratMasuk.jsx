@@ -20,9 +20,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BsReplyAll } from "react-icons/bs";
 import UseAuth from "../../hooks/UseAuth";
+import { useSearchParams } from "react-router-dom";
 
 const SuratMasukPage = () => {
   const auth = UseAuth();
+  let [searchParams] = useSearchParams();
+ const idNotif = searchParams.get('id')
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -42,6 +45,14 @@ const SuratMasukPage = () => {
       setLoading(true);
     });
   }, []);
+  useEffect(() => {
+    if (idNotif) {
+      GetDetailSuratMasuk(idNotif).then((res) => {
+        setDetail(res.data);
+        setModal3((prev) => !prev);
+      });
+    }
+  }, [idNotif]);
 
   const HandlerDeleteSurat = (id) => {
     Swal.fire({

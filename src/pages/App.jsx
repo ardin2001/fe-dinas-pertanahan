@@ -59,12 +59,12 @@ function App() {
   };
 
   const emailRef = useRef(null);
-  if(auth){
-    navigate('/dashboard')
-  }
   useEffect(() => {
+    if(auth){
+      navigate('/dashboard')
+    }
     emailRef.current.focus();
-  }, []);
+  }, [auth]);
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

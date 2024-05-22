@@ -84,6 +84,18 @@ const getShowFile = async (id) => {
   return objectUrl;
 };
 
+const Notification = async (data) => {
+  const response = await fetch(url + "/show-notif", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    },
+    body: JSON.stringify(data),
+  });
+  const json = await response.json();
+  return json;
+};
+
 export {
   GetSuratMasuk,
   GetDetailSuratMasuk,
@@ -92,4 +104,5 @@ export {
   DeleteSuratMasuk,
   PutDisposisiSurat,
   getShowFile,
+  Notification
 };
