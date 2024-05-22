@@ -35,6 +35,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (notifData.length > 0) {
+      console.log("masuk notif",notifData.length);
       const intervalId = setInterval(() => {
         Notification().then((res) => {
           console.log(res.data.letter.length + "   " + notifData.length);
@@ -44,7 +45,7 @@ const DashboardPage = () => {
             setUpdate(true);
           }
         });
-      }, 2000);
+      }, 10000);
 
       return () => {
         console.log("clear notif");
