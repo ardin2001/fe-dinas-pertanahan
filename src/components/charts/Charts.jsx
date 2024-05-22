@@ -3,17 +3,35 @@ import {
   LineChart,
   Line,
   XAxis,
+  YAxis,
   Tooltip,
   CartesianGrid,
-  YAxis,
 } from "recharts";
 import { GetDashboard } from "../../utils/FetchChartDashboard";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 const Chart = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth - 440);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight - 400);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1000) {
+        const lebar = 440;
+        setScreenWidth(window.innerWidth - lebar);
+      } else {
+        setScreenWidth(window.innerWidth - 200);
+      }
+      setScreenHeight(window.innerHeight - 380);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -50,18 +68,18 @@ const Chart = () => {
           <div className="flex gap-[6px]">
             <div className="w-3 h-3 rounded-full bg-tertiary my-auto" />
             <p className="text-xs font-medium text-[#667085] my-auto">
-              Surat Keluar
+              Surat keluar
             </p>
           </div>
         </div>
       </div>
 
       {loading ? (
-        <Skeleton count={1} width={1100} height={340} baseColor="#DEDEDE" />
+        <p>Loading...</p>
       ) : (
         <LineChart
-          width={1100}
-          height={360}
+          width={screenWidth}
+          height={screenHeight}
           data={data}
           margin={{ top: 25, right: 45, left: 10, bottom: 5 }}
         >
