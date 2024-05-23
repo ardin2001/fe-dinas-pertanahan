@@ -83,7 +83,7 @@ export default {
         1.5: "1.5px",
       },
       height: {
-        "100": "35rem",
+        "100": "28.5rem",
       }
     },
   },

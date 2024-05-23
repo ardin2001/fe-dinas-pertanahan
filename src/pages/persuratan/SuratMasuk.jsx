@@ -26,7 +26,7 @@ const SuratMasukPage = () => {
   const auth = UseAuth();
   let [searchParams, setSearchParams] = useSearchParams();
   const idNotif = searchParams.get("id");
-  const page = searchParams.get("page") || 0;
+  const page = searchParams.get("page") || 1;
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -41,11 +41,11 @@ const SuratMasukPage = () => {
   };
 
   useEffect(() => {
-    GetSuratMasuk().then((res) => {
+    GetSuratMasuk(page).then((res) => {
       setSurat(res.data);
       setLoading(true);
     });
-  }, []);
+  }, [page]);
   useEffect(() => {
     if (idNotif) {
       GetDetailSuratMasuk(idNotif).then((res) => {
@@ -170,6 +170,8 @@ const SuratMasukPage = () => {
     }
   };
 
+  console.log(surat)
+  console.log('sum :',surat.letter.length)
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <ModalTambahSurat
@@ -196,14 +198,14 @@ const SuratMasukPage = () => {
       />
       <Sidebar modal={modal} modal2={modal2} modal3={modal3} />
       <div
-        className={`content col-start-2 col-end-6 w-97/100 grid ${
+        className={`content col-start-2 col-end-6 w-97/100 ${
           tambah || modal || modal2 || modal3 ? "blur-sm" : null
         }`}
       >
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Surat Masuk</h2>
         </div>
-        <div className="rekap mt-5 bg-white h-100 rounded-xl drop-shadow-custom p-6 overflow-y-auto">
+        <div className="rekap mt-5 bg-white rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-between">
             <div className="left w-1/3 flex relative">
               <input
@@ -225,8 +227,8 @@ const SuratMasukPage = () => {
               </div>
             </div>
           </div>
-          <div className="tabel mt-7">
-            <table className="table-auto w-full text-center text-sm font-normal font-poppins">
+          <div className="tabel mt-7 h-100 overflow-y-auto">
+            <table className="table-auto w-full text-center text-sm font-normal font-poppins ">
               <thead className="text-white  bg-secondary">
                 <tr>
                   <th className="py-2">No</th>
@@ -316,12 +318,11 @@ const SuratMasukPage = () => {
           </div>
           <ToastContainer />
         </div>
-        <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mb-2">
-          {console.log('page :',page)}
+        <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
           <button onClick={() => setSearchParams({'page':parseInt(page)-1})} className={`${page==1?'hidden':null} left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
             back
           </button>
-          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className="right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center">
+          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className={`${surat.letter.length == 0 ? 'hidden' : null} right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
             next
           </button>
         </div>
