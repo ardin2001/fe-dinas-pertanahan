@@ -15,30 +15,33 @@ const ModalTambahSurat = (props) => {
   if (!modal) {
     return null;
   }
+
   const HandlerSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("letters_number", e.target.letters_number.value);
+    formData.append("reference_number", e.target.reference_number.value);
     formData.append("letters_type", e.target.letters_type.value);
     formData.append("letter_date", letter_date);
     formData.append("received_date", received_date);
     formData.append("from", e.target.nama.value);
     formData.append("file", e.target.file.files[0]);
     formData.append("description", e.target.perihal.value);
+
     let { status, data } = await PostSuratMasuk(formData);
     if (status) {
       const response = await GetDetailSuratMasuk(data.letter.id);
       if (response.status) {
         setSurat((prev) => ({
           letter: [...prev.letter, response.data.letter],
-          file: [...prev.file, response.data.file],
+          file: [...(prev.file || []), response.data.file], // Ensure prev.file is an array
         }));
       }
     }
-    if(status == undefined){
-      status = false
+
+    if (status === undefined) {
+      status = false;
     }
-    HandlerTambahSurat({status});
+    HandlerTambahSurat({ status });
   };
 
   return (
@@ -55,7 +58,7 @@ const ModalTambahSurat = (props) => {
         <div className="modal-body grid grid-cols-2 gap-5 my-auto">
           <div className="tanggal grid gap-1">
             <label
-              htmlFor="letters_number"
+              htmlFor="reference_number"
               className="text-custom text-base font-semibold"
             >
               Nomor Surat
@@ -64,8 +67,8 @@ const ModalTambahSurat = (props) => {
               type="text"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               placeholder="Masukkan Nomor Surat"
-              id="letters_number"
-              name="letters_number"
+              id="reference_number"
+              name="reference_number"
             />
           </div>
           <div className="tanggal grid gap-1">

@@ -2,12 +2,11 @@ import Sidebar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
 import FormatDate from "../../utils/Date";
 import { FaFile, FaSearch } from "react-icons/fa";
-import { GetRekapSurat } from "../../utils/FetchRekapSurat";
-import { getShowFile } from "../../utils/FetchSuratMasuk";
 import UseAuth from "../../hooks/UseAuth";
+import { GetRekapSurat, getShowFileRekap } from "../../utils/FetchRekapSurat";
 
 const RekapSuratPage = () => {
-  const auth = UseAuth()
+  const auth = UseAuth();
   const [kategori, setKategori] = useState("Kategori Surat");
   const [tanggal, setTanggal] = useState(FormatDate());
   const [surat, setSurat] = useState({});
@@ -24,8 +23,8 @@ const RekapSuratPage = () => {
     });
   }, []);
 
-  const handleViewFile = async (id) => {
-    const url = await getShowFile(id);
+  const handleViewFile = async (id, type) => {
+    const url = await getShowFileRekap(id, type);
     setFileUrl(url);
     window.open(url, "_blank");
   };
@@ -84,9 +83,10 @@ const RekapSuratPage = () => {
                 <tr className="">
                   <th className="py-2 text-sm text-start pl-5">No</th>
                   <th className="py-2 text-sm text-start">Pengirim</th>
-                  <th className="py-2 text-sm text-start">Disposisi</th>
+                  <th className="py-2 text-sm text-start">Jenis</th>
                   <th className="py-2 text-sm ">Tanggal</th>
-                  <th className="py-2 text-sm ">Status</th>
+                  <th className="py-2 text-sm ">Deskripsi</th>
+                  <th className="py-2 text-sm ">id</th>
                   <th className="py-2 text-sm ">Draft</th>
                 </tr>
               </thead>
@@ -98,20 +98,16 @@ const RekapSuratPage = () => {
                   >
                     <td className="py-3 text-sm">{index + 1}</td>
                     <td className="py-3 text-sm text-start">{item.from}</td>
-                    <td className="py-3 text-sm text-start ">
-                      <ul className="list-disc list-inside">
-                        {item.disposition_process.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                    </td>
-                    <td className="py-3 text-sm">{item.letter_date}</td>
-                    <td className="py-3 text-sm">{item.status}</td>
+                    <td className="py-3 text-sm text-start">{item.type}</td>
+                    <td className="py-3 text-sm">{item.date}</td>
+                    <td className="py-3 text-sm">{item.description}</td>
+                    <td className="py-3 text-sm">{item.id}</td>
+
                     <td className="py-6 text-sm grid place-items-center">
                       <FaFile
                         className="text-primary cursor-pointer"
                         type="button"
-                        onClick={() => handleViewFile(surat.letter[0].id)}
+                        onClick={() => handleViewFile(item.id, item.type)}
                       />
                     </td>
                   </tr>
