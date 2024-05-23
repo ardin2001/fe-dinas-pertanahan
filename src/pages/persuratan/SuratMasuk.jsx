@@ -24,8 +24,9 @@ import { useSearchParams } from "react-router-dom";
 
 const SuratMasukPage = () => {
   const auth = UseAuth();
-  let [searchParams] = useSearchParams();
- const idNotif = searchParams.get('id')
+  let [searchParams, setSearchParams] = useSearchParams();
+  const idNotif = searchParams.get("id");
+  const page = searchParams.get("page") || 0;
   const [search, setSearch] = useState();
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -195,14 +196,14 @@ const SuratMasukPage = () => {
       />
       <Sidebar modal={modal} modal2={modal2} modal3={modal3} />
       <div
-        className={`content col-start-2 col-end-6 w-97/100 ${
+        className={`content col-start-2 col-end-6 w-97/100 grid ${
           tambah || modal || modal2 || modal3 ? "blur-sm" : null
         }`}
       >
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Surat Masuk</h2>
         </div>
-        <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
+        <div className="rekap mt-5 bg-white h-100 rounded-xl drop-shadow-custom p-6 overflow-y-auto">
           <div className="search flex gap-4 justify-between">
             <div className="left w-1/3 flex relative">
               <input
@@ -314,6 +315,15 @@ const SuratMasukPage = () => {
             </table>
           </div>
           <ToastContainer />
+        </div>
+        <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mb-2">
+          {console.log('page :',page)}
+          <button onClick={() => setSearchParams({'page':parseInt(page)-1})} className={`${page==1?'hidden':null} left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+            back
+          </button>
+          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className="right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center">
+            next
+          </button>
         </div>
       </div>
     </main>

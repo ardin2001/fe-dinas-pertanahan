@@ -10,7 +10,7 @@ import { GetProfile } from "../utils/FetchUsers";
 
 function App() {
   const navigate = useNavigate();
-  const { auth ,setAuth } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const [email, setEmail] = UseInput("");
   const [password, setPassword] = UseInput("");
@@ -49,22 +49,13 @@ function App() {
     });
   };
 
-  const handleShowPassword = (e) => {
-    e.preventDefault();
-    if (e.key !== "Enter") {
-      setPasswordType((prevType) =>
-        prevType === "password" ? "text" : "password"
-      );
-    }
-  };
-
   const emailRef = useRef(null);
   useEffect(() => {
-    if(auth){
-      navigate('/dashboard')
-    }
+    // if(auth){
+    //   navigate('/dashboard')
+    // }
     emailRef.current.focus();
-  }, [auth]);
+  }, []);
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

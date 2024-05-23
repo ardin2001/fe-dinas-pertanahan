@@ -12,14 +12,18 @@ const Login = async(email,password) => {
 }
 
 const GetProfile = async() => {
-    const response = await fetch(url+'/profile',{
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-    });
-    const json = await response.json();
-    return json
+    try{
+        const response = await fetch(url+'/profile',{
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+        });
+        const json = await response.json();
+        return json
+    }catch{
+        return {status: false}
+    }
 }
 
 export {Login, GetProfile}

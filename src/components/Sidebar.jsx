@@ -114,7 +114,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
               }`}
             >
               <ol className="list-disc list-inside ">
-                <Link to={"/surat-masuk"}>
+                <Link to={"/surat-masuk?page=1"}>
                   <li
                     className={`${
                       location.pathname == "/surat-masuk"

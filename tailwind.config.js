@@ -82,6 +82,9 @@ export default {
         1: "1px",
         1.5: "1.5px",
       },
+      height: {
+        "100": "35rem",
+      }
     },
   },
   plugins: [],
