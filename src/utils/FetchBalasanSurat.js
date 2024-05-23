@@ -1,7 +1,7 @@
 const url = "https://api.persuratankantah.xyz/api";
 
-const GetBalasanSurat = async () => {
-  const response = await fetch(url + "/show-reply", {
+const GetBalasanSurat = async (page) => {
+  const response = await fetch(url + "/show-reply?page=" + page + "", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

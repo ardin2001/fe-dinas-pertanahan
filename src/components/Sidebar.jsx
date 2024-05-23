@@ -125,7 +125,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
                     Surat Masuk
                   </li>
                 </Link>
-                <Link to={"/balasan-surat"}>
+                <Link to={"/balasan-surat?page=1"}>
                   <li
                     className={`${
                       location.pathname == "/balasan-surat"

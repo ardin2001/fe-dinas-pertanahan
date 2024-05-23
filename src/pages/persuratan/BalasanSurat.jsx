@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
+import { useSearchParams } from "react-router-dom";
 
 const BalasanSuratPage = () => {
   const auth = UseAuth();
@@ -31,13 +32,15 @@ const BalasanSuratPage = () => {
   const [modalTambah, setModalTambah] = useState(false);
   const [tambah, setTambah] = useState(false);
   const [id, setId] = useState();
+  let [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get("page") || 1;
 
-  useEffect((e) => {
-    GetBalasanSurat().then((res) => {
+  useEffect(() => {
+    GetBalasanSurat(page).then((res) => {
       setSurat(res.data);
       setLoading(true);
     });
-  }, []);
+  }, [page]);
 
   const HandlerDeleteBalasan = (id) => {
     Swal.fire({
@@ -137,7 +140,7 @@ const BalasanSuratPage = () => {
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Balasan Surat</h2>
         </div>
-        <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
+        <div className="rekap mt-5 bg-white rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-between">
             <div className="left w-1/3 flex relative">
               <input
@@ -150,7 +153,7 @@ const BalasanSuratPage = () => {
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
           </div>
-          <div className="tabel mt-7">
+          <div className="tabel mt-7 h-100 overflow-y-auto">
             <table className="table-auto w-full text-center text-sm font-normal font-sans">
               <thead className="text-white font-medium bg-secondary">
                 <tr>
@@ -205,6 +208,14 @@ const BalasanSuratPage = () => {
             </table>
           </div>
           <ToastContainer />
+        </div>
+        <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
+          <button onClick={() => setSearchParams({'page':parseInt(page)-1})} className={`${page==1?'hidden':null} left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+            back
+          </button>
+          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className={`${surat?.replyletter?.length == 0 ? 'hidden' : null} right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+            next
+          </button>
         </div>
       </div>
     </main>
