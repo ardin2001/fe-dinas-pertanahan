@@ -170,8 +170,6 @@ const SuratMasukPage = () => {
     }
   };
 
-  console.log(surat)
-  console.log('sum :',surat.letter.length)
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <ModalTambahSurat
@@ -322,7 +320,7 @@ const SuratMasukPage = () => {
           <button onClick={() => setSearchParams({'page':parseInt(page)-1})} className={`${page==1?'hidden':null} left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
             back
           </button>
-          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className={`${surat.letter.length == 0 ? 'hidden' : null} right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className={`${surat?.letter?.length == 0 ? 'hidden' : null} right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
             next
           </button>
         </div>
