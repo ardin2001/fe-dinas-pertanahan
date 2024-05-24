@@ -99,7 +99,9 @@ const RekapSuratPage = () => {
                     key={index}
                     className={`${(index + 1) % 2 == 0 ? "bg-quinary" : null} `}
                   >
-                    <td className="py-2 text-sm">{index + 1}</td>
+                    <td className="py-2 text-sm">
+                      {index + 1 + (page - 1) * 10}
+                    </td>
                     <td className="py-2 text-sm text-start">{item.from}</td>
                     <td className="py-2 text-sm text-start">{item.type}</td>
                     <td className="py-2 text-sm">{item.date}</td>
@@ -120,10 +122,20 @@ const RekapSuratPage = () => {
           </div>
         </div>
         <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
-          <button onClick={() => setSearchParams({'page':parseInt(page)-1})} className={`${page==1?'hidden':null} left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+          <button
+            onClick={() => setSearchParams({ page: parseInt(page) - 1 })}
+            className={`${
+              page == 1 ? "hidden" : null
+            } left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
+          >
             back
           </button>
-          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className={`${surat?.letter?.length == 0 ? 'hidden' : null} right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+          <button
+            onClick={() => setSearchParams({ page: parseInt(page) + 1 })}
+            className={`${
+              surat?.letter?.length == 0 ? "hidden" : null
+            } right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
+          >
             next
           </button>
         </div>

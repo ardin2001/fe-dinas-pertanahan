@@ -177,7 +177,9 @@ const BalasanSuratPage = () => {
                           (index + 1) % 2 == 0 ? "bg-quinary" : null
                         } `}
                       >
-                        <td className="py-2.5 text-sm">{index + 1}</td>
+                        <td className="py-2.5 text-sm">
+                          {index + 1 + (page - 1) * 10}
+                        </td>
                         <td className="py-2.5 text-sm">{item.from}</td>
                         <td className="py-2.5 text-sm">
                           {item.note ? item.note.substring(0, 35) : ""}
