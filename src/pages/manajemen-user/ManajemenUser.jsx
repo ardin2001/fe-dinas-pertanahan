@@ -18,8 +18,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 
+const hideAddAccount = ["kakan"];
+
 const ManajemenUserPage = () => {
-  const auth = UseAuth()
+  const auth = UseAuth();
   const [users, setUsers] = useState([]);
   const [tambah, setTambah] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -27,7 +29,7 @@ const ManajemenUserPage = () => {
   const [del, setDel] = useState(false);
   const [detUser, setDetUser] = useState({});
 
-  useEffect(() => {    
+  useEffect(() => {
     (async () => {
       const { status, data } = await GetManagemenUser();
       if (status) {
@@ -40,8 +42,8 @@ const ManajemenUserPage = () => {
     setSearch(e.target.value);
   };
 
-  const HandlerTambah = ({status}) => {
-    if(status) {
+  const HandlerTambah = ({ status }) => {
+    if (status) {
       setTambah((prev) => !prev);
       toast.success("User berhasil ditambahkan", {
         position: "bottom-right",
@@ -52,7 +54,7 @@ const ManajemenUserPage = () => {
         draggable: true,
         progress: undefined,
       });
-    }else if(status == false) {
+    } else if (status == false) {
       Swal.fire({
         title: "Gagal!",
         text: "Lengkapi data yang kosong!",
@@ -61,18 +63,18 @@ const ManajemenUserPage = () => {
         showConfirmButton: false,
         timer: 1000,
       });
-    }else{
+    } else {
       setTambah((prev) => !prev);
     }
   };
 
-  const HandlerEdit = ({id,status}) => {
+  const HandlerEdit = ({ id, status }) => {
     if (id) {
       GetDetailMnagemenUser(id).then((res) => {
         setDetUser(res.data);
         setEdit((prev) => !prev);
       });
-    } else if(status) {
+    } else if (status) {
       setEdit((prev) => !prev);
       toast.success("User berhasil diedit", {
         position: "bottom-right",
@@ -83,7 +85,7 @@ const ManajemenUserPage = () => {
         draggable: true,
         progress: undefined,
       });
-    }else if(status == false) {
+    } else if (status == false) {
       Swal.fire({
         title: "Gagal",
         text: "Lengkapi data yang kosong!",
@@ -91,7 +93,7 @@ const ManajemenUserPage = () => {
         showConfirmButton: false,
         timer: 1000,
       });
-    }else{
+    } else {
       setEdit((prev) => !prev);
     }
   };
@@ -136,7 +138,7 @@ const ManajemenUserPage = () => {
           tambah || edit || detail ? "blur-sm" : null
         } content col-start-2 col-end-6 w-97/100`}
       >
-        <ToastContainer/>
+        <ToastContainer />
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
@@ -152,15 +154,17 @@ const ManajemenUserPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            <div
-              className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
-              onClick={HandlerTambah}
-            >
-              <div className="grid grid-flow-col gap-2 items-center py-2">
-                <GoPlus size="1rem" />
-                <p>Tambah User</p>
+            {hideAddAccount.includes(auth?.type) ? null : (
+              <div
+                className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
+                onClick={HandlerTambah}
+              >
+                <div className="grid grid-flow-col gap-2 items-center py-2">
+                  <GoPlus size="1rem" />
+                  <p>Tambah User</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="tabel mt-7 h-100 overflow-y-auto">
             <table className="table-auto w-full text-center text-sm font-normal font-poppins">
@@ -187,7 +191,7 @@ const ManajemenUserPage = () => {
                       <div className="aksi flex justify-center gap-2">
                         <MdModeEdit
                           className="text-secondary cursor-pointer text-xl"
-                          onClick={() => HandlerEdit({id:item.id})}
+                          onClick={() => HandlerEdit({ id: item.id })}
                         />
                         <IoMdEye
                           className="text-yellow-300 cursor-pointer text-xl"

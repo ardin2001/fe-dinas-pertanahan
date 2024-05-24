@@ -22,6 +22,8 @@ import { BsReplyAll } from "react-icons/bs";
 import UseAuth from "../../hooks/UseAuth";
 import { useSearchParams } from "react-router-dom";
 
+const hideAddSurat = ["kakan"];
+
 const SuratMasukPage = () => {
   const auth = UseAuth();
   let [searchParams, setSearchParams] = useSearchParams();
@@ -215,15 +217,17 @@ const SuratMasukPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            <div
-              className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
-              onClick={HandlerTambahSurat}
-            >
-              <div className="grid grid-flow-col gap-2 text-sm items-center py-2">
-                <GoPlus size="1rem" />
-                <button>Tambah Surat</button>
+            {hideAddSurat.includes(auth?.type) ? null : (
+              <div
+                className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
+                onClick={HandlerTambahSurat}
+              >
+                <div className="grid grid-flow-col gap-2 text-sm items-center py-2">
+                  <GoPlus size="1rem" />
+                  <button>Tambah Surat</button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="tabel mt-7 h-100 overflow-y-auto">
             <table className="table-auto w-full text-center text-sm font-normal font-poppins ">
@@ -317,10 +321,20 @@ const SuratMasukPage = () => {
           <ToastContainer />
         </div>
         <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
-          <button onClick={() => setSearchParams({'page':parseInt(page)-1})} className={`${page==1?'hidden':null} left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+          <button
+            onClick={() => setSearchParams({ page: parseInt(page) - 1 })}
+            className={`${
+              page == 1 ? "hidden" : null
+            } left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
+          >
             back
           </button>
-          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className={`${surat?.letter?.length == 0 ? 'hidden' : null} right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+          <button
+            onClick={() => setSearchParams({ page: parseInt(page) + 1 })}
+            className={`${
+              surat?.letter?.length == 0 ? "hidden" : null
+            } right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
+          >
             next
           </button>
         </div>

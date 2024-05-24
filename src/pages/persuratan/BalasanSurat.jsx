@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 import { useSearchParams } from "react-router-dom";
 
-const hideEditDelete = ["kakan", "kabul", "KENANGAN KAWAH IJEN, KASIAN CUMA BISA HTSSSSS"];
+const hideEditDelete = ["kakan"];
 
 const BalasanSuratPage = () => {
   const auth = UseAuth();
@@ -96,7 +96,7 @@ const BalasanSuratPage = () => {
         draggable: true,
         progress: undefined,
       });
-    }else if(status == false) {
+    } else if (status == false) {
       Swal.fire({
         title: "Gagal",
         text: "Lengkapi data yang kosong!",
@@ -188,20 +188,24 @@ const BalasanSuratPage = () => {
                         </td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
-                            { hideEditDelete.includes(auth?.type) ? null : <MdModeEdit
-                              className="text-secondary cursor-pointer text-xl"
-                              onClick={() =>
-                                HandlerEditBalasan({ id: item.id })
-                              }
-                            />}
+                            {hideEditDelete.includes(auth?.type) ? null : (
+                              <MdModeEdit
+                                className="text-secondary cursor-pointer text-xl"
+                                onClick={() =>
+                                  HandlerEditBalasan({ id: item.id })
+                                }
+                              />
+                            )}
                             <IoMdEye
                               className="text-yellow-300 cursor-pointer text-xl"
                               onClick={() => HandlerDetailBalasan(item.id)}
                             />
-                            { hideEditDelete.includes(auth?.type) ? null : <MdDeleteOutline
-                              className="text-red-500 cursor-pointer text-xl"
-                              onClick={() => HandlerDeleteBalasan(item.id)}
-                            />}
+                            {hideEditDelete.includes(auth?.type) ? null : (
+                              <MdDeleteOutline
+                                className="text-red-500 cursor-pointer text-xl"
+                                onClick={() => HandlerDeleteBalasan(item.id)}
+                              />
+                            )}
                           </div>
                         </td>
                       </tr>
@@ -212,10 +216,20 @@ const BalasanSuratPage = () => {
           <ToastContainer />
         </div>
         <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
-          <button onClick={() => setSearchParams({'page':parseInt(page)-1})} className={`${page==1?'hidden':null} left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+          <button
+            onClick={() => setSearchParams({ page: parseInt(page) - 1 })}
+            className={`${
+              page == 1 ? "hidden" : null
+            } left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
+          >
             back
           </button>
-          <button onClick={() => setSearchParams({'page':parseInt(page)+1})} className={`${surat?.replyletter?.length == 0 ? 'hidden' : null} right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}>
+          <button
+            onClick={() => setSearchParams({ page: parseInt(page) + 1 })}
+            className={`${
+              surat?.replyletter?.length == 0 ? "hidden" : null
+            } right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
+          >
             next
           </button>
         </div>
