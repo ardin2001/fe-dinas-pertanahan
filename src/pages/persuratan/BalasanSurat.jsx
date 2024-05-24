@@ -18,6 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 import { useSearchParams } from "react-router-dom";
 
+const hideEditDelete = ["kakan", "kabul", "KENANGAN KAWAH IJEN, KASIAN CUMA BISA HTSSSSS"];
+
 const BalasanSuratPage = () => {
   const auth = UseAuth();
   const [search, setSearch] = useState();
@@ -186,20 +188,20 @@ const BalasanSuratPage = () => {
                         </td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
-                            <MdModeEdit
+                            { hideEditDelete.includes(auth?.type) ? null : <MdModeEdit
                               className="text-secondary cursor-pointer text-xl"
                               onClick={() =>
                                 HandlerEditBalasan({ id: item.id })
                               }
-                            />
+                            />}
                             <IoMdEye
                               className="text-yellow-300 cursor-pointer text-xl"
                               onClick={() => HandlerDetailBalasan(item.id)}
                             />
-                            <MdDeleteOutline
+                            { hideEditDelete.includes(auth?.type) ? null : <MdDeleteOutline
                               className="text-red-500 cursor-pointer text-xl"
                               onClick={() => HandlerDeleteBalasan(item.id)}
-                            />
+                            />}
                           </div>
                         </td>
                       </tr>
