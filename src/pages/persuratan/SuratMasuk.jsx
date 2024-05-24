@@ -241,7 +241,7 @@ const SuratMasukPage = () => {
               <tbody>
                 {!loading
                   ? null
-                  : surat.letter.map((item, index) => (
+                  : surat?.letter.map((item, index) => (
                       <tr
                         key={index}
                         className={`${

@@ -15,7 +15,6 @@ const DashboardPage = () => {
   const [notif, setNotif] = useState(false);
   const [notifData, setNotifData] = useState([]);
   const [update, setUpdate] = useState(false);
-  const [sum, setSum] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -42,7 +41,6 @@ const DashboardPage = () => {
           console.log(res.data.letter.length + "   " + notifData.length);
           if (res.data.letter.length != notifData.length) {
             console.log("masuk if true");
-            setSum(res.data.letter.length - notifData.length);
             setNotifData(() => res.data.letter);
             setUpdate(true);
           }
@@ -68,16 +66,15 @@ const DashboardPage = () => {
             onClick={() => {
               setNotif(!notif);
               setUpdate(false);
-              setSum(0);
             }}
           >
             <IoIosNotifications />
             <div
               className={`${
                 update ? "block" : "hidden"
-              } py-0.5 px-2 bg-red-500 absolute rounded-full text-white z-50 text-xs -translate-x-2/3 -translate-y-1/3 shadow-xl`}
-            >{sum}</div>
-            <ModalNotification notif={notif} notifData={notifData} sum={sum} />
+              } p-1.5 bg-red-500 absolute rounded-full text-white z-50 text-xs -translate-x-2/3 -translate-y-1/3 shadow-xl`}
+            ></div>
+            <ModalNotification notif={notif} notifData={notifData} />
           </div>
         </div>
         <div className="rekap grid gap-10 grid-flow-col grid-cols-4 mt-4 font-semibold text-base">

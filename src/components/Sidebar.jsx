@@ -147,7 +147,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
             } hover:cursor-pointer`}
           >
             <Link
-              to={"/rekap-surat"}
+              to={"/rekap-surat?page=1"}
               className="py-3 flex gap-3 items-center font-medium text-sm px-3"
             >
               <CiViewList size="1.5rem" />

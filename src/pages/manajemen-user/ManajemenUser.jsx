@@ -140,7 +140,7 @@ const ManajemenUserPage = () => {
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Manajemen User</h2>
         </div>
-        <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
+        <div className="rekap mt-5 bg-white rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-between">
             <div className="left w-1/3 flex relative">
               <input
@@ -162,7 +162,7 @@ const ManajemenUserPage = () => {
               </div>
             </div>
           </div>
-          <div className="tabel mt-7">
+          <div className="tabel mt-7 h-100 overflow-y-auto">
             <table className="table-auto w-full text-center text-sm font-normal font-poppins">
               <thead className="text-white font-medium bg-secondary ">
                 <tr>
