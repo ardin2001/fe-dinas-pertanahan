@@ -9,6 +9,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 
+const hideActionSeksi = [
+  "tatausaha",
+  "seksi1",
+  "seksi2",
+  "seksi3",
+  "seksi4",
+  "seksi5",
+];
+
 const DisposisiSuratPage = () => {
   const auth = UseAuth();
   let { id } = useParams();
@@ -61,20 +70,22 @@ const DisposisiSuratPage = () => {
           modal ? "blur-sm" : null
         }`}
       >
-      <ToastContainer/>
+        <ToastContainer />
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Disposisi Surat</h2>
         </div>
         <div className="rekap mt-8 bg-white h-5/6 rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-end">
             <div className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5">
-              <div
-                className="grid grid-flow-col gap-2 items-center py-2 cursor-pointer"
-                onClick={HandlerEditDisposisi}
-              >
-                <GoPlus size="1rem" />
-                <p>Edit Disposisi</p>
-              </div>
+              {hideActionSeksi.includes(auth?.type) ? null : (
+                <div
+                  className="grid grid-flow-col gap-2 items-center py-2 cursor-pointer"
+                  onClick={HandlerEditDisposisi}
+                >
+                  <GoPlus size="1rem" />
+                  <p>Disposisi</p>
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-6 bg-quinary rounded-xl grid grid-flow-col grid-cols-2 py-4 px-6">

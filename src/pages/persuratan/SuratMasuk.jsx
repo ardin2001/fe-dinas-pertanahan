@@ -22,7 +22,15 @@ import { BsReplyAll } from "react-icons/bs";
 import UseAuth from "../../hooks/UseAuth";
 import { useSearchParams } from "react-router-dom";
 
-const hideAddSurat = ["kakan"];
+const hideActionKakan = ["kakan"];
+const hideActionSeksi = [
+  "tatausaha",
+  "seksi1",
+  "seksi2",
+  "seksi3",
+  "seksi4",
+  "seksi5",
+];
 
 const SuratMasukPage = () => {
   const auth = UseAuth();
@@ -217,7 +225,8 @@ const SuratMasukPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            {hideAddSurat.includes(auth?.type) ? null : (
+            {hideActionKakan.includes(auth?.type) ||
+            hideActionSeksi.includes(auth?.type) ? null : (
               <div
                 className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
                 onClick={HandlerTambahSurat}
@@ -269,21 +278,29 @@ const SuratMasukPage = () => {
                         </td>
                         <td className="py-2">
                           <div className="aksi flex justify-center gap-2">
-                            <MdModeEdit
-                              className="text-secondary cursor-pointer text-xl "
-                              type="button"
-                              onClick={() => HandlerEditSurat({ id: item.id })}
-                            />
+                            {hideActionKakan.includes(auth?.type) ||
+                            hideActionSeksi.includes(auth?.type) ? null : (
+                              <MdModeEdit
+                                className="text-secondary cursor-pointer text-xl "
+                                type="button"
+                                onClick={() =>
+                                  HandlerEditSurat({ id: item.id })
+                                }
+                              />
+                            )}
                             <IoMdEye
                               className="text-yellow-300 cursor-pointer text-xl"
                               type="button"
                               onClick={() => HandlerDetailSurat(item.id)}
                             />
-                            <MdDeleteOutline
-                              className="text-red-500 cursor-pointer text-xl"
-                              type="button"
-                              onClick={() => HandlerDeleteSurat(item.id)}
-                            />
+                            {hideActionKakan.includes(auth?.type) ||
+                            hideActionSeksi.includes(auth?.type) ? null : (
+                              <MdDeleteOutline
+                                className="text-red-500 cursor-pointer text-xl"
+                                type="button"
+                                onClick={() => HandlerDeleteSurat(item.id)}
+                              />
+                            )}
                             <Link to={`/surat-masuk/daftar-balasan/${item.id}`}>
                               <BsReplyAll
                                 className="text-red-500 cursor-pointer text-xl"
@@ -293,18 +310,20 @@ const SuratMasukPage = () => {
                           </div>
                         </td>
                         <td className="grid grid-flow-col grid-cols-2 gap-4 p-2">
-                          <div
-                            onClick={() =>
-                              HandlerTambahBalasan({ id: item.id })
-                            }
-                            className="right bg-secondary rounded-xl text-white grid m-fixed"
-                          >
-                            <div className="grid grid-flow-col gap-1 items-center py-1">
-                              <button className="font-medium">
-                                Tambah Balasan
-                              </button>
+                          {hideActionKakan.includes(auth?.type) ? null : (
+                            <div
+                              onClick={() =>
+                                HandlerTambahBalasan({ id: item.id })
+                              }
+                              className="right bg-secondary rounded-xl text-white grid m-fixed"
+                            >
+                              <div className="grid grid-flow-col gap-1 items-center py-1">
+                                <button className="font-medium">
+                                  Tambah Balasan
+                                </button>
+                              </div>
                             </div>
-                          </div>
+                          )}
                           <Link to={`/surat-masuk/disposisi-surat/${item.id}`}>
                             <div className="right bg-secondary rounded-xl text-white grid m-auto">
                               <div className="grid grid-flow-col items-center py-1">

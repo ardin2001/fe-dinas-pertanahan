@@ -18,7 +18,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 
-const hideAddAccount = ["kakan"];
+const hideActionKakan = ["kakan"];
+const hideActionSeksi = [
+  "tatausaha",
+  "seksi1",
+  "seksi2",
+  "seksi3",
+  "seksi4",
+  "seksi5",
+];
 
 const ManajemenUserPage = () => {
   const auth = UseAuth();
@@ -154,7 +162,8 @@ const ManajemenUserPage = () => {
               />
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
-            {hideAddAccount.includes(auth?.type) ? null : (
+            {hideActionKakan.includes(auth?.type) ||
+            hideActionSeksi.includes(auth?.type) ? null : (
               <div
                 className="right bg-secondary rounded-lg text-white grid justify-center content-center px-5 cursor-pointer"
                 onClick={HandlerTambah}
@@ -189,10 +198,12 @@ const ManajemenUserPage = () => {
                     <td className="py-2.5 text-sm">{item.type}</td>
                     <td className="py-2">
                       <div className="aksi flex justify-center gap-2">
-                        <MdModeEdit
-                          className="text-secondary cursor-pointer text-xl"
-                          onClick={() => HandlerEdit({ id: item.id })}
-                        />
+                        {hideActionSeksi.includes(auth?.type) ? null : (
+                          <MdModeEdit
+                            className="text-secondary cursor-pointer text-xl"
+                            onClick={() => HandlerEdit({ id: item.id })}
+                          />
+                        )}
                         <IoMdEye
                           className="text-yellow-300 cursor-pointer text-xl"
                           onClick={() => HandlerDetail(item.id)}
