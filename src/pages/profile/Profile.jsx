@@ -33,7 +33,7 @@ const ProfilePage = () => {
         </div>
         <div className="rekap mt-8 bg-white h-4/5 rounded-xl drop-shadow-custom grid grid-flow-col grid-cols-2 py-6 pl-12 pr-6">
           <div className="left ">
-            <div className="card-profile w-1/2 text-custom flex flex-col gap-2">
+            <div className="card-profile w-2/3 md:w-3/4 xl:w-1/2 text-custom flex flex-col gap-2">
               <CiUser className="w-3/4 m-5 h-full border-2 rounded-lg border-primary" />
               <div>
                 <p className="font-normal">Name</p>

@@ -45,7 +45,7 @@ const DashboardPage = () => {
             setUpdate(true);
           }
         });
-      }, 10000);
+      }, 100000000000);
 
       return () => {
         console.log("clear notif");
@@ -57,7 +57,7 @@ const DashboardPage = () => {
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200 font-poppins">
       <Sidebar />
-      <div className="content col-start-2 col-end-6 w-97/100">
+      <div className="content col-span-4 w-97/100">
         <div className="navbar flex justify-between pt-5 items-center">
           <h2 className="font-bold text-2xl">Dashboard</h2>
           <div
@@ -77,7 +77,7 @@ const DashboardPage = () => {
             <ModalNotification notif={notif} notifData={notifData} />
           </div>
         </div>
-        <div className="rekap grid gap-10 grid-flow-col grid-cols-4 mt-4 font-semibold text-base">
+        <div className="rekap grid gap-10 md:grid-cols-2 xl:grid-cols-4 xl:grid-flow-col mt-4 font-semibold text-base">
           <CardDashboard
             title="Surat Masuk"
             count={data?.totalsurat}
