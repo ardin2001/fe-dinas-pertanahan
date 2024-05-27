@@ -80,12 +80,8 @@ const SuratMasukPage = () => {
         DeleteSuratMasuk(id).then((res) => {
           setSurat((prev) => {
             return {
-              letter: prev.letter
-                ? prev.letter.filter((surat) => surat.id !== id)
-                : [],
-              file: prev.file
-                ? prev.file.filter((surat) => surat.id !== id)
-                : []
+              letter: prev.letter.filter((surat) => surat.id !== id),
+              file: prev.file.filter((surat) => surat.id !== id)
             };
           });
           Swal.fire({
