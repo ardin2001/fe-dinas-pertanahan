@@ -89,7 +89,7 @@ const RekapSuratPage = () => {
                   <th className="py-2 text-sm text-start">Jenis</th>
                   <th className="py-2 text-sm ">Tanggal</th>
                   <th className="py-2 text-sm ">Deskripsi</th>
-                  <th className="py-2 text-sm ">id</th>
+{/*                   <th className="py-2 text-sm ">id</th> */}
                   <th className="py-2 text-sm ">Draft</th>
                 </tr>
               </thead>
@@ -106,7 +106,7 @@ const RekapSuratPage = () => {
                     <td className="py-2 text-sm text-start">{item.type}</td>
                     <td className="py-2 text-sm">{item.date}</td>
                     <td className="py-2 text-sm">{item.description}</td>
-                    <td className="py-2 text-sm">{item.id}</td>
+{/*                     <td className="py-2 text-sm">{item.id}</td> */}
 
                     <td className="py-4 text-sm grid place-items-center">
                       <FaFile
