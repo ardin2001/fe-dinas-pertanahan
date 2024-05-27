@@ -135,17 +135,29 @@ const ModalEdit = (props) => {
             value={type}
             onChange={(e) => setType(e.target.value)}
           >
-            <option className="font-normal" value="">
-              Jenis Role
+           <option className="font-normal" value="0">
+              Admin
             </option>
             <option className="font-normal" value="1">
-              Mid
+              Kepala Kantor
             </option>
             <option className="font-normal" value="2">
-              Jungler
+              Kasubag. TU
             </option>
             <option className="font-normal" value="3">
-              Exp
+              Seksi Penetapan Hak & Pendaftaran
+            </option>
+            <option className="font-normal" value="4">
+              Seksi Survei & Pemetaan
+            </option>
+            <option className="font-normal" value="5">
+              Seksi Penataan & Pemberdayaan
+            </option>
+            <option className="font-normal" value="6">
+              Seksi Pengadaan Tanah & Pengembangan
+            </option>
+            <option className="font-normal" value="7">
+              Seksi Pengendalian & Penanganan Sengketa
             </option>
           </select>
         </div>
