@@ -79,9 +79,17 @@ const SuratMasukPage = () => {
       if (result.isConfirmed) {
         DeleteSuratMasuk(id).then((res) => {
           setSurat((prev) => {
+            // Pastikan prev dan properti-propertinya terdefinisi
+            const updatedLetter = Array.isArray(prev?.letter)
+              ? prev.letter.filter((surat) => surat.id !== id)
+              : [];
+            const updatedFile = Array.isArray(prev?.file)
+              ? prev.file.filter((surat) => surat.id !== id)
+              : [];
+
             return {
-              letter: prev.letter.filter((surat) => surat.id !== id),
-              file: prev.file.filter((surat) => surat.id !== id)
+              letter: updatedLetter,
+              file: updatedFile
             };
           });
           Swal.fire({
