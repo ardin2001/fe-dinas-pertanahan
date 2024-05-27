@@ -11,7 +11,7 @@ import ModalDetailSurat from "../../components/modal/persuratan/DetailSurat";
 import {
   GetSuratMasuk,
   GetDetailSuratMasuk,
-  DeleteSuratMasuk,
+  DeleteSuratMasuk
 } from "../../utils/FetchSuratMasuk";
 import ModalTambahBalasan from "../../components/modal/persuratan/TambahBalasan";
 import Swal from "sweetalert2";
@@ -29,7 +29,7 @@ const hideActionSeksi = [
   "seksi2",
   "seksi3",
   "seksi4",
-  "seksi5",
+  "seksi5"
 ];
 
 const SuratMasukPage = () => {
@@ -74,14 +74,18 @@ const SuratMasukPage = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#828282",
       cancelButtonText: "Batal",
-      confirmButtonText: "Hapus",
+      confirmButtonText: "Hapus"
     }).then((result) => {
       if (result.isConfirmed) {
         DeleteSuratMasuk(id).then((res) => {
           setSurat((prev) => {
             return {
-              letter: prev.letter.filter((surat) => surat.id !== id),
-              file: prev.file.filter((surat) => surat.id !== id),
+              letter: prev.letter
+                ? prev.letter.filter((surat) => surat.id !== id)
+                : [],
+              file: prev.file
+                ? prev.file.filter((surat) => surat.id !== id)
+                : []
             };
           });
           Swal.fire({
@@ -89,7 +93,7 @@ const SuratMasukPage = () => {
             text: "Data berhasil dihapus",
             icon: "success",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1500
           });
         });
       }
@@ -106,7 +110,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
     } else if (status == false) {
       Swal.fire({
@@ -115,7 +119,7 @@ const SuratMasukPage = () => {
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1000
       });
     } else {
       setModal((prev) => !prev);
@@ -131,7 +135,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
     }
     if (id) {
@@ -164,7 +168,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
     } else if (status == false) {
       Swal.fire({
@@ -173,7 +177,7 @@ const SuratMasukPage = () => {
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1000
       });
     } else {
       setTambah((prev) => !prev);
@@ -261,7 +265,9 @@ const SuratMasukPage = () => {
                           (index + 1) % 2 == 0 ? "bg-quinary" : null
                         } `}
                       >
-                        <td className="py-2.5 text-sm">{index + 1 +((page-1)*10)}</td>
+                        <td className="py-2.5 text-sm">
+                          {index + 1 + (page - 1) * 10}
+                        </td>
                         <td className="py-2.5 text-sm">{item.from}</td>
                         <td className="py-2.5 text-sm">{item.letters_type}</td>
                         <td className="py-2.5 text-sm">{item.letter_date}</td>
