@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import FormatDate from "../../utils/Date";
 import { FaFile, FaSearch } from "react-icons/fa";
 import UseAuth from "../../hooks/UseAuth";
-import { GetRekapSurat, getShowFileRekap } from "../../utils/FetchRekapSurat";
+import {
+  GetRekapSurat,
+  getShowFileRekap,
+  GetCategoriesRekapSurat
+} from "../../utils/FetchRekapSurat";
 import { useSearchParams } from "react-router-dom";
 
 const RekapSuratPage = () => {
@@ -13,6 +17,8 @@ const RekapSuratPage = () => {
   const [surat, setSurat] = useState({});
   const [fileUrl, setFileUrl] = useState("");
   let [searchParams, setSearchParams] = useSearchParams();
+  const [initialSurat, setInitialSurat] = useState({}); // Menyimpan data awal dari backend
+
   const page = searchParams.get("page") || 1;
   const Handlerkategori = (e) => {
     setKategori(e.target.value);
@@ -21,17 +27,51 @@ const RekapSuratPage = () => {
     setTanggal(e.target.value);
   };
   useEffect(() => {
-    GetRekapSurat(page).then((res) => {
-      setSurat(res.data);
-    });
-  }, [page]);
+    const kategori = searchParams.get("kategori") || "";
+    const tanggal = searchParams.get("tanggal") || "";
+
+    if (kategori === "" && tanggal === "") {
+      GetRekapSurat(page).then((res) => {
+        setSurat(res.data);
+        setInitialSurat(res.data);
+        // Setel data awal saat komponen pertama kali dimuat
+      });
+    } else {
+      GetCategoriesRekapSurat(page, kategori, tanggal).then((res) => {
+        if (res.data.letter.length === 0) {
+          // Jika hasil filter kosong, tampilkan alert
+          GetRekapSurat(page).then((res) => {
+            setSurat(res.data);
+          });
+        } else {
+          setSurat(res.data);
+        }
+      });
+    }
+  }, [page, kategori, tanggal]);
 
   const handleViewFile = async (id, type) => {
     const url = await getShowFileRekap(id, type);
     setFileUrl(url);
     window.open(url, "_blank");
   };
+  const handleSearch = () => {
+    // Kirim permintaan filter ke backend dengan kategori dan tanggal yang dipilih
+    GetCategoriesRekapSurat(page, kategori, tanggal).then((res) => {
+      if (res.data.letter.length === 0) {
+        // Jika hasil filter kosong, set showAlert menjadi true
+        alert("Data tidak ditemukan");
 
+        setShowAlert(true);
+        // dan tidak melakukan perubahan pada state surat
+      } else {
+        setSurat(res.data);
+        setShowAlert(false);
+        // Update nilai kategori dan tanggal dalam URL
+        setSearchParams({ kategori, tanggal });
+      }
+    });
+  };
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary">
       <Sidebar />
@@ -51,14 +91,11 @@ const RekapSuratPage = () => {
                   <option className="font-semibold" value="Kategori Surat">
                     Kategori Surat
                   </option>
-                  <option className="font-semibold" value="penting">
-                    Penting
+                  <option className="font-semibold" value="surat masuk">
+                    surat masuk
                   </option>
-                  <option className="font-semibold" value="biasa">
-                    Biasa
-                  </option>
-                  <option className="font-semibold" value="tidak penting">
-                    Tidak Penting
+                  <option className="font-semibold" value="surat keluar">
+                    surat keluar
                   </option>
                 </select>
               </div>
@@ -73,8 +110,11 @@ const RekapSuratPage = () => {
                 />
               </div>
             </div>
-            <div className="right bg-secondary rounded-lg text-white grid justify-center content-center">
-              <div className="grid grid-flow-col w-10/12 gap-2 items-center">
+            <div
+              className="right bg-secondary rounded-lg text-white grid justify-center content-center cursor-pointer"
+              onClick={handleSearch} // Tambahkan onClick untuk menangani klik tombol "Cari"
+            >
+              <div className="grid grid-flow-col w-10/12 gap-2 items-center ">
                 <FaSearch size="1rem" />
                 <p>Cari</p>
               </div>
@@ -89,7 +129,6 @@ const RekapSuratPage = () => {
                   <th className="py-2 text-sm text-start">Jenis</th>
                   <th className="py-2 text-sm ">Tanggal</th>
                   <th className="py-2 text-sm ">Deskripsi</th>
-{/*                   <th className="py-2 text-sm ">id</th> */}
                   <th className="py-2 text-sm ">Draft</th>
                 </tr>
               </thead>
@@ -106,7 +145,6 @@ const RekapSuratPage = () => {
                     <td className="py-2 text-sm text-start">{item.type}</td>
                     <td className="py-2 text-sm">{item.date}</td>
                     <td className="py-2 text-sm">{item.description}</td>
-{/*                     <td className="py-2 text-sm">{item.id}</td> */}
 
                     <td className="py-4 text-sm grid place-items-center">
                       <FaFile
@@ -119,6 +157,11 @@ const RekapSuratPage = () => {
                 ))}
               </tbody>
             </table>
+            {surat?.letter?.length === 0 && (
+              <div className="text-center text-red-500">
+                Data tidak ditemukan
+              </div>
+            )}
           </div>
         </div>
         <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
