@@ -356,13 +356,17 @@ const SuratMasukPage = () => {
                               </div>
                             </div>
                           )}
-                          <Link to={`/surat-masuk/disposisi-surat/${item.id}`}>
-                            <div className="right bg-secondary rounded-xl text-white grid m-auto">
-                              <div className="grid grid-flow-col items-center py-1">
-                                <p className="font-medium">Disposisi Surat</p>
+                          {hideActionSeksi.includes(auth?.type) ? null : (
+                            <Link
+                              to={`/surat-masuk/disposisi-surat/${item.id}`}
+                            >
+                              <div className="right bg-secondary rounded-xl text-white grid m-auto">
+                                <div className="grid grid-flow-col items-center py-1">
+                                  <p className="font-medium">Disposisi Surat</p>
+                                </div>
                               </div>
-                            </div>
-                          </Link>
+                            </Link>
+                          )}
                         </td>
                       </tr>
                     ))}
