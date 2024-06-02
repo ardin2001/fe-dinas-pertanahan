@@ -15,7 +15,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { CgProfile } from "react-icons/cg";
-
+const hideActionSeksi = [
+  "Kasubag. TU",
+  "Seksi Penetapan Hak & Pendaftaran",
+  "Seksi Survei & Pemetaan",
+  "Seksi Penataan & Pemberdayaan",
+  "Seksi Pengadaan Tanah & Pengembangan",
+  "Seksi Pengendalian & Penanganan Sengketa"
+];
 const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,7 +53,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      progress: undefined,
+      progress: undefined
     });
     setTimeout(() => {
       navigate("/");
@@ -63,9 +70,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
         <div className="xl:w-1/4 xl:mx-0 ">
           <img src={logo} alt="" className="mx-auto xl:mx-0 w-2/5 xl:w-5/6" />
         </div>
-        <h3 className="hidden text-base xl:block font-bold">
-          ATR/BPN JEMBER
-        </h3>
+        <h3 className="hidden text-base xl:block font-bold">ATR/BPN JEMBER</h3>
       </div>
       <div className="menu mx-8 row-start-3 row-end-8 xl:mx-6">
         <ul>
@@ -174,21 +179,23 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
                 : null
             } hover:cursor-pointer`}
           >
-            <Link
-              to={"/manajemen-user"}
-              className="hover:cursor-pointer py-3 flex gap-3 items-center font-semibold text-sm xl:px-3"
-            >
-              <CiUser size="1.5rem" />
-              <p
-                className={`${
-                  location.pathname == "/manajemen-user"
-                    ? "text-white"
-                    : "text-custom"
-                } font-semibold hidden xl:block`}
+            {hideActionSeksi.includes(auth?.type) ? null : (
+              <Link
+                to={"/manajemen-user"}
+                className="hover:cursor-pointer py-3 flex gap-3 items-center font-semibold text-sm xl:px-3"
               >
-                Manajemen User
-              </p>
-            </Link>
+                <CiUser size="1.5rem" />
+                <p
+                  className={`${
+                    location.pathname == "/manajemen-user"
+                      ? "text-white"
+                      : "text-custom"
+                  } font-semibold hidden xl:block`}
+                >
+                  Manajemen User
+                </p>
+              </Link>
+            )}
           </li>
         </ul>
       </div>
