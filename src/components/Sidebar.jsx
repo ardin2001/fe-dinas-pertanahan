@@ -15,6 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { CgProfile } from "react-icons/cg";
+
+const hideActionKakan = ["Kepala Kantor"]
 const hideActionSeksi = [
   "Kasubag. TU",
   "Seksi Penetapan Hak & Pendaftaran",
@@ -23,6 +25,7 @@ const hideActionSeksi = [
   "Seksi Pengadaan Tanah & Pengembangan",
   "Seksi Pengendalian & Penanganan Sengketa"
 ];
+
 const Sidebar = ({ modal, modal2, modal3 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -179,7 +182,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
                 : null
             } hover:cursor-pointer`}
           >
-            {hideActionSeksi.includes(auth?.type) ? null : (
+            {hideActionSeksi.includes(auth?.type) || hideActionKakan.includes(auth?.type) ? null : (
               <Link
                 to={"/manajemen-user"}
                 className="hover:cursor-pointer py-3 flex gap-3 items-center font-semibold text-sm xl:px-3"

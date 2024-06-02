@@ -6,11 +6,21 @@ import { CiUser } from "react-icons/ci";
 import { GetDetailMnagemenUser } from "../../utils/FetchmanagemenUser";
 import UseAuth from "../../hooks/UseAuth";
 
+const hideActionKakan = ["Kepala Kantor"];
+const hideActionSeksi = [
+  "Kasubag. TU",
+  "Seksi Penetapan Hak & Pendaftaran",
+  "Seksi Survei & Pemetaan",
+  "Seksi Penataan & Pemberdayaan",
+  "Seksi Pengadaan Tanah & Pengembangan",
+  "Seksi Pengendalian & Penanganan Sengketa",
+];
+
 const ProfilePage = () => {
   const auth = UseAuth();
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({});
-  
+
   useEffect(() => {
     GetDetailMnagemenUser(auth.id).then((res) => {
       setUser(res.data);
@@ -53,21 +63,20 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          
-          <div
-            className={`${
-              auth?.type == "admin" ? "grid" : "hidden"
-            } right grid-flow-col grid-cols-2`}
-          >
-            <div
-              className="col-start-2 col-end-3 self-end justify-self-end"
-              onClick={HandlerEditProfile}
-            >
-              <div className="grid grid-flow-col gap-2 items-center py-2 bg-secondary rounded-lg text-white justify-center content-center p-6">
-                <MdModeEdit size="1.1rem" />
-                <button>Edit</button>
+
+          <div className="right grid grid-flow-col grid-cols-2">
+            {hideActionKakan.includes(auth?.type) ||
+            hideActionSeksi.includes(auth?.type) ? null : (
+              <div
+                className="col-start-2 col-end-3 self-end justify-self-end"
+                onClick={HandlerEditProfile}
+              >
+                <div className="grid grid-flow-col gap-2 items-center py-2 bg-secondary rounded-lg text-white justify-center content-center p-6">
+                  <MdModeEdit size="1.1rem" />
+                  <button>Edit</button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

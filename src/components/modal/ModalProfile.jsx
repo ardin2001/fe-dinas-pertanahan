@@ -21,7 +21,7 @@ const ModalProfile = (props) => {
     return null;
   }
   return (
-    <div className="fixed bg-white border-solid border-2 border-secondary rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
+    <div className="fixed bg-white rounded-lg drop-shadow-custom z-50 inset-x-38/100 inset-y-1/10">
       <div className="header flex justify-between py-2.5 w-10/12 m-auto items-center">
         <h3 className="font-semibold text-xl text-custom">Edit Data Admin</h3>
         <AiOutlineCloseSquare

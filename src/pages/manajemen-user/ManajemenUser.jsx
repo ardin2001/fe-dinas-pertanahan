@@ -18,14 +18,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 
-const hideActionKakan = ["kakan"];
+const hideActionKakan = ["Kepala Kantor"];
 const hideActionSeksi = [
-  "tatausaha",
-  "seksi1",
-  "seksi2",
-  "seksi3",
-  "seksi4",
-  "seksi5",
+  "Kasubag. TU",
+  "Seksi Penetapan Hak & Pendaftaran",
+  "Seksi Survei & Pemetaan",
+  "Seksi Penataan & Pemberdayaan",
+  "Seksi Pengadaan Tanah & Pengembangan",
+  "Seksi Pengendalian & Penanganan Sengketa",
 ];
 
 const ManajemenUserPage = () => {

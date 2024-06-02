@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 import { useSearchParams } from "react-router-dom";
 
-const hideActionKakan = ["kakan"];
+const hideActionKakan = ["Kepala Kantor"];
 
 const BalasanSuratPage = () => {
   const auth = UseAuth();
