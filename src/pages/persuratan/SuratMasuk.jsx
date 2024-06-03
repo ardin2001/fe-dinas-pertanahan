@@ -341,32 +341,33 @@ const SuratMasukPage = () => {
                             </Link>
                           </div>
                         </td>
-                        <td className="grid grid-flow-col grid-cols-2 gap-4 p-2">
-                          {hideActionKakan.includes(auth?.type) ? null : (
-                            <div
-                              onClick={() =>
-                                HandlerTambahBalasan({ id: item.id })
-                              }
-                              className="right bg-secondary rounded-xl text-white grid m-fixed"
-                            >
-                              <div className="grid grid-flow-col gap-1 items-center py-1">
-                                <button className="font-medium">
+                        <td>
+                          <div className="w-auto flex space-x-4">
+                            {!hideActionKakan.includes(auth?.type) && (
+                              <div
+                                onClick={() =>
+                                  HandlerTambahBalasan({ id: item.id })
+                                }
+                                className="bg-secondary rounded-xl text-white flex items-center justify-center flex-grow"
+                              >
+                                <button className="font-medium py-1 px-2 w-full">
                                   Tambah Balasan
                                 </button>
                               </div>
-                            </div>
-                          )}
-                          {hideActionSeksi.includes(auth?.type) ? null : (
-                            <Link
-                              to={`/surat-masuk/disposisi-surat/${item.id}`}
-                            >
-                              <div className="right bg-secondary rounded-xl text-white grid m-auto">
-                                <div className="grid grid-flow-col items-center py-1">
-                                  <p className="font-medium">Disposisi Surat</p>
+                            )}
+                            {!hideActionSeksi.includes(auth?.type) && (
+                              <Link
+                                to={`/surat-masuk/disposisi-surat/${item.id}`}
+                                className="flex-grow"
+                              >
+                                <div className="bg-secondary rounded-xl text-white flex items-center justify-center w-full flex-grow">
+                                  <button className="font-medium py-1 px-2 w-full">
+                                    Disposisi Surat
+                                  </button>
                                 </div>
-                              </div>
-                            </Link>
-                          )}
+                              </Link>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -387,7 +388,7 @@ const SuratMasukPage = () => {
           <button
             onClick={() => setSearchParams({ page: parseInt(page) + 1 })}
             className={`${
-              surat?.letter?.length === 0 ? "hidden" : ""
+              surat?.letter?.length < 10 ? "hidden" : ""
             } right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
           >
             next
