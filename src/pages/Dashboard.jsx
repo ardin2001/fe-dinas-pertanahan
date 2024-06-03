@@ -35,7 +35,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (notifData.length > 0) {
-      console.log("masuk notif",notifData.length);
+      console.log("masuk notif", notifData.length);
       const intervalId = setInterval(() => {
         Notification().then((res) => {
           console.log(res.data.letter.length + "   " + notifData.length);
@@ -55,9 +55,9 @@ const DashboardPage = () => {
   }, [notifData]);
 
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200 font-poppins">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-gray-200 font-poppins ">
       <Sidebar />
-      <div className="content col-span-4 w-97/100">
+      <div className="content col-span-4 w-full h-full flex flex-col pr-10 pb-10">
         <div className="navbar flex justify-between pt-5 items-center">
           <h2 className="font-bold text-2xl">Dashboard</h2>
           <div
@@ -99,7 +99,7 @@ const DashboardPage = () => {
             description="Surat Sudah Selesai"
           />
         </div>
-        <div className="rekap mt-8 bg-white rounded-xl drop-shadow-custom p-4 pb-14">
+        <div className="rekap flex-1 mt-8 bg-white rounded-xl drop-shadow-custom p-4 pb-14 h-min">
           <Chart />
         </div>
       </div>
