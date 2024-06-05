@@ -171,7 +171,7 @@ const BalasanSuratPage = () => {
               <FaSearch className="absolute right-2 top-3 text-secondary" />
             </div>
           </div>
-          <div className="tabel mt-7 h-100 overflow-y-auto">
+          <div className="tabel mt-7 sm:h-100 sm:overflow-y-auto lg:overflow-y-visible">
             <table className="table-auto w-full text-center text-sm font-normal font-sans">
               <thead className="text-white font-medium bg-secondary">
                 <tr>
