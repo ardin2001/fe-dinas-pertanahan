@@ -77,7 +77,7 @@ const DashboardPage = () => {
             <ModalNotification notif={notif} notifData={notifData} />
           </div>
         </div>
-        <div className="rekap grid gap-10 md:grid-cols-2 xl:grid-cols-4 xl:grid-flow-col mt-4 font-semibold text-base">
+        <div className="rekap grid grid-cols-2 gap-5 md:grid-cols-2 xl:grid-cols-4 xl:grid-flow-col mt-4 font-semibold text-base">
           <CardDashboard
             title="Surat Masuk"
             count={data?.totalsurat}
@@ -99,7 +99,7 @@ const DashboardPage = () => {
             description="Surat Sudah Selesai"
           />
         </div>
-        <div className="rekap flex-1 mt-8 bg-white rounded-xl drop-shadow-custom p-4 pb-14 h-min">
+        <div className="rekap flex-1 mt-5 bg-white rounded-xl drop-shadow-custom p-4 pb-2 h-min">
           <Chart />
         </div>
       </div>
