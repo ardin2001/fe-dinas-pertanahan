@@ -151,6 +151,10 @@ const SuratMasukPage = () => {
   const HandlerTambahSurat = ({ status }) => {
     if (status) {
       setModal(false);
+      GetSuratMasuk(page).then((res) => {
+        setSurat(res.data);
+        setLoading(true);
+      });
       toast.success("Surat berhasil ditambah", {
         position: "bottom-right",
         autoClose: 1000,
@@ -417,7 +421,6 @@ const SuratMasukPage = () => {
               </tbody>
             </table>
           </div>
-          <ToastContainer />
         </div>
         <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
           <button
@@ -438,6 +441,7 @@ const SuratMasukPage = () => {
           </button>
         </div>
       </div>
+      <ToastContainer />
     </main>
   );
 };
