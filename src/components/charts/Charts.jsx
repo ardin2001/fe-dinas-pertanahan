@@ -5,7 +5,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  CartesianGrid,
+  CartesianGrid
 } from "recharts";
 import { GetDashboard } from "../../utils/FetchChartDashboard";
 
@@ -18,12 +18,18 @@ const Chart = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 1000) {
-        const lebar = 440;
+        const lebar = 540;
         setScreenWidth(window.innerWidth - lebar);
+        setScreenHeight(window.innerHeight - 380);
       } else {
-        setScreenWidth(window.innerWidth - 200);
+        if (window.innerWidth < 1000) {
+          setScreenWidth(window.innerWidth - 250);
+          setScreenHeight(window.innerHeight - 440);
+        } else {
+          setScreenWidth(window.innerWidth - 200);
+          setScreenHeight(window.innerHeight - 380);
+        }
       }
-      setScreenHeight(window.innerHeight - 380);
     };
 
     window.addEventListener("resize", handleResize);
@@ -41,7 +47,7 @@ const Chart = () => {
         const transformedData = label.map((day, index) => ({
           name: day,
           letters: parseInt(jumlah[index], 10), // Convert string to integer
-          lettersOut: parseInt(jumlahkeluar[index], 10), // Convert string to integer
+          lettersOut: parseInt(jumlahkeluar[index], 10) // Convert string to integer
         }));
         setData(transformedData);
       })
