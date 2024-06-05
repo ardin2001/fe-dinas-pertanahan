@@ -113,7 +113,7 @@ const RekapSuratPage = () => {
               </div>
             </div>
           </div>
-          <div className="tabel mt-7 h-100 overflow-y-auto">
+          <div className="tabel mt-7 sm:h-100 sm:overflow-y-auto lg:overflow-y-visible">
             <table className="table-auto w-full text-center">
               <thead className="text-white font-semibold bg-secondary">
                 <tr className="">
