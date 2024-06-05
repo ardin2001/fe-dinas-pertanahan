@@ -48,6 +48,7 @@ const SuratMasukPage = () => {
   const [tambah, setTambah] = useState(false);
   const [id, setId] = useState(null);
   const [searchResults, setSearchResults] = useState([]); // State untuk hasil pencarian
+  const [overdueAlerts, setOverdueAlerts] = useState([]);
 
   const HandlerSearch = (e) => {
     const value = e.target.value;
@@ -82,7 +83,32 @@ const SuratMasukPage = () => {
       });
     }
   }, [idNotif]);
+  useEffect(() => {
+    const overdueLetters =
+      surat.letter
+        ?.filter((item) => {
+          const isDateExceeded = checkDateExceeded(item.letter_date);
+          return isDateExceeded && item.status !== "Selesai";
+        })
+        .map((item) => `Surat dari ${item.from} (${item.letter_date})`) || [];
 
+    setOverdueAlerts(overdueLetters);
+  }, [surat]);
+
+  useEffect(() => {
+    if (overdueAlerts.length > 0) {
+      const overdueMessages = overdueAlerts.join("\n");
+      toast.error(`\n${overdueMessages} belum ditangani !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+    }
+  }, [overdueAlerts]);
   const HandlerDeleteSurat = (id) => {
     Swal.fire({
       title: "Anda yakin ingin menghapus data ini?",
@@ -205,6 +231,12 @@ const SuratMasukPage = () => {
       setTambah(!tambah);
     }
   };
+  const checkDateExceeded = (date) => {
+    const currentDate = new Date();
+    const letterDate = new Date(date);
+    const differenceInDays = (currentDate - letterDate) / (1000 * 3600 * 24);
+    return differenceInDays > 3;
+  };
 
   return (
     <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
@@ -264,7 +296,7 @@ const SuratMasukPage = () => {
               </div>
             )}
           </div>
-          <div className="tabel mt-7 h-100 overflow-y-auto">
+          <div className="tabel mt-7 sm:h-100 sm:overflow-y-auto lg:overflow-y-visible mb-4">
             <table className="table-auto w-full text-center text-sm font-normal font-poppins">
               <thead className="text-white bg-secondary">
                 <tr>
@@ -284,93 +316,104 @@ const SuratMasukPage = () => {
                       (searchResults.length > 0
                         ? searchResults
                         : surat?.letter || []) || []
-                    ).map((item, index) => (
-                      <tr
-                        key={index}
-                        className={`${
-                          (index + 1) % 2 === 0 ? "bg-quinary" : ""
-                        }`}
-                      >
-                        <td className="py-2.5 text-sm">
-                          {index + 1 + (page - 1) * 10}
-                        </td>
-                        <td className="py-2.5 text-sm">{item.from}</td>
-                        <td className="py-2.5 text-sm">{item.letters_type}</td>
-                        <td className="py-2.5 text-sm">{item.letter_date}</td>
-                        <td className="py-2.5 text-sm">
-                          <p
-                            className={`${
-                              item.status !== "Pending"
-                                ? "bg-green-200 text-green-500"
-                                : "bg-red-300 text-red-600"
-                            } rounded-lg py-1 text-s`}
-                          >
-                            {item.status}
-                          </p>
-                        </td>
-                        <td className="py-2">
-                          <div className="aksi flex justify-center gap-2">
-                            {hideActionKakan.includes(auth?.type) ||
-                            hideActionSeksi.includes(auth?.type) ? null : (
-                              <MdModeEdit
-                                className="text-secondary cursor-pointer text-xl"
+                    ).map((item, index) => {
+                      const isDateExceeded = checkDateExceeded(
+                        item.letter_date
+                      );
+                      return (
+                        <tr
+                          key={index}
+                          className={`${
+                            isDateExceeded && item.status == "Pending"
+                              ? "bg-red-200"
+                              : (index + 1) % 2 === 0
+                              ? "bg-quinary"
+                              : ""
+                          }`}
+                        >
+                          <td className="py-2 text-sm">
+                            {index + 1 + (page - 1) * 10}
+                          </td>
+                          <td className="py-2 text-sm">{item.from}</td>
+                          <td className="py-2 text-sm">{item.letters_type}</td>
+                          <td className="py-2 text-sm">{item.letter_date}</td>
+                          <td className="py-2 text-sm">
+                            <p
+                              className={`${
+                                item.status !== "Pending"
+                                  ? "bg-green-200 text-green-500"
+                                  : "bg-red-300 text-red-600"
+                              } rounded-lg py-1 text-s`}
+                            >
+                              {item.status}
+                            </p>
+                          </td>
+                          <td className="py-2">
+                            <div className="aksi flex justify-center gap-2">
+                              {hideActionKakan.includes(auth?.type) ||
+                              hideActionSeksi.includes(auth?.type) ? null : (
+                                <MdModeEdit
+                                  className="text-secondary cursor-pointer text-xl"
+                                  type="button"
+                                  onClick={() =>
+                                    HandlerEditSurat({ id: item.id })
+                                  }
+                                />
+                              )}
+                              <IoMdEye
+                                className="text-yellow-300 cursor-pointer text-xl"
                                 type="button"
-                                onClick={() =>
-                                  HandlerEditSurat({ id: item.id })
-                                }
+                                onClick={() => HandlerDetailSurat(item.id)}
                               />
-                            )}
-                            <IoMdEye
-                              className="text-yellow-300 cursor-pointer text-xl"
-                              type="button"
-                              onClick={() => HandlerDetailSurat(item.id)}
-                            />
-                            {hideActionKakan.includes(auth?.type) ||
-                            hideActionSeksi.includes(auth?.type) ? null : (
-                              <MdDeleteOutline
-                                className="text-red-500 cursor-pointer text-xl"
-                                type="button"
-                                onClick={() => HandlerDeleteSurat(item.id)}
-                              />
-                            )}
-                            <Link to={`/surat-masuk/daftar-balasan/${item.id}`}>
-                              <BsReplyAll
-                                className="text-red-500 cursor-pointer text-xl"
-                                type="button"
-                              />
-                            </Link>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="w-auto flex space-x-4">
-                            {!hideActionKakan.includes(auth?.type) && (
-                              <div
-                                onClick={() =>
-                                  HandlerTambahBalasan({ id: item.id })
-                                }
-                                className="bg-secondary rounded-xl text-white flex items-center justify-center flex-grow"
-                              >
-                                <button className="font-medium py-1 px-2 w-full">
-                                  Tambah Balasan
-                                </button>
-                              </div>
-                            )}
-                            {!hideActionSeksi.includes(auth?.type) && (
+                              {hideActionKakan.includes(auth?.type) ||
+                              hideActionSeksi.includes(auth?.type) ? null : (
+                                <MdDeleteOutline
+                                  className="text-red-500 cursor-pointer text-xl"
+                                  type="button"
+                                  onClick={() => HandlerDeleteSurat(item.id)}
+                                />
+                              )}
                               <Link
-                                to={`/surat-masuk/disposisi-surat/${item.id}`}
-                                className="flex-grow"
+                                to={`/surat-masuk/daftar-balasan/${item.id}`}
                               >
-                                <div className="bg-secondary rounded-xl text-white flex items-center justify-center w-full flex-grow">
+                                <BsReplyAll
+                                  className="text-red-500 cursor-pointer text-xl"
+                                  type="button"
+                                />
+                              </Link>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="w-auto flex space-x-4">
+                              {!hideActionKakan.includes(auth?.type) && (
+                                <div
+                                  onClick={() =>
+                                    HandlerTambahBalasan({ id: item.id })
+                                  }
+                                  className="bg-secondary rounded-xl text-white flex items-center justify-center flex-grow"
+                                >
                                   <button className="font-medium py-1 px-2 w-full">
-                                    Disposisi Surat
+                                    Tambah Balasan
                                   </button>
                                 </div>
-                              </Link>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                              )}
+                              {!hideActionSeksi.includes(auth?.type) && (
+                                <Link
+                                  to={`/surat-masuk/disposisi-surat/${item.id}`}
+                                  className="flex-grow"
+                                >
+                                  <div className="bg-secondary rounded-xl text-white flex items-center justify-center w-full flex-grow">
+                                    <button className="font-medium py-1 px-2 w-full">
+                                      Disposisi Surat
+                                    </button>
+                                  </div>
+                                </Link>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </table>
           </div>
