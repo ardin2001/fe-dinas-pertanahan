@@ -1,22 +1,16 @@
 import logo from "../assets/logo.png";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { GoHome } from "react-icons/go";
 import { SlEnvolopeLetter } from "react-icons/sl";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { CiViewList } from "react-icons/ci";
-import { CiUser } from "react-icons/ci";
+import { CiViewList, CiUser } from "react-icons/ci";
 import { HiOutlineLogout } from "react-icons/hi";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { CgProfile } from "react-icons/cg";
 
-const hideActionKakan = ["Kepala Kantor"]
 const hideActionSeksi = [
   "Kasubag. TU",
   "Seksi Penetapan Hak & Pendaftaran",
@@ -34,13 +28,13 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
 
   useEffect(() => {
     if (
-      location.pathname == "/surat-masuk" ||
-      location.pathname == "/balasan-surat" ||
-      location.pathname == "/surat-masuk/disposisi-surat"
+      location.pathname === "/surat-masuk" ||
+      location.pathname === "/balasan-surat" ||
+      location.pathname === "/surat-masuk/disposisi-surat"
     ) {
-      setTogle((prev) => !prev);
+      setTogle(true);
     }
-  }, []);
+  }, [location.pathname]);
 
   const handlerTogglePersuratan = () => {
     setTogle((prev) => !prev);
@@ -65,23 +59,27 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
 
   return (
     <div
-      className={`sidebar grid h-screen grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${
-        modal || modal2 || modal3 ? "blur-sm" : null
+      className={`sidebar h-screen grid grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${
+        modal || modal2 || modal3 ? "blur-sm" : ""
       }`}
     >
       <div className="self-center xl:flex items-center mx-auto justify-center">
         <div className="xl:w-1/4 xl:mx-0 ">
-          <img src={logo} alt="" className="mx-auto xl:mx-0 w-2/5 xl:w-5/6" />
+          <img
+            src={logo}
+            alt="Logo"
+            className="mx-auto xl:mx-0 w-2/5 xl:w-5/6"
+          />
         </div>
         <h3 className="hidden text-base xl:block font-bold">ATR/BPN JEMBER</h3>
       </div>
       <div className="menu mx-8 row-start-3 row-end-8 xl:mx-6">
-        <ul>
+        <ul className="grid sm:justify-item-start 	">
           <li
             className={`${
-              location.pathname == "/dashboard"
+              location.pathname === "/dashboard"
                 ? "bg-secondary rounded-lg text-white"
-                : null
+                : ""
             } hover:cursor-pointer`}
           >
             <Link
@@ -91,7 +89,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
               <GoHome size="1.5rem" />
               <p
                 className={`${
-                  location.pathname == "/dashboard"
+                  location.pathname === "/dashboard"
                     ? "text-white"
                     : "text-custom"
                 } font-semibold hidden xl:block`}
@@ -103,9 +101,9 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
           <li
             onClick={handlerTogglePersuratan}
             className={`${
-              location.pathname == "/persuratan"
+              location.pathname === "/persuratan"
                 ? "bg-secondary rounded-lg text-white"
-                : null
+                : ""
             } hover:cursor-pointer py-3 grid grid-cols-4 gap-3 items-center font-medium text-sm xl:px-3 justify-between`}
           >
             <div className="left flex gap-3 col-start-1 col-end-4 justify-self-start">
@@ -122,18 +120,18 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
               )}
             </div>
             <div
-              className={`sub-menu col-start-1 col-end-5 ${
-                togle ? "block" : "hidden"
+              className={`sub-menu col-start-1 col-end-5 transition-all duration-500 ease-out overflow-hidden ${
+                togle ? "max-h-48" : "max-h-0"
               }`}
             >
-              <ol className="xl:list-disc xl:list-inside ">
+              <ol className="xl:list-disc xl:list-inside">
                 <Link to={"/surat-masuk?page=1"}>
                   <li
                     className={`${
-                      location.pathname == "/surat-masuk"
+                      location.pathname === "/surat-masuk"
                         ? "bg-secondary text-white text-sm"
                         : "text-custom font-semibold"
-                    } py-2 px-5 rounded-md`}
+                    } py-2 px-2 rounded-md text-xs xl:text-sm xl:px-5`}
                   >
                     Surat Masuk
                   </li>
@@ -141,10 +139,10 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
                 <Link to={"/balasan-surat?page=1"}>
                   <li
                     className={`${
-                      location.pathname == "/balasan-surat"
+                      location.pathname === "/balasan-surat"
                         ? "bg-secondary text-white text-sm"
                         : "text-custom font-semibold"
-                    } py-2 px-5 rounded-md`}
+                    } py-2 px-2 rounded-md text-xs xl:text-sm xl:px-5`}
                   >
                     Balasan Surat
                   </li>
@@ -154,9 +152,9 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
           </li>
           <li
             className={`${
-              location.pathname == "/rekap-surat"
-                ? "bg-secondary rounded-lg text-white"
-                : null
+              location.pathname === "/rekap-surat"
+                ? "bg-secondary rounded-lg text-white "
+                : ""
             } hover:cursor-pointer`}
           >
             <Link
@@ -166,10 +164,10 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
               <CiViewList size="1.5rem" />
               <p
                 className={`${
-                  location.pathname == "/rekap-surat"
+                  location.pathname === "/rekap-surat"
                     ? "text-white"
                     : "text-custom"
-                } font-semibold hidden xl:block`}
+                } font-semibold hidden  xl:block `}
               >
                 Rekap Surat
               </p>
@@ -177,12 +175,12 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
           </li>
           <li
             className={`${
-              location.pathname == "/manajemen-user"
+              location.pathname === "/manajemen-user"
                 ? "bg-secondary rounded-lg text-white"
-                : null
+                : ""
             } hover:cursor-pointer`}
           >
-            {hideActionSeksi.includes(auth?.type) || hideActionKakan.includes(auth?.type) ? null : (
+            {!hideActionSeksi.includes(auth?.type) && (
               <Link
                 to={"/manajemen-user"}
                 className="hover:cursor-pointer py-3 flex gap-3 items-center font-semibold text-sm xl:px-3"
@@ -190,7 +188,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
                 <CiUser size="1.5rem" />
                 <p
                   className={`${
-                    location.pathname == "/manajemen-user"
+                    location.pathname === "/manajemen-user"
                       ? "text-white"
                       : "text-custom"
                   } font-semibold hidden xl:block`}
@@ -206,7 +204,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
         <div className="grid items-center">
           <div
             className={` ${
-              location.pathname == "/profile" ? "bg-secondary text-white" : null
+              location.pathname === "/profile" ? "bg-secondary text-white" : ""
             } flex flex-col xl:flex-row justify-between items-center mx-8 py-2 xl:px-5 rounded-lg gap-2 xl:gap-0`}
           >
             <Link to={"/profile"}>
