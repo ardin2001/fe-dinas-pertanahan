@@ -7,15 +7,20 @@ import { FaSearch } from "react-icons/fa";
 const DaftarBalasanPage = () => {
   let { id } = useParams();
   const [replies, setReplies] = useState([]);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
   const HandlerSearch = (e) => {
     setSearch(e.target.value);
   };
 
   useEffect(() => {
-    GetBalasanSuratSpesifik(id).then((res) => {
-      setReplies(res.data.replyletter);
-    });
+    GetBalasanSuratSpesifik(id)
+      .then((res) => {
+        setReplies(res.data.replyletter || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching replies:", error);
+        setReplies([]); // Ensure replies is set to an empty array in case of an error
+      });
   }, [id]);
 
   return (
@@ -29,7 +34,7 @@ const DaftarBalasanPage = () => {
           <div className="left w-1/3 flex relative">
             <input
               type="text"
-              className="outline-none rounded-lg w-full outline-2 outline-quaternary  text-quaternary outline-offset-0 text-xs py-3 px-3 font-light italic"
+              className="outline-none rounded-lg w-full outline-2 outline-quaternary text-quaternary outline-offset-0 text-xs py-3 px-3 font-light italic"
               onChange={HandlerSearch}
               value={search}
               placeholder="Cari disini..."
