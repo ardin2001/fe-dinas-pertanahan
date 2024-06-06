@@ -1,58 +1,76 @@
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import FormatDate from "../../../utils/Date";
 import { FaFile } from "react-icons/fa";
 import { PutSuratMasuk } from "../../../utils/FetchSuratMasuk";
 import Swal from "sweetalert2";
+
 const ModalEditSurat = (props) => {
-  const { modal, HandlerEditSurat, surat,setSurat } = props;
+  const { modal, HandlerEditSurat, surat, setSurat } = props;
   const [no, setNo] = useState(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [letter_date, setLetterDate] = useState(null);
   const [received_date, setReceivedDate] = useState(null);
+
   const HandlerSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("letters_number", event.target.letters_number.value);
+    formData.append("reference_number", no);
     formData.append("letters_type", event.target.letters_type.value);
     formData.append("letter_date", letter_date);
     formData.append("received_date", received_date);
-    formData.append("from", event.target.nama.value);
-    formData.append("description", event.target.perihal.value);
-    formData.append("file", event.target.file.files[0]);
+    formData.append("from", name);
+    formData.append("description", description);
 
-    const response = await PutSuratMasuk(formData, surat?.letter?.id);
-    
-    if (response.status === true) {
-      setSurat(prev => {
-        const newState = prev.letter.map((data,index) => {
-          if(data.id == surat.letter.id){
-            return {
-              letter :{...data,...response.data.letter},
-              file : {...prev.file[index],...response.data.file}
+    if (event.target.file.files[0]) {
+      formData.append("file", event.target.file.files[0]);
+    }
+
+    try {
+      const response = await PutSuratMasuk(formData, surat?.letter?.id);
+      if (response.status === true) {
+        setSurat((prev) => {
+          const letters = prev?.letter || [];
+          const files = prev?.file || [];
+
+          const newState = letters.map((data, index) => {
+            if (data.id == surat.letter.id) {
+              return {
+                letter: { ...data, ...response.data.letter },
+                file: { ...files[index], ...response.data.file }
+              };
             }
-          }
+            return {
+              letter: { ...data },
+              file: files[index]
+            };
+          });
+
           return {
-            letter :{...data},
-            file : prev.file[index]
-          }
-        })
-        
-        return {
-          letter : newState.map(data => data.letter),
-          file : newState.map(data => data.file),
-        }
-      })
-      HandlerEditSurat({status : true});
-    }else{
+            letter: newState.map((data) => data.letter),
+            file: newState.map((data) => data.file)
+          };
+        });
+        HandlerEditSurat({ status: true });
+      } else {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Surat gagal diedit",
+          icon: "warning",
+          iconColor: "#FB0017",
+          showConfirmButton: false,
+          timer: 1000
+        });
+      }
+    } catch (error) {
+      console.error("Error updating surat:", error);
       Swal.fire({
-        title: "Gagal!",
-        text: "Surat gagal diedit",
-        icon: "warning",
+        title: "Error!",
+        text: "Terjadi kesalahan saat mengupdate surat",
+        icon: "error",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 2000
       });
     }
   };
@@ -64,10 +82,11 @@ const ModalEditSurat = (props) => {
     setName(surat?.letter?.from);
     setDescription(surat?.letter?.description);
   }, [surat]);
+
   if (!modal || !surat) {
     return null;
   }
-  
+
   return (
     <div className="modal fixed grid flex-col content-around bg-white rounded-lg drop-shadow-2xl z-30 inset-x-2/10 inset-y-1/10 px-8 font-poppins">
       <div className="modal-header flex justify-between items-center my-auto">
@@ -82,7 +101,7 @@ const ModalEditSurat = (props) => {
         <div className="modal-body grid grid-cols-2 gap-5 my-auto">
           <div className="tanggal grid gap-1">
             <label
-              htmlFor="letters_number"
+              htmlFor="reference_number"
               className="text-custom text-base font-semibold"
             >
               Nomor Surat
@@ -90,10 +109,10 @@ const ModalEditSurat = (props) => {
             <input
               type="text"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-              placeholder="Masukkan Nomor Surat"
-              id="letters_number"
-              name="letters_number"
-              value={no}
+              placeholder={no ? no : "Masukkan Nomor Surat"}
+              id="reference_number"
+              name="reference_number"
+              // value={no}
               onChange={(e) => setNo(e.target.value)}
             />
           </div>
@@ -176,6 +195,7 @@ const ModalEditSurat = (props) => {
               id="letters_type"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               name="letters_type"
+              required
             >
               <option className="font-normal" value="">
                 Jenis Surat
