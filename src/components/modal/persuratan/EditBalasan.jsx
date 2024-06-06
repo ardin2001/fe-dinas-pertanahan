@@ -5,7 +5,7 @@ import { FaFile } from "react-icons/fa";
 import {
   PutBalasanSurat,
   GetDetailBalasan,
-  GetBalasanSurat,
+  GetBalasanSurat
 } from "../../../utils/FetchBalasanSurat";
 
 const ModalEditBalasan = (props) => {
@@ -28,17 +28,20 @@ const ModalEditBalasan = (props) => {
     }
   }, [id]);
 
-  const HandleTambahBalasan = async (e) => {
+  const HandlerSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append("reference_number2", referenceNumber);
     formData.append("outgoing_letter_date", letter_date);
-    formData.append("file", e.target.lampiran.files[0]);
     formData.append("note", note);
+    formData.append("status", status);
+    if (e.target.file.files[0]) {
+      formData.append("file", e.target.file.files[0]);
+    }
     const response = await PutBalasanSurat(id, formData);
-    if(response.status) {
+    if (response.status) {
       HandlerEditBalasan({ status: response.status });
-    }else{
+    } else {
       HandlerEditBalasan({ status: false });
     }
   };
@@ -57,7 +60,7 @@ const ModalEditBalasan = (props) => {
           onClick={HandlerEditBalasan}
         />
       </div>
-      <form onSubmit={HandleTambahBalasan} className="grid content-between">
+      <form onSubmit={HandlerSubmit} className="grid content-between">
         <div className="modal-body grid grid-cols-2 gap-5 my-auto ">
           <div className="tanggal grid gap-1 content-start">
             <label
@@ -69,16 +72,18 @@ const ModalEditBalasan = (props) => {
             <input
               type="text"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-              placeholder="Nomor surat..."
-              id="nomor"
-              name="nomor"
-              value={referenceNumber}
+              placeholder={
+                referenceNumber ? referenceNumber : "Masukkan Nomor Surat"
+              }
+              id="reference_number2"
+              name="reference_number2"
+              // value={referenceNumber}
               onChange={(e) => setReferenceNumber(e.target.value)}
             />
           </div>
-          <div className="tanggal grid gap-1 content-start">
+          <div className="outgoing_letter_date grid gap-1 content-start">
             <label
-              htmlFor="tanggal"
+              htmlFor="outgoing_letter_date"
               className="text-custom text-base font-semibold"
             >
               Tanggal Surat
@@ -87,14 +92,14 @@ const ModalEditBalasan = (props) => {
               type="date"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               value={letter_date}
-              id="tanggal"
-              name="tanggal"
+              id="outgoing_letter_date"
+              name="outgoing_letter_date"
               onChange={(e) => setLetterDate(e.target.value)}
             />
           </div>
-          <div className="perihal grid gap-1 content-start">
+          <div className="note grid gap-1 content-start">
             <label
-              htmlFor="perihal"
+              htmlFor="note"
               className="text-custom text-base font-semibold"
             >
               Perihal Surat
@@ -103,27 +108,13 @@ const ModalEditBalasan = (props) => {
               type="text"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               placeholder="Perihal surat..."
-              id="perihal"
-              name="perihal"
+              id="note"
+              name="note"
               value={note}
               onChange={(e) => setNote(e.target.value)}
             />
           </div>
-          <div className="keterangan grid gap-1">
-            <label
-              htmlFor="keterangan"
-              className="text-custom text-base font-semibold"
-            >
-              Keterangan
-            </label>
-            <input
-              type="text"
-              className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
-              placeholder="Keterangan..."
-              id="keterangan"
-              name="keterangan"
-            />
-          </div>
+
           <div className="status grid gap-1 content-start">
             <label
               htmlFor="status"
@@ -135,20 +126,14 @@ const ModalEditBalasan = (props) => {
               id="status"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               name="status"
-              value={status}
+              placeholder={status ? status : "Pilih Status Surat"}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option className="font-normal" value="">
-                Pilih Status Surat
+              <option className="font-normal" value="Selesai">
+                Selesai
               </option>
-              <option className="font-normal" value="1">
-                Penting
-              </option>
-              <option className="font-normal" value="2">
-                Biasa
-              </option>
-              <option className="font-normal" value="3">
-                Tidak Penting
+              <option className="font-normal" value="Pending">
+                Pending
               </option>
             </select>
           </div>
@@ -166,8 +151,8 @@ const ModalEditBalasan = (props) => {
             <input
               type="file"
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg absolute top-5/10 opacity-0 -translate-y-1/4"
-              id="lampiran"
-              name="lampiran"
+              id="file"
+              name="file"
             />
           </div>
         </div>
