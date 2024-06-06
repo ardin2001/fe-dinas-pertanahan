@@ -49,6 +49,7 @@ const SuratMasukPage = () => {
   const [id, setId] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [overdueAlerts, setOverdueAlerts] = useState([]);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   const HandlerSearch = (e) => {
     const value = e.target.value;
