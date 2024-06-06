@@ -68,11 +68,21 @@ const SuratMasukPage = () => {
     }
   };
 
-  useEffect(() => {
-    GetSuratMasuk(page).then((res) => {
-      setSurat(res.data);
-      setLoading(true);
-    });
+ useEffect(() => {
+    GetSuratMasuk(page)
+      .then((res) => {
+        setSurat(res.data);
+        setLoading(true);
+      })
+      .catch((error) => console.error("Error fetching surat masuk:", error));
+    const intervalId = setInterval(() => {
+      GetSuratMasuk(page).then((res) => {
+        setSurat(res.data);
+        setLoading(true);
+      });
+    }, 3000); // Fetch every 30 seconds
+
+    return () => clearInterval(intervalId);
   }, [page]);
 
   useEffect(() => {
