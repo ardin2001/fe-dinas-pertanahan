@@ -115,6 +115,10 @@ const BalasanSuratPage = () => {
         draggable: true,
         progress: undefined
       });
+      GetBalasanSurat(page).then((res) => {
+      setSurat(res.data);
+      setLoading(true);
+    });
     } else if (status == false) {
       Swal.fire({
         title: "Gagal",
