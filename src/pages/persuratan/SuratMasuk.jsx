@@ -12,7 +12,7 @@ import {
   GetSuratMasuk,
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
-  GetSearchSuratMasuk
+  GetSearchSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
 import ModalTambahBalasan from "../../components/modal/persuratan/TambahBalasan";
 import Swal from "sweetalert2";
@@ -30,7 +30,7 @@ const hideActionSeksi = [
   "Seksi Survei & Pemetaan",
   "Seksi Penataan & Pemberdayaan",
   "Seksi Pengadaan Tanah & Pengembangan",
-  "Seksi Pengendalian & Penanganan Sengketa"
+  "Seksi Pengendalian & Penanganan Sengketa",
 ];
 
 const SuratMasukPage = () => {
@@ -47,7 +47,7 @@ const SuratMasukPage = () => {
   const [detail, setDetail] = useState(false);
   const [tambah, setTambah] = useState(false);
   const [id, setId] = useState(null);
-  const [searchResults, setSearchResults] = useState([]); // State untuk hasil pencarian
+  const [searchResults, setSearchResults] = useState([]);
   const [overdueAlerts, setOverdueAlerts] = useState([]);
 
   const HandlerSearch = (e) => {
@@ -57,14 +57,14 @@ const SuratMasukPage = () => {
     if (value) {
       GetSearchSuratMasuk(value)
         .then((res) => {
-          setSearchResults(res.data.letter); // Update state dengan hasil pencarian
+          setSearchResults(res.data.letter);
         })
         .catch((error) => {
           console.error("Error fetching search results:", error);
-          setSearchResults([]); // Set state kembali menjadi array kosong
+          setSearchResults([]);
         });
     } else {
-      setSearchResults([]); // Jika pencarian kosong, set state menjadi array kosong
+      setSearchResults([]);
     }
   };
 
@@ -105,7 +105,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
     }
   }, [overdueAlerts]);
@@ -118,7 +118,7 @@ const SuratMasukPage = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#828282",
       cancelButtonText: "Batal",
-      confirmButtonText: "Hapus"
+      confirmButtonText: "Hapus",
     }).then((result) => {
       if (result.isConfirmed) {
         DeleteSuratMasuk(id).then((res) => {
@@ -133,7 +133,7 @@ const SuratMasukPage = () => {
             return {
               ...prev,
               letter: updatedLetter,
-              file: updatedFile
+              file: updatedFile,
             };
           });
           Swal.fire({
@@ -141,7 +141,7 @@ const SuratMasukPage = () => {
             text: "Data berhasil dihapus",
             icon: "success",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
         });
       }
@@ -150,6 +150,10 @@ const SuratMasukPage = () => {
 
   const HandlerTambahSurat = ({ status }) => {
     if (status) {
+      GetSuratMasuk(page).then((res) => {
+        setSurat(res.data);
+        setLoading(true);
+      });
       setModal(false);
       toast.success("Surat berhasil ditambah", {
         position: "bottom-right",
@@ -158,7 +162,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
     } else if (status == false) {
       Swal.fire({
@@ -167,7 +171,7 @@ const SuratMasukPage = () => {
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000
+        timer: 1000,
       });
     } else {
       setModal(!modal);
@@ -183,7 +187,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
     }
     if (id) {
@@ -216,7 +220,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
     } else if (status == false) {
       Swal.fire({
@@ -225,7 +229,7 @@ const SuratMasukPage = () => {
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000
+        timer: 1000,
       });
     } else {
       setTambah(!tambah);
@@ -417,7 +421,6 @@ const SuratMasukPage = () => {
               </tbody>
             </table>
           </div>
-          <ToastContainer />
         </div>
         <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
           <button
@@ -437,6 +440,7 @@ const SuratMasukPage = () => {
             next
           </button>
         </div>
+        <ToastContainer />
       </div>
     </main>
   );

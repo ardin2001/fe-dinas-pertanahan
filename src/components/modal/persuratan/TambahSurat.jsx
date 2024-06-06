@@ -33,7 +33,7 @@ const ModalTambahSurat = (props) => {
       if (response.status) {
         setSurat((prev) => ({
           letter: [...prev.letter, response.data.letter],
-          file: [...(prev.file || []), response.data.file], // Ensure prev.file is an array
+          file: [...(prev.file || []), response.data.file],
         }));
       }
     }

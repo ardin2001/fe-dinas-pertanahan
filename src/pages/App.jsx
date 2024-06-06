@@ -34,7 +34,7 @@ function App() {
         sessionStorage.setItem("token", res.token);
         toast.success("Berhasil login", {
           position: "top-right",
-          autoClose: 2000,
+          autoClose: false,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -98,7 +98,7 @@ function App() {
             className="w-7/12 grid gap-5 px-10 py-3 rounded-md relative"
           >
             <h2 className="text-3xl m-0 font-bold text-start text-primary">
-              Selamat Datang!
+              Sistem Informasi Persuratan Kantah Jember
             </h2>
             <p className="text-start m-0 font-medium text-quaternary">
               Login terlebih dahulu untuk mengakses halaman Admin
@@ -132,7 +132,7 @@ function App() {
             </div>
             <button
               type="submit"
-              className="bg-secondary rounded-lg w-full justify-self-center h-10 font-semibold text-white font-sans mt-3"
+              className="bg-secondary rounded-lg w-full justify-self-center h-10 font-semibold text-white font-sans mt-3 hover:bg-primary"
             >
               Login
             </button>
