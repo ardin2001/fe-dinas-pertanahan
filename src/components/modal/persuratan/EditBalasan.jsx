@@ -7,12 +7,13 @@ import {
   GetDetailBalasan,
   GetBalasanSurat
 } from "../../../utils/FetchBalasanSurat";
-
+import { GetDetailSuratMasuk } from "../../../utils/FetchSuratMasuk";
 const ModalEditBalasan = (props) => {
   const { modal, HandlerEditBalasan, id, setSurat } = props;
   const [letter_date, setLetterDate] = useState(FormatDate());
+  const [letter_id, setLetterId] = useState(null);
   const [detailLetter, setDetailLetter] = useState({});
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState(null);
   const [referenceNumber, setReferenceNumber] = useState(null);
   const [note, setNote] = useState(null);
 
@@ -20,10 +21,13 @@ const ModalEditBalasan = (props) => {
     if (id) {
       GetDetailBalasan(id).then((res) => {
         setDetailLetter(res.data);
-        setStatus(res.data.replyletter[0].status);
         setReferenceNumber(res.data.replyletter[0].reference_number2);
         setNote(res.data.replyletter[0].note);
         setLetterDate(res.data.replyletter[0].outgoing_letter_date);
+        setLetterId(res.data.replyletter[0].letter_id);
+      });
+      GetDetailSuratMasuk(letter_id).then((res) => {
+        setStatus(res?.data?.letter?.status);
       });
     }
   }, [id]);
@@ -127,13 +131,13 @@ const ModalEditBalasan = (props) => {
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               name="status"
               placeholder={status ? status : "Pilih Status Surat"}
-              onChange={(e) => setStatus(e.target.value)}
             >
-              <option className="font-normal" value="Selesai">
-                Selesai
-              </option>
               <option className="font-normal" value="Pending">
                 Pending
+              </option>
+
+              <option className="font-normal" value="Selesai">
+                Selesai
               </option>
             </select>
           </div>
