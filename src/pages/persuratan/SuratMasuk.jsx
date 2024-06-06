@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { MdModeEdit, MdDeleteOutline } from "react-icons/md";
+import { MdModeEdit, MdQuickreply } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 import ModalTambahSurat from "../../components/modal/persuratan/TambahSurat";
 import ModalEditSurat from "../../components/modal/persuratan/EditSurat";
 import ModalDetailSurat from "../../components/modal/persuratan/DetailSurat";
-import ModalTambahBalasan from "../../components/modal/persuratan/TambahBalasan";
-import Swal from "sweetalert2";
-import { Link, useSearchParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { BsReplyAll } from "react-icons/bs";
-import UseAuth from "../../hooks/UseAuth";
 import {
   GetSuratMasuk,
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
-  GetSearchSuratMasuk
+  GetSearchSuratMasuk,
 } from "../../utils/FetchSuratMasuk";
+import ModalTambahBalasan from "../../components/modal/persuratan/TambahBalasan";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BsReplyAll } from "react-icons/bs";
+import UseAuth from "../../hooks/UseAuth";
+import { useSearchParams } from "react-router-dom";
 
 const hideActionKakan = ["Kepala Kantor"];
 const hideActionSeksi = [
@@ -28,11 +30,14 @@ const hideActionSeksi = [
   "Seksi Survei & Pemetaan",
   "Seksi Penataan & Pemberdayaan",
   "Seksi Pengadaan Tanah & Pengembangan",
-  "Seksi Pengendalian & Penanganan Sengketa"
+  "Seksi Pengendalian & Penanganan Sengketa",
 ];
 
 const SuratMasukPage = () => {
   const auth = UseAuth();
+  let [searchParams, setSearchParams] = useSearchParams();
+  const idNotif = searchParams.get("id");
+  const page = searchParams.get("page") || 1;
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -44,11 +49,6 @@ const SuratMasukPage = () => {
   const [id, setId] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [overdueAlerts, setOverdueAlerts] = useState([]);
-  const [initialLoad, setInitialLoad] = useState(true);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const idNotif = searchParams.get("id");
-  const page = searchParams.get("page") || 1;
 
   const HandlerSearch = (e) => {
     const value = e.target.value;
@@ -69,20 +69,10 @@ const SuratMasukPage = () => {
   };
 
   useEffect(() => {
-    GetSuratMasuk(page)
-      .then((res) => {
-        setSurat(res.data);
-        setLoading(true);
-      })
-      .catch((error) => console.error("Error fetching surat masuk:", error));
-    const intervalId = setInterval(() => {
-      GetSuratMasuk(page).then((res) => {
-        setSurat(res.data);
-        setLoading(true);
-      });
-    }, 3000); // Fetch every 30 seconds
-
-    return () => clearInterval(intervalId);
+    GetSuratMasuk(page).then((res) => {
+      setSurat(res.data);
+      setLoading(true);
+    });
   }, [page]);
 
   useEffect(() => {
@@ -93,7 +83,6 @@ const SuratMasukPage = () => {
       });
     }
   }, [idNotif]);
-
   useEffect(() => {
     const overdueLetters =
       surat.letter
@@ -104,9 +93,11 @@ const SuratMasukPage = () => {
         .map((item) => `Surat dari ${item.from} (${item.letter_date})`) || [];
 
     setOverdueAlerts(overdueLetters);
+  }, [surat]);
 
-    if (initialLoad && overdueLetters.length > 0) {
-      const overdueMessages = overdueLetters.join("\n");
+  useEffect(() => {
+    if (overdueAlerts.length > 0) {
+      const overdueMessages = overdueAlerts.join("\n");
       toast.error(`\n${overdueMessages} belum ditangani !`, {
         position: "top-right",
         autoClose: 5000,
@@ -114,12 +105,10 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
-      setInitialLoad(false);
     }
-  }, [surat]);
-
+  }, [overdueAlerts]);
   const HandlerDeleteSurat = (id) => {
     Swal.fire({
       title: "Anda yakin ingin menghapus data ini?",
@@ -129,47 +118,43 @@ const SuratMasukPage = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#828282",
       cancelButtonText: "Batal",
-      confirmButtonText: "Hapus"
+      confirmButtonText: "Hapus",
     }).then((result) => {
       if (result.isConfirmed) {
-        DeleteSuratMasuk(id)
-          .then((res) => {
-            setSurat((prev) => {
-              const updatedLetter = prev.letter
-                ? prev.letter.filter((surat) => surat.id !== id)
-                : [];
+        DeleteSuratMasuk(id).then((res) => {
+          setSurat((prev) => {
+            const updatedLetter = prev.letter
+              ? prev.letter.filter((surat) => surat.id !== id)
+              : [];
 
-              const updatedFile = prev.file
-                ? prev.file.filter((surat) => surat.id !== id)
-                : [];
-              return {
-                ...prev,
-                letter: updatedLetter,
-                file: updatedFile
-              };
-            });
-            Swal.fire({
-              title: "Berhasil!",
-              text: "Data berhasil dihapus",
-              icon: "success",
-              showConfirmButton: false,
-              timer: 1500
-            });
-          })
-          .catch((error) => console.error("Error deleting surat:", error));
+            const updatedFile = prev.file
+              ? prev.file.filter((surat) => surat.id !== id)
+              : [];
+            return {
+              ...prev,
+              letter: updatedLetter,
+              file: updatedFile,
+            };
+          });
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Data berhasil dihapus",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
       }
     });
   };
 
   const HandlerTambahSurat = ({ status }) => {
     if (status) {
+      GetSuratMasuk(page).then((res) => {
+        setSurat(res.data);
+        setLoading(true);
+      });
       setModal(false);
-      GetSuratMasuk(page)
-        .then((res) => {
-          setSurat(res.data);
-          setLoading(true);
-        })
-        .catch((error) => console.error("Error fetching surat masuk:", error));
       toast.success("Surat berhasil ditambah", {
         position: "bottom-right",
         autoClose: 1000,
@@ -177,16 +162,16 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
-    } else if (status === false) {
+    } else if (status == false) {
       Swal.fire({
         title: "Gagal",
         text: "Lengkapi data yang kosong!",
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000
+        timer: 1000,
       });
     } else {
       setModal(!modal);
@@ -202,28 +187,24 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
     }
     if (id) {
-      GetDetailSuratMasuk(id)
-        .then((res) => {
-          setDetail(res.data);
-          setModal2(!modal2);
-        })
-        .catch((error) => console.error("Error fetching detail surat:", error));
+      GetDetailSuratMasuk(id).then((res) => {
+        setDetail(res.data);
+        setModal2(!modal2);
+      });
     } else {
       setModal2(!modal2);
     }
   };
 
   const HandlerDetailSurat = (id) => {
-    GetDetailSuratMasuk(id)
-      .then((res) => {
-        setDetail(res.data);
-        setModal3(!modal3);
-      })
-      .catch((error) => console.error("Error fetching detail surat:", error));
+    GetDetailSuratMasuk(id).then((res) => {
+      setDetail(res.data);
+      setModal3(!modal3);
+    });
   };
 
   const HandlerTambahBalasan = ({ id, status }) => {
@@ -239,22 +220,21 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
-    } else if (status === false) {
+    } else if (status == false) {
       Swal.fire({
         title: "Gagal",
         text: "Lengkapi data yang kosong!",
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000
+        timer: 1000,
       });
     } else {
       setTambah(!tambah);
     }
   };
-
   const checkDateExceeded = (date) => {
     const currentDate = new Date();
     const letterDate = new Date(date);
@@ -295,7 +275,7 @@ const SuratMasukPage = () => {
         <div className="navbar pt-5">
           <h2 className="font-bold text-2xl">Surat Masuk</h2>
         </div>
-        <div className="rekap mt-5 bg-white rounded-xl drop-shadow-custom p-6 h-5/6">
+        <div className="rekap mt-5 bg-white rounded-xl drop-shadow-custom p-6">
           <div className="search flex gap-4 justify-between">
             <div className="left w-1/3 flex relative">
               <input
@@ -320,9 +300,9 @@ const SuratMasukPage = () => {
               </div>
             )}
           </div>
-          <div className="tabel mt-7 sm:h-100 sm:overflow-y-auto lg:overflow-y-visible mb-4 xl:h-max">
-            <table className="table-auto w-full text-center text-sm font-normal font-poppins xl:h-full ">
-              <thead className="text-white bg-secondary ">
+          <div className="tabel mt-7 sm:h-100 sm:overflow-y-auto lg:overflow-y-visible mb-4">
+            <table className="table-auto w-full text-center text-sm font-normal font-poppins">
+              <thead className="text-white bg-secondary">
                 <tr>
                   <th className="py-2">No</th>
                   <th className="py-2">Pengirim</th>
@@ -347,22 +327,21 @@ const SuratMasukPage = () => {
                       return (
                         <tr
                           key={index}
-                          className={` xl:h-max xl:text-sm
-                ${
-                  isDateExceeded && item.status === "Pending"
-                    ? "bg-red-200"
-                    : (index + 1) % 2 === 0
-                    ? "bg-quinary"
-                    : ""
-                }`}
+                          className={`${
+                            isDateExceeded && item.status == "Pending"
+                              ? "bg-red-200"
+                              : (index + 1) % 2 === 0
+                              ? "bg-quinary"
+                              : ""
+                          }`}
                         >
-                          <td className="py-2">
+                          <td className="py-2 text-sm">
                             {index + 1 + (page - 1) * 10}
                           </td>
-                          <td className="py-2">{item.from}</td>
-                          <td className="py-2">{item.letters_type}</td>
-                          <td className="py-2">{item.letter_date}</td>
-                          <td className="py-2">
+                          <td className="py-2 text-sm">{item.from}</td>
+                          <td className="py-2 text-sm">{item.letters_type}</td>
+                          <td className="py-2 text-sm">{item.letter_date}</td>
+                          <td className="py-2 text-sm">
                             <p
                               className={`${
                                 item.status !== "Pending"
@@ -461,8 +440,8 @@ const SuratMasukPage = () => {
             next
           </button>
         </div>
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </main>
   );
 };
