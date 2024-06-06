@@ -83,7 +83,7 @@ const SuratMasukPage = () => {
       });
     }
   }, [idNotif]);
-  useEffect(() => {
+   useEffect(() => {
     const overdueLetters =
       surat.letter
         ?.filter((item) => {
@@ -93,11 +93,9 @@ const SuratMasukPage = () => {
         .map((item) => `Surat dari ${item.from} (${item.letter_date})`) || [];
 
     setOverdueAlerts(overdueLetters);
-  }, [surat]);
 
-  useEffect(() => {
-    if (overdueAlerts.length > 0) {
-      const overdueMessages = overdueAlerts.join("\n");
+    if (initialLoad && overdueLetters.length > 0) {
+      const overdueMessages = overdueLetters.join("\n");
       toast.error(`\n${overdueMessages} belum ditangani !`, {
         position: "top-right",
         autoClose: 5000,
@@ -105,10 +103,11 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
+      setInitialLoad(false);
     }
-  }, [overdueAlerts]);
+  }, [surat]);
   const HandlerDeleteSurat = (id) => {
     Swal.fire({
       title: "Anda yakin ingin menghapus data ini?",
