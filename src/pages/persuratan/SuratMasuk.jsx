@@ -155,6 +155,10 @@ const SuratMasukPage = () => {
         setLoading(true);
       });
       setModal(false);
+      GetSuratMasuk(page).then((res) => {
+        setSurat(res.data);
+        setLoading(true);
+      });
       toast.success("Surat berhasil ditambah", {
         position: "bottom-right",
         autoClose: 1000,
@@ -442,6 +446,7 @@ const SuratMasukPage = () => {
         </div>
         <ToastContainer />
       </div>
+      <ToastContainer />
     </main>
   );
 };

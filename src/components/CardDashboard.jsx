@@ -24,7 +24,7 @@ const CardDashboard = ({ title, count, description }) => {
   }, []);
 
   return (
-    <div className="masuk h-32 bg-white rounded-2xl drop-shadow-custom px-4 py-3 grid content-between">
+    <div className="masuk h-25 xl:h-32 bg-white rounded-2xl drop-shadow-custom px-4 py-3 grid content-between">
       {loading ? (
         <Skeleton count={3} width={225} height={30} baseColor="#DEDEDE" />
       ) : (
@@ -33,7 +33,7 @@ const CardDashboard = ({ title, count, description }) => {
             <h3 className="font-semibold text-base">{title}</h3>
             {data?.totalsurat != "23"}
           </div>
-          <p className="text-4xl font-semibold text-secondary">
+          <p className="text-3xl xl:text-4xl font-semibold text-secondary">
             {count}
           </p>
           <div className="flex text-xs items-center gap-1">

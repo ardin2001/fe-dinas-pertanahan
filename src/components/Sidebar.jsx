@@ -65,7 +65,7 @@ const Sidebar = ({ modal, modal2, modal3 }) => {
 
   return (
     <div
-      className={`sidebar grid grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${
+      className={`sidebar grid h-screen grid-rows-8 bg-white drop-shadow-custom font-poppins text-sm py-1 ${
         modal || modal2 || modal3 ? "blur-sm" : null
       }`}
     >
