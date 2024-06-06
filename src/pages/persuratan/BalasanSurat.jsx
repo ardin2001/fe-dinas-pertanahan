@@ -106,6 +106,10 @@ const BalasanSuratPage = () => {
 
     if (status) {
       setModalEdit((prev) => !prev);
+      GetBalasanSurat(page).then((res) => {
+        setSurat(res.data);
+        setLoading(true);
+      });
       toast.success("Surat Balasan berhasil diedit", {
         position: "bottom-right",
         autoClose: 1000,

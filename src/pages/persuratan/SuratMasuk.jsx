@@ -12,7 +12,7 @@ import {
   GetSuratMasuk,
   GetDetailSuratMasuk,
   DeleteSuratMasuk,
-  GetSearchSuratMasuk,
+  GetSearchSuratMasuk
 } from "../../utils/FetchSuratMasuk";
 import ModalTambahBalasan from "../../components/modal/persuratan/TambahBalasan";
 import Swal from "sweetalert2";
@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { BsReplyAll } from "react-icons/bs";
 import UseAuth from "../../hooks/UseAuth";
 import { useSearchParams } from "react-router-dom";
+import { ArrowCircleLeft, ArrowCircleRight } from "iconsax-react";
 
 const hideActionKakan = ["Kepala Kantor"];
 const hideActionSeksi = [
@@ -30,7 +31,7 @@ const hideActionSeksi = [
   "Seksi Survei & Pemetaan",
   "Seksi Penataan & Pemberdayaan",
   "Seksi Pengadaan Tanah & Pengembangan",
-  "Seksi Pengendalian & Penanganan Sengketa",
+  "Seksi Pengendalian & Penanganan Sengketa"
 ];
 
 const SuratMasukPage = () => {
@@ -69,7 +70,7 @@ const SuratMasukPage = () => {
     }
   };
 
- useEffect(() => {
+  useEffect(() => {
     GetSuratMasuk(page)
       .then((res) => {
         setSurat(res.data);
@@ -94,7 +95,7 @@ const SuratMasukPage = () => {
       });
     }
   }, [idNotif]);
-   useEffect(() => {
+  useEffect(() => {
     const overdueLetters =
       surat.letter
         ?.filter((item) => {
@@ -128,7 +129,7 @@ const SuratMasukPage = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#828282",
       cancelButtonText: "Batal",
-      confirmButtonText: "Hapus",
+      confirmButtonText: "Hapus"
     }).then((result) => {
       if (result.isConfirmed) {
         DeleteSuratMasuk(id).then((res) => {
@@ -143,7 +144,7 @@ const SuratMasukPage = () => {
             return {
               ...prev,
               letter: updatedLetter,
-              file: updatedFile,
+              file: updatedFile
             };
           });
           Swal.fire({
@@ -151,7 +152,7 @@ const SuratMasukPage = () => {
             text: "Data berhasil dihapus",
             icon: "success",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1500
           });
         });
       }
@@ -172,7 +173,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
     } else if (status == false) {
       Swal.fire({
@@ -181,7 +182,7 @@ const SuratMasukPage = () => {
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1000
       });
     } else {
       setModal(!modal);
@@ -197,7 +198,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
     }
     if (id) {
@@ -230,7 +231,7 @@ const SuratMasukPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
     } else if (status == false) {
       Swal.fire({
@@ -239,7 +240,7 @@ const SuratMasukPage = () => {
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1000
       });
     } else {
       setTambah(!tambah);
@@ -431,25 +432,49 @@ const SuratMasukPage = () => {
               </tbody>
             </table>
           </div>
+          <div className="flex items-center pt-3 justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm text-gray-700">
+                  Menampilkan{" "}
+                  <span className="font-medium">10 Data Surat per Tabel</span>
+                </p>
+              </div>
+              <div>
+                <nav
+                  className="isolate inline-flex -space-x-px rounded-md gap-3"
+                  aria-label="Pagination"
+                >
+                  <a href="#" className="relative inline-flex items-center">
+                    <span className="sr-only">Previous</span>
+                    <ArrowCircleLeft
+                      className={`${
+                        page == 1 ? "hidden" : ""
+                      } h-7 w-7 text-quaternary`}
+                      aria-hidden="true"
+                      onClick={() =>
+                        setSearchParams({ page: parseInt(page) - 1 })
+                      }
+                    />
+                  </a>
+                  <a href="#" className="relative inline-flex items-center  ">
+                    <span className="sr-only">Next</span>
+                    <ArrowCircleRight
+                      className={`${
+                        surat?.letter?.length < 10 ? "hidden" : ""
+                      } h-7 w-7 text-quaternary`}
+                      aria-hidden="true"
+                      onClick={() =>
+                        setSearchParams({ page: parseInt(page) + 1 })
+                      }
+                    />
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
-          <button
-            onClick={() => setSearchParams({ page: parseInt(page) - 1 })}
-            className={`${
-              page == 1 ? "hidden" : ""
-            } left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
-          >
-            back
-          </button>
-          <button
-            onClick={() => setSearchParams({ page: parseInt(page) + 1 })}
-            className={`${
-              surat?.letter?.length < 10 ? "hidden" : ""
-            } right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
-          >
-            next
-          </button>
-        </div>
+
         <ToastContainer />
       </div>
     </main>

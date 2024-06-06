@@ -196,10 +196,8 @@ const ModalEditSurat = (props) => {
               className="outline-none border-2 border-quaternary w-full py-2.5 px-3 text-sm text-custom rounded-lg"
               name="letters_type"
               required
+              placeholder={letters_type}
             >
-              <option className="font-normal" value="">
-                Jenis Surat
-              </option>
               <option className="font-normal" value="penting">
                 Surat 1
               </option>
