@@ -19,7 +19,7 @@ const DaftarBalasanPage = () => {
       })
       .catch((error) => {
         console.error("Error fetching replies:", error);
-        setReplies([]); // Ensure replies is set to an empty array in case of an error
+        setReplies([]); 
       });
   }, [id]);
 

@@ -6,9 +6,10 @@ import UseAuth from "../../hooks/UseAuth";
 import {
   GetRekapSurat,
   getShowFileRekap,
-  GetCategoriesRekapSurat
+  GetCategoriesRekapSurat,
 } from "../../utils/FetchRekapSurat";
 import { useSearchParams } from "react-router-dom";
+import { ArrowCircleLeft, ArrowCircleRight } from "iconsax-react";
 
 const RekapSuratPage = () => {
   const auth = UseAuth();
@@ -66,7 +67,7 @@ const RekapSuratPage = () => {
     });
   };
   return (
-    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary">
+    <main className="grid grid-cols-5 h-screen gap-8 bg-quinary font-poppins">
       <Sidebar />
       <div className="content col-start-2 col-end-6 w-97/100">
         <div className="navbar pt-5">
@@ -105,7 +106,7 @@ const RekapSuratPage = () => {
             </div>
             <div
               className="right bg-secondary rounded-lg text-white grid justify-center content-center cursor-pointer"
-              onClick={handleSearch} 
+              onClick={handleSearch}
             >
               <div className="grid grid-flow-col w-10/12 gap-2 items-center ">
                 <FaSearch size="1rem" />
@@ -139,7 +140,7 @@ const RekapSuratPage = () => {
                     <td className="py-2 text-sm">{item.date}</td>
                     <td className="py-2 text-sm">{item.description}</td>
 
-                    <td className="py-4 text-sm grid place-items-center">
+                    <td className="py-3.5 text-sm grid place-items-center">
                       <FaFile
                         className="text-primary cursor-pointer"
                         type="button"
@@ -150,30 +151,48 @@ const RekapSuratPage = () => {
                 ))}
               </tbody>
             </table>
-            {surat?.letter?.length === 0 && (
-              <div className="text-center text-red-500">
-                Data tidak ditemukan
-              </div>
-            )}
           </div>
-        </div>
-        <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
-          <button
-            onClick={() => setSearchParams({ page: parseInt(page) - 1 })}
-            className={`${
-              page == 1 ? "hidden" : null
-            } left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
-          >
-            back
-          </button>
-          <button
-            onClick={() => setSearchParams({ page: parseInt(page) + 1 })}
-            className={`${
-              surat?.letter?.length == 0 ? "hidden" : null
-            } right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
-          >
-            next
-          </button>
+          <div className="flex items-center pt-3 justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm text-gray-700">
+                  Menampilkan{" "}
+                  <span className="font-medium">10 Data Surat per Tabel</span>
+                </p>
+              </div>
+              <div>
+                <nav
+                  className="isolate inline-flex -space-x-px rounded-md gap-3"
+                  aria-label="Pagination"
+                >
+                  <a href="#" className="relative inline-flex items-center">
+                    <span className="sr-only">Previous</span>
+                    <ArrowCircleLeft
+                      className={`${
+                        page == 1 ? "hidden" : ""
+                      } h-7 w-7 text-quaternary`}
+                      aria-hidden="true"
+                      onClick={() =>
+                        setSearchParams({ page: parseInt(page) - 1 })
+                      }
+                    />
+                  </a>
+                  <a href="#" className="relative inline-flex items-center  ">
+                    <span className="sr-only">Next</span>
+                    <ArrowCircleRight
+                      className={`${
+                        surat?.letter?.length < 10 ? "hidden" : null
+                      } h-7 w-7 text-quaternary`}
+                      aria-hidden="true"
+                      onClick={() =>
+                        setSearchParams({ page: parseInt(page) + 1 })
+                      }
+                    />
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

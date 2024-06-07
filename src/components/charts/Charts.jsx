@@ -46,8 +46,8 @@ const Chart = () => {
         const { label, jumlah, jumlahkeluar } = res.data.surat_per_hari;
         const transformedData = label.map((day, index) => ({
           name: day,
-          letters: parseInt(jumlah[index], 10), // Convert string to integer
-          lettersOut: parseInt(jumlahkeluar[index], 10) // Convert string to integer
+          letters: parseInt(jumlah[index], 10), 
+          lettersOut: parseInt(jumlahkeluar[index], 10) 
         }));
         setData(transformedData);
       })

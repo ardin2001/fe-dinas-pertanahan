@@ -82,7 +82,7 @@ const SuratMasukPage = () => {
         setSurat(res.data);
         setLoading(true);
       });
-    }, 3000); // Fetch every 30 seconds
+    }, 3000); 
 
     return () => clearInterval(intervalId);
   }, [page]);

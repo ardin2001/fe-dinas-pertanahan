@@ -11,13 +11,14 @@ import {
   GetBalasanSurat,
   GetDetailBalasan,
   DeleteBalasanSurat,
-  GetSearchBalasanSurat
+  GetSearchBalasanSurat,
 } from "../../utils/FetchBalasanSurat";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UseAuth from "../../hooks/UseAuth";
 import { useSearchParams } from "react-router-dom";
+import { ArrowCircleLeft, ArrowCircleRight } from "iconsax-react";
 
 const hideActionKakan = ["Kepala Kantor"];
 
@@ -47,14 +48,14 @@ const BalasanSuratPage = () => {
     if (value) {
       GetSearchBalasanSurat(value)
         .then((res) => {
-          setSearchResults(res.data.replyletter); // Update state dengan hasil pencarian surat masuk
+          setSearchResults(res.data.replyletter); 
         })
         .catch((error) => {
           console.error("Error fetching search results:", error);
-          setSearchResults([]); // Set state kembali menjadi array kosong jika terjadi error
+          setSearchResults([]); 
         });
     } else {
-      setSearchResults([]); // Jika pencarian kosong, set state menjadi array kosong
+      setSearchResults([]); 
     }
   };
 
@@ -74,7 +75,7 @@ const BalasanSuratPage = () => {
       confirmButtonColor: "#FB0017",
       cancelButtonColor: "#828282",
       cancelButtonText: "Batal",
-      confirmButtonText: "Hapus"
+      confirmButtonText: "Hapus",
     }).then((result) => {
       if (result.isConfirmed) {
         DeleteBalasanSurat(id).then((res) => {
@@ -82,7 +83,9 @@ const BalasanSuratPage = () => {
             {
               return {
                 ...prev,
-                replyletter: prev.replyletter.filter((surat) => surat.id !== id)
+                replyletter: prev.replyletter.filter(
+                  (surat) => surat.id !== id
+                ),
               };
             }
           });
@@ -91,7 +94,7 @@ const BalasanSuratPage = () => {
             text: "Data berhasil dihapus.",
             icon: "success",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
         });
       }
@@ -117,12 +120,12 @@ const BalasanSuratPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
       GetBalasanSurat(page).then((res) => {
-      setSurat(res.data);
-      setLoading(true);
-    });
+        setSurat(res.data);
+        setLoading(true);
+      });
     } else if (status == false) {
       Swal.fire({
         title: "Gagal",
@@ -130,7 +133,7 @@ const BalasanSuratPage = () => {
         icon: "warning",
         iconColor: "#FB0017",
         showConfirmButton: false,
-        timer: 1000
+        timer: 1000,
       });
     } else {
       setModalEdit((prev) => !prev);
@@ -243,28 +246,53 @@ const BalasanSuratPage = () => {
               </tbody>
             </table>
           </div>
-          <ToastContainer />
+          <div className="flex items-center pt-3 justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm text-gray-700">
+                  Menampilkan{" "}
+                  <span className="font-medium">10 Data Surat per Tabel</span>
+                </p>
+              </div>
+              <div>
+                <nav
+                  className="isolate inline-flex -space-x-px rounded-md gap-3"
+                  aria-label="Pagination"
+                >
+                  <a href="#" className="relative inline-flex items-center">
+                    <span className="sr-only">Previous</span>
+                    <ArrowCircleLeft
+                      className={`${
+                        page == 1 ? "hidden" : ""
+                      } h-7 w-7 text-quaternary`}
+                      aria-hidden="true"
+                      onClick={() =>
+                        setSearchParams({ page: parseInt(page) - 1 })
+                      }
+                    />
+                  </a>
+                  <a href="#" className="relative inline-flex items-center  ">
+                    <span className="sr-only">Next</span>
+                    <ArrowCircleRight
+                      className={`${
+                        surat &&
+                        surat.replyletter &&
+                        surat.replyletter.length < 10
+                          ? "hidden"
+                          : null
+                      } h-7 w-7 text-quaternary`}
+                      aria-hidden="true"
+                      onClick={() =>
+                        setSearchParams({ page: parseInt(page) + 1 })
+                      }
+                    />
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="pagination grid grid-flow-col w-1/6 gap-5 justify-self-center mt-3.5 m-auto">
-          <button
-            onClick={() => setSearchParams({ page: parseInt(page) - 1 })}
-            className={`${
-              page == 1 ? "hidden" : null
-            } left bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
-          >
-            back
-          </button>
-          <button
-            onClick={() => setSearchParams({ page: parseInt(page) + 1 })}
-            className={`${
-              surat && surat.replyletter && surat.replyletter.length === 0
-                ? "hidden"
-                : null
-            } right bg-secondary text-white font-semibold rounded-lg text-sm self-center py-0.5 text-center`}
-          >
-            next
-          </button>
-        </div>
+        <ToastContainer />
       </div>
     </main>
   );
